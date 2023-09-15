@@ -7,5 +7,13 @@ class Chicken extends MovableObject{
 
         this.x = 200 + Math.random() * 500;
         this.y = 370;
+        this.animate();
+    }
+
+    animate() {
+        let chickenSpeed = Math.random();
+        setInterval(() => {
+            this.x -= chickenSpeed;
+        }, 1000 / 60);
     }
 }
