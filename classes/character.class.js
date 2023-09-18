@@ -27,20 +27,42 @@ class Character extends MovableObject {
         './assets/img/2_character_pepe/1_idle/idle/I-10.png'
     ];
 
+    IMAGES_JUMP = [
+        './assets/img/2_character_pepe/3_jump/J-31.png',
+        './assets/img/2_character_pepe/3_jump/J-32.png',
+        './assets/img/2_character_pepe/3_jump/J-33.png',
+        './assets/img/2_character_pepe/3_jump/J-34.png',
+        './assets/img/2_character_pepe/3_jump/J-35.png',
+        './assets/img/2_character_pepe/3_jump/J-36.png',
+        './assets/img/2_character_pepe/3_jump/J-37.png',
+        './assets/img/2_character_pepe/3_jump/J-38.png',
+        './assets/img/2_character_pepe/3_jump/J-39.png'
+    ]
+
+    world;
+
     constructor() {
         super().loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
-        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_WALKING);
 
         this.animate();
     }
 
     animate() {
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_IDLE.length;
-            let path = this.IMAGES_IDLE[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        }, 1000 / 4);
+            if (this.world.keyboard.RIGHT) {
+                let i = this.currentImage % this.IMAGES_WALKING.length;
+                let path = this.IMAGES_WALKING[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            } 
+            // else {
+            //     let i = this.currentImage % this.IMAGES_IDLE.length;
+            //     let path = this.IMAGES_IDLE[i];
+            //     this.img = this.imageCache[path];
+            //     this.currentImage++;
+            // }
+        }, 1000 / 10);
     }
 
     jump() {
