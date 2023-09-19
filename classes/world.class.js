@@ -6,7 +6,11 @@ class World {
         new Chicken()
     ];
     clouds = [
-        new Cloud()
+        new Cloud(-720, 2),
+        new Cloud(0, 1),
+        new Cloud(720, 2),
+        new Cloud(720*2, 1),
+        new Cloud(720*3, 2)
     ];
 
     backgroundObjects = [
