@@ -3,6 +3,7 @@ class Character extends MovableObject {
     height = 300;
     x = 10;
     y = 150;
+    speed = 9;
 
 
     IMAGES_WALKING = [
@@ -46,23 +47,39 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
 
         this.animate();
+        this.moveRight();
+        this.moveLeft();
     }
 
     animate() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 let i = this.currentImage % this.IMAGES_WALKING.length;
                 let path = this.IMAGES_WALKING[i];
                 this.img = this.imageCache[path];
                 this.currentImage++;
-            } 
-            // else {
-            //     let i = this.currentImage % this.IMAGES_IDLE.length;
-            //     let path = this.IMAGES_IDLE[i];
-            //     this.img = this.imageCache[path];
-            //     this.currentImage++;
-            // }
-        }, 1000 / 10);
+            }
+        }, 1000 / 12);
+    }
+
+    moveRight() {
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT) {
+                this.x += this.speed;
+                this.otherDirection = false;
+                this.world.camera_x = -this.x;
+            }
+        }, 1000 / 60);
+    }
+
+    moveLeft() {
+        setInterval(() => {
+            if (this.world.keyboard.LEFT) {
+                this.x -= this.speed;
+                this.otherDirection = true;
+                this.world.camera_x = -this.x;
+            }
+        }, 1000 / 60);
     }
 
     jump() {
