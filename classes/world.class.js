@@ -8,6 +8,7 @@ class World {
 
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0;
+    boss_sound_x_coord = 1828; //play boss sound when character gets near of it
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -33,7 +34,8 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         this.background_music.volume = this.bgm_volume;
-        this.background_music.play();
+        // this.background_music.play();
+        // this.playBossSound();
 
         //draw() wird immer wieder aufgerufen
         self = this;
@@ -68,5 +70,12 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    playBossSound() {
+        if (this.character.x == this.boss_sound_x_coord) {
+            this.world.Endboss.sound_endboss_dead.volume = this.world.Endboss.sound_endboss_dead_volume;
+            this.world.Endboss.sound_endboss_dead.play();
+        }
     }
 }

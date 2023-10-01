@@ -12,7 +12,7 @@ class Chicken extends MovableObject{
     sound_chicken_bok = new Audio('./assets/sound/chicken-short-cluck.mp3');
     sound_chicken_bok2 = new Audio('./assets/sound/chicken-bok2.mp3');
     sound_chicken_bok3 = new Audio('./assets/sound/chicken-bok.mp3');
-    sound_chicken_bok_volume = 0.3;
+    sound_chicken_bok_volume = 0;
 
     constructor() {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');

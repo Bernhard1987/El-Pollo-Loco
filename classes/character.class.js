@@ -2,13 +2,15 @@ class Character extends MovableObject {
     width = 150;
     height = 300;
     x = 10;
-    y = 150;
+    y = 80;
     speed = 9;
+    floorCoord = 150;
 
     walking_sound = new Audio('./assets/sound/walk.mp3');
     walking_sound_2 = new Audio('./assets/sound/walk2.mp3');
-    walking_sound_volume = 0.2;
+    walking_sound_volume = 0.3;
     jump_sound = new Audio('./assets/sound/jump.mp3');
+    jump_sound_volume = 0.3;
 
 
     IMAGES_WALKING = [
@@ -50,7 +52,8 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
-
+        this.loadImages(this.IMAGES_JUMP);
+        this.applyGravity(this.floor);
         this.animate();
         this.moveRight();
         this.moveLeft();
@@ -58,9 +61,14 @@ class Character extends MovableObject {
 
     animate() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.animateImages(this.IMAGES_WALKING);
-                this.walkingSound();
+            if (this.isAboveGround()) {
+                this.animateImages(this.IMAGES_JUMP);
+            } else {
+                this.walk();
+            }
+            if (this.world.keyboard.UP && !this.isAboveGround()) {
+                this.jump();
+                this.playJumpSound();
             }
         }, 1000 / 12);
     }
@@ -85,8 +93,16 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
-    jump() {
+    playJumpSound() {
+        this.jump_sound.volume = this.jump_sound_volume;
+        this.jump_sound.play();
+    }
 
+    walk() {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.animateImages(this.IMAGES_WALKING);
+            this.walkingSound();
+        }
     }
 
     walkingSound() {

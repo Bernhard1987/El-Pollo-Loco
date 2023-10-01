@@ -8,13 +8,29 @@ class MovableObject {
     currentImage = 0;
     speed = 0.075;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 1;
+    floorCoord = 100;
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 60);
+    }
+
+    isAboveGround() {
+        return this.y < this.floorCoord;
+    }
 
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
-    loadImages(arr){
+    loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
             img.src = path;
@@ -30,6 +46,10 @@ class MovableObject {
         setInterval(() => {
             this.x -= this.speed;
         }, 1000 / 60);
+    }
+
+    jump() {
+        this.speedY = 20;
     }
 
     animateImages(images) {
