@@ -4,13 +4,16 @@ class MovableObject {
     img;
     height = 100;
     width = 100;
+    offsetY = 0;
     imageCache = {};
     currentImage = 0;
     speed = 0.075;
     otherDirection = false;
     speedY = 0;
+    jumpSpeedY = 20;
     acceleration = 1;
     floorCoord = 100;
+    health = 100;
 
     applyGravity() {
         setInterval(() => {
@@ -23,6 +26,27 @@ class MovableObject {
 
     isAboveGround() {
         return this.y < this.floorCoord;
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+    isColliding(obj) {
+        return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
+            (this.y + this.offsetY + this.height) >= obj.y &&
+            (this.y + this.offsetY) <= (obj.y + obj.height);
+        // && obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
     }
 
     loadImage(path) {
@@ -39,17 +63,15 @@ class MovableObject {
     }
 
     moveRight() {
-        console.log('moving right');
+        this.x += this.speed;
     }
 
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
     }
 
     jump() {
-        this.speedY = 20;
+        this.speedY = this.jumpSpeedY;
     }
 
     animateImages(images) {

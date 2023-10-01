@@ -4,13 +4,14 @@ class Character extends MovableObject {
     x = 10;
     y = 80;
     speed = 9;
+    jumpSpeedY = 17;
     floorCoord = 150;
 
     walking_sound = new Audio('./assets/sound/walk.mp3');
     walking_sound_2 = new Audio('./assets/sound/walk2.mp3');
     walking_sound_volume = 0.3;
-    jump_sound = new Audio('./assets/sound/jump.mp3');
-    jump_sound_volume = 0.3;
+    jump_sound = new Audio('./assets/sound/jump4.mp3');
+    jump_sound_volume = 0.7;
 
 
     IMAGES_WALKING = [
@@ -53,13 +54,25 @@ class Character extends MovableObject {
         super().loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMP);
+        this.loadImages(this.IMAGES_IDLE);
         this.applyGravity(this.floor);
         this.animate();
-        this.moveRight();
-        this.moveLeft();
     }
 
     animate() {
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.moveRight();
+                this.otherDirection = false;
+                this.world.camera_x = -this.x + 100;
+            }
+            if (this.world.keyboard.LEFT && this.x > -360) {
+                this.moveLeft();
+                this.otherDirection = true;
+                this.world.camera_x = -this.x + 100;
+            }
+        }, 1000 / 60);
+
         setInterval(() => {
             if (this.isAboveGround()) {
                 this.animateImages(this.IMAGES_JUMP);
@@ -71,26 +84,6 @@ class Character extends MovableObject {
                 this.playJumpSound();
             }
         }, 1000 / 12);
-    }
-
-    moveRight() {
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
-                this.world.camera_x = -this.x + 100;
-            }
-        }, 1000 / 60);
-    }
-
-    moveLeft() {
-        setInterval(() => {
-            if (this.world.keyboard.LEFT && this.x > -360) {
-                this.x -= this.speed;
-                this.otherDirection = true;
-                this.world.camera_x = -this.x + 100;
-            }
-        }, 1000 / 60);
     }
 
     playJumpSound() {
