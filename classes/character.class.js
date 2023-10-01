@@ -5,6 +5,11 @@ class Character extends MovableObject {
     y = 150;
     speed = 9;
 
+    walking_sound = new Audio('./assets/sound/walk.mp3');
+    walking_sound_2 = new Audio('./assets/sound/walk2.mp3');
+    walking_sound_volume = 0.2;
+    jump_sound = new Audio('./assets/sound/jump.mp3');
+
 
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
@@ -54,10 +59,8 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                let i = this.currentImage % this.IMAGES_WALKING.length;
-                let path = this.IMAGES_WALKING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                this.animateImages(this.IMAGES_WALKING);
+                this.walkingSound();
             }
         }, 1000 / 12);
     }
@@ -83,6 +86,18 @@ class Character extends MovableObject {
     }
 
     jump() {
+
+    }
+
+    walkingSound() {
+        this.walking_sound.volume = this.walking_sound_volume;
+        this.walking_sound_2.volume = this.walking_sound_volume;
+        let randomNumber = Math.random();
+        if (randomNumber >= 0.5) {
+            this.walking_sound.play();
+        } else {
+            this.walking_sound_2.play();
+        }
 
     }
 }

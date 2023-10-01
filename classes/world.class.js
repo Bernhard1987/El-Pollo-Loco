@@ -6,6 +6,9 @@ class World {
     keyboard;
     camera_x = 100;
 
+    background_music = new Audio('./assets/sound/bgm.mp3');
+    bgm_volume = 0;
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -29,6 +32,8 @@ class World {
         this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
+        this.background_music.volume = this.bgm_volume;
+        this.background_music.play();
 
         //draw() wird immer wieder aufgerufen
         self = this;
