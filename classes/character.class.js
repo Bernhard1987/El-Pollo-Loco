@@ -4,7 +4,7 @@ class Character extends MovableObject {
     x = 10;
     y = 80;
     speed = 9;
-    jumpSpeedY = 17;
+    jumpSpeedY = 18;
     floorCoord = 150;
 
     walking_sound = new Audio('./assets/sound/walk.mp3');
@@ -46,7 +46,23 @@ class Character extends MovableObject {
         './assets/img/2_character_pepe/3_jump/J-37.png',
         './assets/img/2_character_pepe/3_jump/J-38.png',
         './assets/img/2_character_pepe/3_jump/J-39.png'
-    ]
+    ];
+
+    IMAGES_HURT = [
+        './assets/img/2_character_pepe/4_hurt/H-41.png',
+        './assets/img/2_character_pepe/4_hurt/H-42.png',
+        './assets/img/2_character_pepe/4_hurt/H-43.png'
+    ];
+
+    IMAGES_DEAD = [
+        './assets/img/2_character_pepe/5_dead/D-51.png',
+        './assets/img/2_character_pepe/5_dead/D-52.png',
+        './assets/img/2_character_pepe/5_dead/D-53.png',
+        './assets/img/2_character_pepe/5_dead/D-54.png',
+        './assets/img/2_character_pepe/5_dead/D-55.png',
+        './assets/img/2_character_pepe/5_dead/D-56.png',
+        './assets/img/2_character_pepe/5_dead/D-57.png'
+    ];
 
     world;
 
@@ -55,6 +71,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.applyGravity(this.floor);
         this.animate();
     }
@@ -74,9 +92,14 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isDead()) {
+                this.animateImages(this.IMAGES_DEAD);
+            } else if (this.isHurt()){
+                this.animateImages(this.IMAGES_HURT);
+            } else if (this.isAboveGround()) {
                 this.animateImages(this.IMAGES_JUMP);
             } else {
+                this.animateImages(this.IMAGES_IDLE);
                 this.walk();
             }
             if (this.world.keyboard.UP && !this.isAboveGround()) {

@@ -5,6 +5,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 100;
+    statusBar = new StatusBar;
 
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0;
@@ -28,6 +29,8 @@ class World {
             this.level.enemies.forEach( (enemy) => {
                 if (this.character.isColliding(enemy)) {
                     console.log('Collision with character: ', enemy);
+                    this.character.hit();
+                    console.log('remaining Energy ', this.character.health);
                 }
             });
         }, 1000 / 10);
@@ -39,9 +42,11 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
+
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+        this.addToMap(this.statusBar);
 
         this.ctx.translate(-this.camera_x, 0);
         this.background_music.volume = this.bgm_volume;
