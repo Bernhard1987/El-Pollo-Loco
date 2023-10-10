@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    throwableObjects = [];
     level = level1;
     canvas;
     ctx;
@@ -11,8 +12,7 @@ class World {
 
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0;
-    get_hit = new Audio('./assets/sound/get_hit2.mp3');
-    get_hit_volume = 0.2;
+
     //boss_sound_x_coord = 1828; //play boss sound when character gets near of it
 
     constructor(canvas, keyboard) {
@@ -33,8 +33,9 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
-                    this.get_hit.volume = this.get_hit_volume;
-                    this.get_hit.play();
+                    // this.character.throwBackCharacter(); -> buggy w camera, might use acceleration
+                    this.character.get_hit.volume = this.character.get_hit_volume;
+                    this.character.get_hit.play();
                     this.statusBarHealth.setPercentage(this.character.health);
                 }
             });
@@ -51,6 +52,7 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.throwableObjects);
 
         this.insertFixedObjects();
 

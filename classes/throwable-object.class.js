@@ -2,17 +2,19 @@ class ThrowableObject extends MovableObject {
     speedY = 30;
     speedX = 20;
 
-    IMAGES_BOTTLE_ROTATION = [
-        './assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
-        './assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
-        './assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
-        './assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
-    ];
+    constructor() {
+        super().loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');
+        this.x = 100;
+        this.y = 100;
+    }
 
-    IMAGES_BOTTLE_SPLASH = [
-        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
-        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
-        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
-        './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png'
-    ];
+    throw() {
+        this.world.throwableObjects += new Bottle;
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 60);
+    }
 }

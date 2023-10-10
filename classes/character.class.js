@@ -9,9 +9,11 @@ class Character extends MovableObject {
 
     walking_sound = new Audio('./assets/sound/walk.mp3');
     walking_sound_2 = new Audio('./assets/sound/walk2.mp3');
-    walking_sound_volume = 0.3;
+    walking_sound_volume = 0; //0.3
     jump_sound = new Audio('./assets/sound/jump4.mp3');
-    jump_sound_volume = 0.7;
+    jump_sound_volume = 0; //0.7
+    get_hit = new Audio('./assets/sound/get_hit2.mp3');
+    get_hit_volume = 0; //0.2
 
 
     IMAGES_WALKING = [
@@ -89,6 +91,14 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.world.camera_x = -this.x + 100;
             }
+            if (this.world.keyboard.UP && !this.isAboveGround()) {
+                this.jump();
+                this.playJumpSound();
+            }
+            if (this.world.keyboard.SPACE) {
+                // this.world.ThrowableObject.throw();
+                console.log('add throw function here');
+            }
         }, 1000 / 60);
 
         setInterval(() => {
@@ -102,16 +112,22 @@ class Character extends MovableObject {
                 this.animateImages(this.IMAGES_IDLE);
                 this.walk();
             }
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.jump();
-                this.playJumpSound();
-            }
         }, 1000 / 12);
     }
 
     playJumpSound() {
         this.jump_sound.volume = this.jump_sound_volume;
         this.jump_sound.play();
+    }
+
+    throwBackCharacter() {
+        if (this.otherDirection) {
+            this.x = this.x + 100;
+            this.world.camera_x = this.x;
+        } else {
+            this.x = this.x - 100;
+            this.world.camera_x = this.x;
+        }
     }
 
     walk() {
