@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,12 +26,44 @@
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
 </head>
+
 <body onload="init()">
     <h1>El Pollo Loco</h1>
 
     <canvas width="720" height="480" id="canvas">
-
     </canvas>
 
+    <div class="controls-container">
+        <div class="controls-container-row">CONTROLS</div>
+        <div class="controls-container-row">
+            <div class="controls-container-row-left"><img src="./assets/img/keys/key_w.svg" alt="" srcset=""></div>
+            <div class="controls-container-row-right">JUMP</div>
+        </div>
+        <div class="controls-container-row">
+            <div class="controls-container-row-left"><img src="./assets/img/keys/key_a.svg" alt="" srcset=""></div>
+            <div class="controls-container-row-right">LEFT</div>
+        </div>
+        <div class="controls-container-row">
+            <div class="controls-container-row-left"><img src="./assets/img/keys/key_d.svg" alt="" srcset=""></div>
+            <div class="controls-container-row-right">RIGHT</div>
+        </div>
+        <div class="controls-container-row">
+            <div class="controls-container-row-left"><img src="./assets/img/keys/key_space.svg" alt="" srcset=""></div>
+            <div class="controls-container-row-right">THROW BOTTLE</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-container-left">
+                Programmed by Bernhard Reindl
+            </div>
+            <div class="footer-container-right">
+                <a href="http://bernhardreindl.com/impressum.html">Imprint</a>
+            </div>
+        </div>
+    </footer>
+
 </body>
+
 </html>
