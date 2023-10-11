@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-    throwableObjects = [];
+    throwableObjects = [new ThrowableObject()];
     level = level1;
     canvas;
     ctx;
@@ -21,25 +21,37 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    // this.character.throwBackCharacter(); -> buggy w camera, might use acceleration
-                    this.character.get_hit.volume = this.character.get_hit_volume;
-                    this.character.get_hit.play();
-                    this.statusBarHealth.setPercentage(this.character.health);
-                }
-            });
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 1000 / 5);
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                // this.character.throwBackCharacter(); -> buggy w camera, might use acceleration
+                this.character.get_hit.volume = this.character.get_hit_volume;
+                this.character.get_hit.play();
+                this.statusBarHealth.setPercentage(this.character.health);
+            }
+        });
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.SPACE) {
+            let bottle = new ThrowableObject((this.character.x + (this.character.width / 2)), (this.character.y + (this.character.height / 2 - 50)));
+            this.throwableObjects.push(bottle);
+        }
     }
 
     draw() {
@@ -58,7 +70,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         this.background_music.volume = this.bgm_volume;
-        this.background_music.play();
+        //this.background_music.play();
         // this.playBossSound();
 
         //draw() wird immer wieder aufgerufen

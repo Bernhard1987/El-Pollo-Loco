@@ -27,7 +27,14 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < this.floorCoord;
+        if (this instanceof Character && this.health <= 0) {
+            this.jump();
+        }
+        if (this instanceof ThrowableObject) { //apply ThrowableObject falling through ground, may be removed later for bottle splash on ground
+            return true;
+        } else {
+            return this.y < this.floorCoord; //leave this if splash on ground/enemy added
+        }
     }
 
     hit() {

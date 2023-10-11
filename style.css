@@ -45,6 +45,10 @@ h1 {
         1px 1px 0 #000;
 }
 
+h3 {
+    font-size: 32px;
+}
+
 canvas {
     background-color: black;
     border: 1px solid rgba(255, 255, 255, 0.7);
@@ -86,10 +90,10 @@ footer {
     flex-direction: column;
     gap: 16px;
     margin-top: 40px;
-    padding: 16px;
+    padding: 8px;
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.2);
-    font-size: 28px;
+    font-size: 22px;
     -webkit-text-stroke: 1px black;
     color: white;
     text-shadow:
@@ -102,24 +106,36 @@ footer {
     backdrop-filter: blur(4px);
 }
 
+.controls-container-column-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+}
+
+.controls-container-column {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 8px;
+}
+
 .controls-container-row {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 300px;
 }
 
 .controls-container-row-left {
     display: flex;
-    width: 120px;
+    width: 100px;
     justify-content: center;
 }
 
 .controls-container-row-right {
-    width: 180px;
+    width: 160px;
 }
 
 .controls-container-row img {
-    height: 40px;
+    height: 32px;
     filter: drop-shadow(1px 1px 1px black);
 }

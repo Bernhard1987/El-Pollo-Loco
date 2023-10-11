@@ -1,20 +1,25 @@
 class ThrowableObject extends MovableObject {
-    speedY = 30;
-    speedX = 20;
+    speedY = 16;
+    speedX = 18;
+    floorCoord = 350;
 
-    constructor() {
+    constructor(x, y) {
         super().loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');
-        this.x = 100;
-        this.y = 100;
+        this.x = x;
+        this.y = y;
+        this.throw(x, y);
     }
 
-    throw() {
-        this.world.throwableObjects += new Bottle;
+    throw(x, y) {
+        this.x = x;
+        this.y = y;
+        // if (character.otherDirection) {
+        //     this.speedY = -this.speedY;
+        //     this.speedX = -this.speedX;
+        // } reverse bottle throw to left side
+        this.applyGravity();
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
-            }
-        }, 1000 / 60);
+            this.x += this.speedX;
+        }, 25);
     }
 }

@@ -2,7 +2,7 @@ class Character extends MovableObject {
     width = 150;
     height = 300;
     x = 10;
-    y = 80;
+    y = 150;
     speed = 9;
     jumpSpeedY = 18;
     floorCoord = 150;
@@ -95,16 +95,12 @@ class Character extends MovableObject {
                 this.jump();
                 this.playJumpSound();
             }
-            if (this.world.keyboard.SPACE) {
-                // this.world.ThrowableObject.throw();
-                console.log('add throw function here');
-            }
         }, 1000 / 60);
 
         setInterval(() => {
             if (this.isDead()) {
                 this.animateImages(this.IMAGES_DEAD);
-            } else if (this.isHurt()){
+            } else if (this.isHurt()) {
                 this.animateImages(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.animateImages(this.IMAGES_JUMP);
