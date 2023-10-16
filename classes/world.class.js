@@ -49,9 +49,20 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.SPACE) {
-            let bottle = new ThrowableObject((this.character.x + (this.character.width / 2)), (this.character.y + (this.character.height / 2 - 50)));
-            this.throwableObjects.push(bottle);
+            this.checkCurrentThrowDirection();
         }
+    }
+
+    checkCurrentThrowDirection() {
+        let bottle;
+        if (this.character.otherDirection) {
+            bottle = new ThrowableObject((this.character.x), (this.character.y + (this.character.height / 2 - 50)), true);
+        } else {
+            bottle = new ThrowableObject((this.character.x + (this.character.width / 2)), (this.character.y + (this.character.height / 2 - 50)), false);
+        }
+        bottle.world = this;
+        console.log(bottle);
+        this.throwableObjects.push(bottle);
     }
 
     draw() {
@@ -61,10 +72,10 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
 
-        this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObjects);
+        this.addToMap(this.character);
 
         this.insertFixedObjects();
 
