@@ -10,7 +10,7 @@ class MovableObject extends DrawableObject {
     acceleration = 1;
     floorCoord = 100;
     health = 100;
-    damage = 0.5;
+    damage = 0.25;
     lastHit = 0;
     isHurtImgDuration = 1; //duration of hurt animation in seconds
 

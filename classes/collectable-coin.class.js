@@ -4,16 +4,12 @@ class CollectableCoin extends CollectableObject {
     offsetY = -100;
     offsetX = -100;
 
-    collect_coin = new Audio('./assets/sound/collect-coin.mp3');
-    collect_coin_volume = 1;
+    collect_sound = new Audio('./assets/sound/collect-coin.mp3');
+    collect_sound_volume = 1;
 
     constructor(x, y) {
         super().loadImage('./assets/img/8_coin/coin_1.png');
         this.x = x;
         this.y = y;
-    }
-
-    hit() {
-        console.log('coin collected');
     }
 }

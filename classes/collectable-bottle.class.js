@@ -11,10 +11,6 @@ class CollectableBottle extends CollectableObject {
         this.y = y;
     }
 
-    hit() {
-        console.log('bottle collected');
-    }
-
     selectRandomBottleDirection() {
         let randomNumber = Math.random();
         let bottleNumber;
