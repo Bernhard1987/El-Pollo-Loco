@@ -2,7 +2,7 @@ class MovableObject extends DrawableObject {
     offsetY = 0; //used for collision detection
     offsetX = 0;
     collisionStartOffsetY = 0; //ensures that empty space in the upper area is skipped for collision detection
-    collisionStartOffsetX = 0;
+    collisionStartOffsetX = 0;//ensures that empty space in the left area is skipped for collision detection
     speed = 0.075;
     otherDirection = false;
     speedY = 0;
@@ -10,6 +10,7 @@ class MovableObject extends DrawableObject {
     acceleration = 1;
     floorCoord = 100;
     health = 100;
+    damage = 0.5;
     lastHit = 0;
     isHurtImgDuration = 1; //duration of hurt animation in seconds
 
@@ -41,7 +42,7 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.health -= 5;
+        this.health -= this.damage;
         if (this.health < 0) {
             this.health = 0;
         } else {

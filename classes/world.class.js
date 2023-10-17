@@ -32,14 +32,16 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisionsCollectableObjects();
+            this.checkCollisionsEnemy();
+        }, 1000 / 60);
+        setInterval(() => {
             this.checkThrowObjects();
-        }, 1000 / 5);
+        }, 1000 / 6); //allows only 2 bottle throws per second
     }
 
     checkCollisions() {
-        this.checkCollisionsEnemy();
-        this.checkCollisionsCollectableObjects();
+
     }
 
     checkCollisionsEnemy() {
@@ -84,8 +86,15 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.SPACE) {
-            this.checkCurrentThrowDirection();
+            this.throwBottle();
         }
+    }
+
+    throwBottle() {
+        let bottle = this.checkCurrentThrowDirection();
+        bottle.world = this;
+        console.log(bottle);
+        this.throwableObjects.push(bottle);
     }
 
     checkCurrentThrowDirection() {
@@ -95,9 +104,7 @@ class World {
         } else {
             bottle = new ThrowableObject((this.character.x + 60), (this.character.y + (this.character.height / 2 - 50)), false);
         }
-        bottle.world = this;
-        console.log(bottle);
-        this.throwableObjects.push(bottle);
+        return bottle;
     }
 
     draw() {
