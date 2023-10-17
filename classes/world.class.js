@@ -9,6 +9,8 @@ class World {
     statusBarHealth = new StatusBarHealth;
     statusBarCoin = new StatusBarCoin;
     statusBarBottle = new StatusBarBottle;
+    collectedCoinsCount = 0;
+    collectedBottlesCount = 0;
 
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0;
@@ -53,12 +55,31 @@ class World {
     }
 
     checkCollisionsCollectableObjects() {
-        this.level.collectableObjects.forEach((collectableObject) => {
+        for (let i = 0; i < this.level.collectableObjects.length; i++) {
+            const collectableObject = this.level.collectableObjects[i];
             if (this.character.isColliding(collectableObject)) {
                 collectableObject.hit();
-                // this.statusBarHealth.setPercentage(this.character.health);
+                this.increaseItemCount(collectableObject); //allow max. 10 items for coins/bottles
+                console.log('Coins collected: ', this.collectedCoinsCount, this.statusBarCoin.percentage, 'Bottles collected: ', this.collectedBottlesCount, this.statusBarBottle.percentage);
+                this.level.collectableObjects.splice(collectableObject, 1);
             }
-        });
+        };
+    }
+
+    increaseItemCount(collectableObject) {
+        if (collectableObject instanceof CollectableBottle) {
+            this.collectedBottlesCount++;
+            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount);
+        }
+        if (collectableObject instanceof CollectableCoin) {
+            this.collectedCoinsCount++;
+            this.actualiseStatusBar(this.statusBarCoin, this.collectedCoinsCount);
+        }
+    }
+
+    actualiseStatusBar(statusBarType, collectedCount) {
+        let statusBarPercentage = 100 / 10 * collectedCount;
+        statusBarType.setPercentage(statusBarPercentage);
     }
 
     checkThrowObjects() {

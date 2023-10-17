@@ -2,7 +2,12 @@ class Chicken extends MovableObject{
     width = 80;
     height = 80;
     x = 200 + Math.random() * 500;
-    y = 370;
+    y = 362;
+    offsetX = -10;
+    offsetY = -25;
+    collisionStartOffsetY = 5;
+
+
     IMAGES_WALKING = [
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',

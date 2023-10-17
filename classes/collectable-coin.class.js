@@ -1,6 +1,8 @@
 class CollectableCoin extends CollectableObject {
     width = 150;
     height = 150;
+    offsetY = -100;
+    offsetX = -100;
 
     collect_coin = new Audio('./assets/sound/collect-coin.mp3');
     collect_coin_volume = 1;
@@ -12,7 +14,6 @@ class CollectableCoin extends CollectableObject {
     }
 
     hit() {
-        this.collectedCoinsCount += 1;
-        console.log('coin collected:', this.collectedCoinsCount);
+        console.log('coin collected');
     }
 }

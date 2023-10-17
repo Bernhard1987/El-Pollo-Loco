@@ -1,5 +1,8 @@
 class MovableObject extends DrawableObject {
     offsetY = 0; //used for collision detection
+    offsetX = 0;
+    collisionStartOffsetY = 0; //ensures that empty space in the upper area is skipped for collision detection
+    collisionStartOffsetX = 0;
     speed = 0.075;
     otherDirection = false;
     speedY = 0;
@@ -57,11 +60,27 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(obj) {
-        return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
-            (this.y + this.offsetY + this.height) >= obj.y &&
-            (this.y + this.offsetY) <= (obj.y + obj.height);
-        // && obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+        // Berechnung des Kollisionsrahmens für das aktuelle Objekt
+        const thisCollisionX = this.collisionStartOffsetX + (this.x - this.offsetX / 2);
+        const thisCollisionY = this.collisionStartOffsetY + (this.y - this.offsetY / 2);
+        const thisCollisionWidth = this.width + this.offsetX;
+        const thisCollisionHeight = this.height + this.offsetY;
+    
+        // Berechnung des Kollisionsrahmens für das übergebene Objekt (obj)
+        const objCollisionX = obj.collisionStartOffsetX + (obj.x - obj.offsetX / 2);
+        const objCollisionY = obj.collisionStartOffsetY + (obj.y - obj.offsetY / 2);
+        const objCollisionWidth = obj.width + obj.offsetX;
+        const objCollisionHeight = obj.height + obj.offsetY;
+    
+        // Kollisionsüberprüfung
+        return (
+            thisCollisionX + thisCollisionWidth >= objCollisionX &&
+            thisCollisionX <= objCollisionX + objCollisionWidth &&
+            thisCollisionY + thisCollisionHeight >= objCollisionY &&
+            thisCollisionY <= objCollisionY + objCollisionHeight
+        );
     }
+    
 
     moveRight() {
         this.x += this.speed;

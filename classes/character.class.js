@@ -6,6 +6,10 @@ class Character extends MovableObject {
     speed = 9;
     jumpSpeedY = 18;
     floorCoord = 150;
+    offsetX = -70;
+    offsetY = -140;
+    collisionStartOffsetY = 55;
+    collisionStartOffsetX = -8;
 
     walking_sound = new Audio('./assets/sound/walk.mp3');
     walking_sound_2 = new Audio('./assets/sound/walk2.mp3');

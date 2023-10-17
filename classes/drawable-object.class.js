@@ -13,11 +13,11 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof CollectableObject || this instanceof ThrowableObject) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.rect((this.collisionStartOffsetX + (this.x - this.offsetX / 2)), (this.collisionStartOffsetY + (this.y - this.offsetY / 2)), (this.width + this.offsetX), (this.height + this.offsetY));
             ctx.stroke();
         }
     }

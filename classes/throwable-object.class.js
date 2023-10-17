@@ -1,6 +1,8 @@
 class ThrowableObject extends MovableObject {
     speedY = 16;
     speedX = 18;
+    offsetX = -80;
+    offsetY = -24;
     floorCoord = 350;
     world;
 
