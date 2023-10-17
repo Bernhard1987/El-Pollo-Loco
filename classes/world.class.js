@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-    throwableObjects = [new ThrowableObject()];
+    throwableObjects = [];
     level = level1;
     canvas;
     ctx;
@@ -36,6 +36,11 @@ class World {
     }
 
     checkCollisions() {
+        this.checkCollisionsEnemy();
+        this.checkCollisionsCollectableObjects();
+    }
+
+    checkCollisionsEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
@@ -43,6 +48,15 @@ class World {
                 this.character.get_hit.volume = this.character.get_hit_volume;
                 this.character.get_hit.play();
                 this.statusBarHealth.setPercentage(this.character.health);
+            }
+        });
+    }
+
+    checkCollisionsCollectableObjects() {
+        this.level.collectableObjects.forEach((collectableObject) => {
+            if (this.character.isColliding(collectableObject)) {
+                collectableObject.hit();
+                // this.statusBarHealth.setPercentage(this.character.health);
             }
         });
     }
@@ -56,9 +70,9 @@ class World {
     checkCurrentThrowDirection() {
         let bottle;
         if (this.character.otherDirection) {
-            bottle = new ThrowableObject((this.character.x), (this.character.y + (this.character.height / 2 - 50)), true);
+            bottle = new ThrowableObject((this.character.x - 10), (this.character.y + (this.character.height / 2 - 50)), true);
         } else {
-            bottle = new ThrowableObject((this.character.x + (this.character.width / 2)), (this.character.y + (this.character.height / 2 - 50)), false);
+            bottle = new ThrowableObject((this.character.x + 60), (this.character.y + (this.character.height / 2 - 50)), false);
         }
         bottle.world = this;
         console.log(bottle);
@@ -72,9 +86,10 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
 
-        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.collectableObjects);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
 
         this.insertFixedObjects();
