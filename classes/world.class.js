@@ -40,20 +40,29 @@ class World {
         }, 1000 / 6); //allows only 2 bottle throws per second
     }
 
-    checkCollisions() {
-
-    }
-
     checkCollisionsEnemy() {
-        this.level.enemies.forEach((enemy) => {
+        for (let i = 0; i < this.level.enemies.length; i++) {
+            const enemy = this.level.enemies[i];
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                // this.character.throwBackCharacter(); -> buggy w camera, might use acceleration
-                this.character.get_hit.volume = this.character.get_hit_volume;
-                this.character.get_hit.play();
+                this.checkTypeOfHit(i);
                 this.statusBarHealth.setPercentage(this.character.health);
             }
-        });
+        }
+    }
+
+    checkTypeOfHit(i) {
+        if (this.character.speedY >= 0 ) {
+            this.character.hit();
+            // this.character.throwBackCharacter(); -> buggy w camera, might use acceleration
+            this.character.get_hit.volume = this.character.get_hit_volume;
+            this.character.get_hit.play();
+        } else if (this.character.speedY < 0){
+            this.destroyEnemy(i);
+        }
+    }
+
+    destroyEnemy(enemy) {
+        this.level.enemies.splice(enemy, 1);
     }
 
     checkCollisionsCollectableObjects() {
