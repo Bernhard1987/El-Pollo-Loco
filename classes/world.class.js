@@ -44,19 +44,19 @@ class World {
         for (let i = 0; i < this.level.enemies.length; i++) {
             const enemy = this.level.enemies[i];
             if (this.character.isColliding(enemy)) {
-                this.checkTypeOfHit(i);
+                this.checkTypeOfHit(enemy, i);
                 this.statusBarHealth.setPercentage(this.character.health);
             }
         }
     }
 
-    checkTypeOfHit(i) {
+    checkTypeOfHit(enemy, i) {
         if (this.character.speedY >= 0 ) {
             this.character.hit();
             // this.character.throwBackCharacter(); -> buggy w camera, might use acceleration
             this.character.get_hit.volume = this.character.get_hit_volume;
             this.character.get_hit.play();
-        } else if (this.character.speedY < 0){
+        } else if (this.character.speedY < 0 && !(enemy instanceof Endboss)){ // wenn speedY negativ ist und enemy kein Endboss ist
             this.destroyEnemy(i);
         }
     }
@@ -93,9 +93,17 @@ class World {
         statusBarType.setPercentage(statusBarPercentage);
     }
 
+/**
+ * Checks if the SPACE key is pressed and if there are collected bottles available. 
+ * If both conditions are met, it throws a bottle, decrements the collected bottles count,
+ * and updates the status bar with the new count.
+ */
+
     checkThrowObjects() {
-        if (this.keyboard.SPACE) {
+        if (this.keyboard.SPACE && this.collectedBottlesCount > 0) {
             this.throwBottle();
+            this.collectedBottlesCount--;
+            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount);
         }
     }
 
