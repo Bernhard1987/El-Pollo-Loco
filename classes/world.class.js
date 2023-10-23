@@ -51,18 +51,22 @@ class World {
     }
 
     checkTypeOfHit(enemy, i) {
-        if (this.character.speedY >= 0 ) {
+        if (this.character.speedY >= 0) {
             this.character.hit();
             // this.character.throwBackCharacter(); -> buggy w camera, might use acceleration
             this.character.get_hit.volume = this.character.get_hit_volume;
             this.character.get_hit.play();
-        } else if (this.character.speedY < 0 && !(enemy instanceof Endboss)){ // wenn speedY negativ ist und enemy kein Endboss ist
-            this.destroyEnemy(i);
+        } else if (this.character.speedY < 0 && !(enemy instanceof Endboss)) { // wenn speedY negativ ist und enemy kein Endboss ist
+            enemy.health = 0;
+            //this.enemy.isDead();
+            this.destroyEnemy(enemy, i);
         }
     }
 
-    destroyEnemy(enemy) {
-        this.level.enemies.splice(enemy, 1);
+    destroyEnemy(enemy, i) {
+        if (enemy.health == 0) {
+            this.level.enemies.splice(i, 1);
+        }
     }
 
     checkCollisionsCollectableObjects() {
@@ -93,11 +97,11 @@ class World {
         statusBarType.setPercentage(statusBarPercentage);
     }
 
-/**
- * Checks if the SPACE key is pressed and if there are collected bottles available. 
- * If both conditions are met, it throws a bottle, decrements the collected bottles count,
- * and updates the status bar with the new count.
- */
+    /**
+     * Checks if the SPACE key is pressed and if there are collected bottles available. 
+     * If both conditions are met, it throws a bottle, decrements the collected bottles count,
+     * and updates the status bar with the new count.
+     */
 
     checkThrowObjects() {
         if (this.keyboard.SPACE && this.collectedBottlesCount > 0) {

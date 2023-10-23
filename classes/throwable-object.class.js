@@ -1,11 +1,11 @@
 class ThrowableObject extends MovableObject {
     acceleration = 0.9;
-    speedY = 12;
-    speedX = 18;
+    speedY = 20;
+    speedX = 11;
     offsetX = -80;
     offsetY = -24;
     floorCoord = 350;
-    world;
+    damage = 100;
 
     constructor(x, y, otherDirection) {
         super().loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');

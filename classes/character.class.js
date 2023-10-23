@@ -13,11 +13,11 @@ class Character extends MovableObject {
 
     walking_sound = new Audio('./assets/sound/walk.mp3');
     walking_sound_2 = new Audio('./assets/sound/walk2.mp3');
-    walking_sound_volume = 0; //0.3
+    walking_sound_volume = 0.3; //0.3
     jump_sound = new Audio('./assets/sound/jump4.mp3');
-    jump_sound_volume = 0; //0.7
+    jump_sound_volume = 0.7; //0.7
     get_hit = new Audio('./assets/sound/get_hit2.mp3');
-    get_hit_volume = 0; //0.2
+    get_hit_volume = 0.2; //0.2
 
 
     IMAGES_WALKING = [
@@ -99,9 +99,12 @@ class Character extends MovableObject {
             }
         }, 1000 / 60);
 
+        let hasPlayedDeadAnimation = false;
+
         setInterval(() => {
-            if (this.isDead()) {
+            if (this.isDead() && !hasPlayedDeadAnimation) {
                 this.animateImages(this.IMAGES_DEAD);
+                hasPlayedDeadAnimation = true;
             } else if (this.isHurt()) {
                 this.animateImages(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
