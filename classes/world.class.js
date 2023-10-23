@@ -47,6 +47,7 @@ class World {
                 this.checkTypeOfHit(enemy, i);
                 this.statusBarHealth.setPercentage(this.character.health);
             }
+            this.checkCollisionsThrowableObjects(enemy, i);
         }
     }
 
@@ -79,6 +80,18 @@ class World {
                 this.level.collectableObjects.splice(collectableObject, 1);
             }
         };
+    }
+
+    checkCollisionsThrowableObjects(enemy, indexEnemy) {
+        for (let i = 0; i < this.throwableObjects.length; i++) {
+            const bottle = this.throwableObjects[i];
+            if (bottle.isColliding(enemy)) {
+                bottle.hit();
+                enemy.health = enemy.health - bottle.damage;
+                this.throwableObjects.splice(bottle, 1);
+                this.destroyEnemy(enemy, indexEnemy);
+            }
+        }
     }
 
     increaseItemCount(collectableObject) {

@@ -1,12 +1,13 @@
 class Endboss extends MovableObject {
     width = 255; //aspect-ratio 0.85
     height = 300;
-    x = 2500;
+    x = 4030;
     y = 150;
     offsetX = -40;
     offsetY = -70;
     collisionStartOffsetY = 24;
     damage = 1;
+    health = 800;
 
     IMAGES_WALKING = [
         './assets/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -24,10 +25,11 @@ class Endboss extends MovableObject {
     sound_endboss_bok_volume = 0;
     sound_endboss_dead_volume = 0;
 
-    constructor() {
+    constructor(startX) {
         super().loadImage('./assets/img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
+        this.x = startX;
     }
 
     animate() {

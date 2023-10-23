@@ -3,7 +3,7 @@ const level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),
-        //new Endboss()
+        new Endboss(4030)
     ],
 
     [
@@ -11,7 +11,11 @@ const level1 = new Level(
         new Cloud(0, 1),
         new Cloud(720, 2),
         new Cloud(720*2, 1),
-        new Cloud(720*3, 2)
+        new Cloud(720*3, 2),
+        new Cloud(720*4, 1),
+        new Cloud(720*5, 2),
+        new Cloud(720*6, 1),
+        new Cloud(720*7, 2)
     ],
 
     [
@@ -43,18 +47,33 @@ const level1 = new Level(
         new BackgroundObject('./assets/img/5_background/layers/air.png', 719 * 4, 0),
         new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 719 * 4, 0),
         new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 719 * 4, 0),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 719 * 4, 0)
+        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 719 * 4, 0),
+
+        new BackgroundObject('./assets/img/5_background/layers/air.png', 719 * 5, 0),
+        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/2.png', 719 * 5, 0),
+        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/2.png', 719 * 5, 0),
+        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/2.png', 719 * 5, 0),
+
+        new BackgroundObject('./assets/img/5_background/layers/air.png', 719 * 6, 0),
+        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 719 * 6, 0),
+        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 719 * 6, 0),
+        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 719 * 6, 0)
     ],
     [
-        new CollectableCoin(100, 340),
-        new CollectableCoin(150, 340),
-        new CollectableCoin(200, 340),
-        new CollectableCoin(250, 340),
-        new CollectableCoin(400, 160),
+        new CollectableBottle(0, 360),
+        new CollectableBottle(50, 360),
+        new CollectableBottle(100, 360),
+        new CollectableBottle(150, 360),
+        new CollectableBottle(200, 360),
+        new CollectableBottle(250, 360),
+        new CollectableBottle(300, 360),
+        new CollectableBottle(350, 360),
+        new CollectableBottle(400, 360),
         new CollectableBottle(450, 360),
-        new CollectableBottle(500, 360),
-        new CollectableBottle(550, 360),
-        new CollectableBottle(600, 360),
-        new CollectableBottle(650, 360)
+        new CollectableCoin(600, 340),
+        new CollectableCoin(700, 340),
+        new CollectableCoin(800, 340),
+        new CollectableCoin(900, 340),
+        new CollectableCoin(1000, 160)
     ]
 );
