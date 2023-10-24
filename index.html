@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 
 <head>
     <meta charset="UTF-8">
@@ -15,6 +15,7 @@
     <script src="./classes/character.class.js"></script>
     <script src="./classes/chicken.class.js"></script>
     <script src="./classes/cloud.class.js"></script>
+    <script src="./classes/sound-toggle.class.js"></script>
     <script src="./classes/status-bar.class.js"></script>
     <script src="./classes/status-bar-health.class.js"></script>
     <script src="./classes/status-bar-coin.class.js"></script>
@@ -33,11 +34,15 @@
 <body onload="init()">
     <h1>El Pollo Loco</h1>
 
-    <canvas width="720" height="480" id="canvas">
-    </canvas>
+    <div class="fullscreen">
+        <canvas width="720" height="480" id="canvas">
+        </canvas>
+    </div>
 
     <div class="controls-container">
-        <div class="controls-container-row"><h3>CONTROLS</h3></div>
+        <div class="controls-container-row">
+            <h3>CONTROLS</h3>
+        </div>
         <div class="controls-container-column-container">
             <div class="controls-container-column">
                 <div class="controls-container-row">

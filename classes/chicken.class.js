@@ -17,7 +17,7 @@ class Chicken extends MovableObject {
     IMAGE_DEAD = ['./assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
 
     sound_chicken_bok = new Audio('./assets/sound/chicken-short-cluck.mp3');
-    sound_chicken_bok_volume = 0.2;
+    sound_chicken_bok_volume = 0;
 
     constructor() {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -26,7 +26,6 @@ class Chicken extends MovableObject {
         this.speed = 0.25 + Math.random() * 0.25;
         this.addChickenSound();
         this.playChickenSound();
-        this.chickenDead();
         this.animate();
     }
 
@@ -52,20 +51,17 @@ class Chicken extends MovableObject {
     }
 
     playChickenSound() {
+        let chickenSound;
         if (this.health > 0) {
-            setInterval(() => {
+            chickenSound = setInterval(() => {
                 this.sound_chicken_bok.volume = this.sound_chicken_bok_volume;
                 this.sound_chicken_bok.play();
             }, (5000 + (Math.random() * 15000)));
+            console.log('interval enemy', chickenSound);
         }
-    }
-
-    chickenDead() {
-        setInterval(() => {
-            if (this.health == 0) {
-                this.sound_chicken_bok.pause();
-                this.sound_chicken_bok.currentTime = 0;
-            }
-        }, 1);
+        if (this.health == 0) { 
+            clearInterval(chickenSound);
+            this.sound_chicken_bok.pause();
+        };
     }
 }

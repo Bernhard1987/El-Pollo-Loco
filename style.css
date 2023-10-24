@@ -139,3 +139,27 @@ footer {
     height: 32px;
     filter: drop-shadow(1px 1px 1px black);
 }
+
+@media screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    .controls-container {
+        display: none;
+    }
+}

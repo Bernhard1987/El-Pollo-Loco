@@ -9,11 +9,12 @@ class World {
     statusBarHealth = new StatusBarHealth;
     statusBarCoin = new StatusBarCoin;
     statusBarBottle = new StatusBarBottle;
+    soundToggle = new SoundToggle;
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
 
     background_music = new Audio('./assets/sound/bgm.mp3');
-    bgm_volume = 0;
+    bgm_volume = 0.1;
 
     //boss_sound_x_coord = 1828; //play boss sound when character gets near of it
 
@@ -24,6 +25,9 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.soundToggle.addEventListener('click', function() {
+            this.soundToggle.switchSound();
+        });
     }
 
     setWorld() {
@@ -174,6 +178,7 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
+        this.addToMap(this.soundToggle);
         this.ctx.translate(this.camera_x, 0); //set forward "camera"-position for fixed objects after draw -> Object will keep position
     }
 
