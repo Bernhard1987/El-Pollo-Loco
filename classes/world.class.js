@@ -9,6 +9,8 @@ class World {
     statusBarHealth = new StatusBarHealth;
     statusBarCoin = new StatusBarCoin;
     statusBarBottle = new StatusBarBottle;
+    screenStart = new ScreenStart;
+    buttonStart = new ButtonStart;
     soundToggle = new SoundToggle;
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
@@ -25,9 +27,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.soundToggle.addEventListener('click', function() {
-            this.soundToggle.switchSound();
-        });
     }
 
     setWorld() {
@@ -42,6 +41,7 @@ class World {
         setInterval(() => {
             this.checkThrowObjects();
         }, 1000 / 6); //allows only 2 bottle throws per second
+
     }
 
     checkCollisionsEnemy() {
@@ -101,16 +101,24 @@ class World {
     increaseItemCount(collectableObject) {
         if (collectableObject instanceof CollectableBottle) {
             this.collectedBottlesCount++;
-            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount);
+            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount, 10);
         }
         if (collectableObject instanceof CollectableCoin) {
             this.collectedCoinsCount++;
-            this.actualiseStatusBar(this.statusBarCoin, this.collectedCoinsCount);
+            this.actualiseStatusBar(this.statusBarCoin, this.collectedCoinsCount, 10);
         }
     }
 
-    actualiseStatusBar(statusBarType, collectedCount) {
-        let statusBarPercentage = 100 / 10 * collectedCount;
+    /**
+     * Calculates actual percentage of current status bar.
+     * calls setPercentage for current status bar class.
+     * @param {string} statusBarType select current status bar from global world variables
+     * @param {number} actualCount current count of status bar
+     * @param {number} maxCount max count of status bar
+     */
+
+    actualiseStatusBar(statusBarType, actualCount, maxCount) {
+        let statusBarPercentage = 100 / maxCount * actualCount;
         statusBarType.setPercentage(statusBarPercentage);
     }
 
@@ -124,7 +132,7 @@ class World {
         if (this.keyboard.SPACE && this.collectedBottlesCount > 0) {
             this.throwBottle();
             this.collectedBottlesCount--;
-            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount);
+            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount, 10);
         }
     }
 
@@ -179,7 +187,15 @@ class World {
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.soundToggle);
+
+        this.insertScreenStart();
+
         this.ctx.translate(this.camera_x, 0); //set forward "camera"-position for fixed objects after draw -> Object will keep position
+    }
+
+    insertScreenStart() {
+        this.addToMap(this.screenStart);
+        this.addToMap(this.buttonStart);
     }
 
     addObjectsToMap(objects) {
@@ -217,4 +233,23 @@ class World {
             this.world.Endboss.sound_endboss_dead.play();
         }
     }
+
+    checkForElementClick(currentElement) {
+        canvas.addEventListener("click", function (event) {
+            const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+            const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+
+            if (
+                mouseX >= elementX &&
+                mouseX <= elementX + elementWidth &&
+                mouseY >= elementY &&
+                mouseY <= elementY + elementHeight
+            ) {
+                // Der Klick erfolgte auf das gewünschte Element
+                // Führen Sie hier die gewünschten Aktionen aus
+                console.log("Klick auf das Element!");
+            }
+        });
+    }
+
 }
