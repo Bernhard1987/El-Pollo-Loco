@@ -7,6 +7,7 @@
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="fonts.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <script src="./classes/drawable-object.class.js"></script>
     <script src="./classes/movable-object.class.js"></script>
     <script src="./classes/collectable-object.class.js"></script>
@@ -21,7 +22,6 @@
     <script src="./classes/status-bar-coin.class.js"></script>
     <script src="./classes/status-bar-bottle.class.js"></script>
     <script src="./classes/throwable-object.class.js"></script>
-    <script src="./classes/throwable-bottle.class.class.js"></script>
     <script src="./classes/world.class.js"></script>
     <script src="./classes/background-object.class.js"></script>
     <script src="./classes/keyboard.class.js"></script>
@@ -37,11 +37,11 @@
 
     <div class="fullscreen game-container">
         <div class="game-overlay">
-            <div class="menu-background menu-start d-none" id="menu-start">
+            <div class="menu-background menu-start" id="menu-start" onclick="menuStartGame()">
                 <div class="menu-start-btn-row">
-                    <div class="btn">SETTINGS</div>
-                    <div class="btn">CONTROLS</div>
-                    <div class="btn">STORY</div>
+                    <div class="btn" onclick="menuShowSettings()">SETTINGS</div>
+                    <div class="btn" onclick="menuShowControls()">CONTROLS</div>
+                    <div class="btn" onclick="menuShowStory()">STORY</div>
                 </div>
                 <div class="menu-start-btn-row">
                     <div class="btn">START</div>
@@ -56,17 +56,25 @@
 
             <div class="menu-background menu-story d-none" id="menu-story">
                 <div class="menu-background-dark">
-                    <div class="menu-story-container">
+                    <div class="menu-content">
                         <p>In a peaceful Mexican village, a man named Pepe found himself facing a strange crisis. His
                         neighbor's chickens had gone mad, terrorizing the village. Armed with salsa, Pepe has to defeat
                         each crazed chicken one by one, to become a local hero.</p>
-                        <div class="menu-close"></div>
+                        <div class="menu-close" onclick="menuClose()"></div>
                     </div>
                 </div>
             </div>
 
             <div class="menu-background menu-settings d-none" id="menu-settings">
-
+                <div class="menu-background-dark">
+                    <div class="menu-content">
+                        <div class="menu-close" onclick="menuClose()"></div>
+                        <div class="btn btn-menu-sound" id="btn-menu-sound" onclick="menuSettingSoundSwitch()">
+                            <div id="menu-sound-text">SOUND: ON</div>
+                            <img id="menu-sound-img" src="./assets/img/sound_on.svg">
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="menu-background menu-controls d-none" id="menu-controls">
@@ -76,7 +84,7 @@
                             <h3>CONTROLS</h3>
                         </div>
                         <div class="controls-container-column-container">
-                            <div class="menu-close"></div>
+                            <div class="menu-close" onclick="menuClose()"></div>
                             <div class="controls-container-column">
                                 <div class="controls-container-row">
                                     <div class="controls-container-row-left"><img src="./assets/img/keys/key_w.svg" alt="" srcset="">

@@ -10,10 +10,9 @@ class World {
     statusBarCoin = new StatusBarCoin;
     statusBarBottle = new StatusBarBottle;
     // screenStart = [new ScreenStart, new ButtonStart, new ButtonControls, new ButtonSettings, new ButtonStory];
-    soundToggle = new SoundToggle;
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
-
+    soundOn = true;
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0.1;
 
@@ -26,7 +25,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.addAllClickListeners();
     }
 
     setWorld() {
@@ -186,10 +184,6 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
-        this.addToMap(this.soundToggle);
-
-        // this.addObjectsToMap(this.screenStart);
-
         this.ctx.translate(this.camera_x, 0); //set forward "camera"-position for fixed objects after draw -> Object will keep position
     }
 
