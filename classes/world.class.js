@@ -9,8 +9,7 @@ class World {
     statusBarHealth = new StatusBarHealth;
     statusBarCoin = new StatusBarCoin;
     statusBarBottle = new StatusBarBottle;
-    screenStart = new ScreenStart;
-    buttonStart = new ButtonStart;
+    // screenStart = [new ScreenStart, new ButtonStart, new ButtonControls, new ButtonSettings, new ButtonStory];
     soundToggle = new SoundToggle;
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
@@ -27,6 +26,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.addAllClickListeners();
     }
 
     setWorld() {
@@ -188,14 +188,9 @@ class World {
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.soundToggle);
 
-        this.insertScreenStart();
+        // this.addObjectsToMap(this.screenStart);
 
         this.ctx.translate(this.camera_x, 0); //set forward "camera"-position for fixed objects after draw -> Object will keep position
-    }
-
-    insertScreenStart() {
-        this.addToMap(this.screenStart);
-        this.addToMap(this.buttonStart);
     }
 
     addObjectsToMap(objects) {
@@ -234,22 +229,27 @@ class World {
         }
     }
 
-    checkForElementClick(currentElement) {
-        canvas.addEventListener("click", function (event) {
-            const mouseX = event.clientX - canvas.getBoundingClientRect().left;
-            const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+    // checkForElementClick(currentElement) {
+    //     canvas.addEventListener("click", function (event) {
+    //         const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+    //         const mouseY = event.clientY - canvas.getBoundingClientRect().top;
 
-            if (
-                mouseX >= elementX &&
-                mouseX <= elementX + elementWidth &&
-                mouseY >= elementY &&
-                mouseY <= elementY + elementHeight
-            ) {
-                // Der Klick erfolgte auf das gewünschte Element
-                // Führen Sie hier die gewünschten Aktionen aus
-                console.log("Klick auf das Element!");
-            }
-        });
-    }
+    //         if (
+    //             mouseX >= elementX &&
+    //             mouseX <= elementX + elementWidth &&
+    //             mouseY >= elementY &&
+    //             mouseY <= elementY + elementHeight
+    //         ) {
+    //             // Der Klick erfolgte auf das gewünschte Element
+    //             // Führen Sie hier die gewünschten Aktionen aus
+    //             console.log("Klick auf das Element!");
+    //         }
+    //     });
+    // }
 
+    // addAllClickListeners() {
+    //     this.screenStart[1].addClickListener(() => {
+    //         this.screenStart.splice(0, this.screenStart.length);
+    //     });
+    // }
 }

@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="fonts.css">
     <script src="./classes/drawable-object.class.js"></script>
     <script src="./classes/movable-object.class.js"></script>
-    <script src="./classes/screen-start.class.js"></script>
-    <script src="./classes/screen-game-over.class.js"></script>
-    <script src="./classes/button.class.js"></script>
-    <script src="./classes/button-start.class.js"></script>
     <script src="./classes/collectable-object.class.js"></script>
     <script src="./classes/collectable-bottle.class.js"></script>
     <script src="./classes/collectable-coin.class.js"></script>
@@ -33,50 +29,87 @@
     <script src="./classes/endboss.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
+    <script src="./js/menu.js"></script>
 </head>
 
 <body onload="init()">
     <h1>El Pollo Loco</h1>
 
-    <div class="fullscreen">
+    <div class="fullscreen game-container">
+        <div class="game-overlay">
+            <div class="menu-background menu-start d-none" id="menu-start">
+                <div class="menu-start-btn-row">
+                    <div class="btn">SETTINGS</div>
+                    <div class="btn">CONTROLS</div>
+                    <div class="btn">STORY</div>
+                </div>
+                <div class="menu-start-btn-row">
+                    <div class="btn">START</div>
+                </div>
+            </div>
+
+            <div class="menu-game-over d-none" id="menu-game-over">
+                <div class="menu-start-btn-row">
+                    <div class="btn">PLAY AGAIN</div>
+                </div>
+            </div>
+
+            <div class="menu-background menu-story d-none" id="menu-story">
+                <div class="menu-background-dark">
+                    <div class="menu-story-container">
+                        <p>In a peaceful Mexican village, a man named Pepe found himself facing a strange crisis. His
+                        neighbor's chickens had gone mad, terrorizing the village. Armed with salsa, Pepe has to defeat
+                        each crazed chicken one by one, to become a local hero.</p>
+                        <div class="menu-close"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-background menu-settings d-none" id="menu-settings">
+
+            </div>
+
+            <div class="menu-background menu-controls d-none" id="menu-controls">
+                <div class="menu-background-dark">
+                    <div class="controls-container">
+                        <div class="controls-container-row">
+                            <h3>CONTROLS</h3>
+                        </div>
+                        <div class="controls-container-column-container">
+                            <div class="menu-close"></div>
+                            <div class="controls-container-column">
+                                <div class="controls-container-row">
+                                    <div class="controls-container-row-left"><img src="./assets/img/keys/key_w.svg" alt="" srcset="">
+                                    </div>
+                                    <div class="controls-container-row-right">JUMP</div>
+                                </div>
+                                <div class="controls-container-row">
+                                    <div class="controls-container-row-left"><img src="./assets/img/keys/key_a.svg" alt="" srcset="">
+                                    </div>
+                                    <div class="controls-container-row-right">LEFT</div>
+                                </div>
+                            </div>
+                            <div class="controls-container-column">
+                                <div class="controls-container-row">
+                                    <div class="controls-container-row-left">
+                                        <img src="./assets/img/keys/key_d.svg" alt="" srcset="">
+                                    </div>
+                                    <div class="controls-container-row-right">RIGHT</div>
+                                </div>
+                                <div class="controls-container-row">
+                                    <div class="controls-container-row-left">
+                                        <img src="./assets/img/keys/key_space.svg" alt="" srcset="">
+                                    </div>
+                                    <div class="controls-container-row-right">THROW BOTTLE</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <canvas width="720" height="480" id="canvas">
         </canvas>
-    </div>
-
-    <div class="controls-container">
-        <div class="controls-container-row">
-            <h3>CONTROLS</h3>
-        </div>
-        <div class="controls-container-column-container">
-            <div class="controls-container-column">
-                <div class="controls-container-row">
-                    <div class="controls-container-row-left"><img src="./assets/img/keys/key_w.svg" alt="" srcset="">
-                    </div>
-                    <div class="controls-container-row-right">JUMP</div>
-                </div>
-                <div class="controls-container-row">
-                    <div class="controls-container-row-left"><img src="./assets/img/keys/key_a.svg" alt="" srcset="">
-                    </div>
-                    <div class="controls-container-row-right">LEFT</div>
-                </div>
-            </div>
-            <div class="controls-container-column">
-                <div class="controls-container-row">
-                    <div class="controls-container-row-left">
-                        <img src="./assets/img/keys/key_d.svg" alt="" srcset="">
-                    </div>
-                    <div class="controls-container-row-right">RIGHT</div>
-                </div>
-                <div class="controls-container-row">
-                    <div class="controls-container-row-left">
-                        <img src="./assets/img/keys/key_space.svg" alt="" srcset="">
-                    </div>
-                    <div class="controls-container-row-right">THROW BOTTLE</div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
     <footer>

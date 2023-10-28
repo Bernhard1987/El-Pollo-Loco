@@ -1,3 +1,0 @@
-class ScreenGameOver extends DrawableObject {
-    
-}
