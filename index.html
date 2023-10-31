@@ -15,6 +15,7 @@
     <script src="./classes/collectable-coin.class.js"></script>
     <script src="./classes/character.class.js"></script>
     <script src="./classes/chicken.class.js"></script>
+    <script src="./classes/chicken-small.class.js"></script>
     <script src="./classes/endboss.class.js"></script>
     <script src="./classes/cloud.class.js"></script>
     <script src="./classes/sound-toggle.class.js"></script>
@@ -36,6 +37,9 @@
     <h1>El Pollo Loco</h1>
 
     <div class="fullscreen game-container">
+        <div class="fullscreen-btn">
+            <img src="./assets/img/fullscreen.svg" alt="Fullscreen">
+        </div>
         <div class="game-overlay">
             <div class="menu-background menu-start d-none" id="menu-start" onclick="menuStartGame()">
                 <div class="menu-start-btn-row">
@@ -118,19 +122,27 @@
                     </div>
                 </div>
             </div>
-            <div class="ingame-overlay d-none" id="ingame-overlay">
+            <div class="ingame-overlay" id="ingame-overlay">
                 <div class="ingame-overlay-row ingame-overlay-row-top">
                     <img class="ingame-overlay-sound" id="ingame-overlay-sound" src="./assets/img/sound_on.svg"
                         onclick="soundSwitch()">
                 </div>
                 <div class="ingame-overlay-row ingame-overlay-row-bottom">
                     <div class="ingame-overlay-mobile-group">
-                        <div class="btn btn-round">LEFT</div>
-                        <div class="btn btn-round">RIGHT</div>
+                        <div class="btn btn-round" id="touch-left">
+                            <div class="touch-img touch-img-left"></div>
+                        </div>
+                        <div class="btn btn-round" id="touch-right">
+                            <div class="touch-img touch-img-right"></div>
+                        </div>
                     </div>
                     <div class="ingame-overlay-mobile-group">
-                        <div class="btn btn-round">JUMP</div>
-                        <div class="btn btn-round">THROW</div>
+                        <div class="btn btn-round" id="touch-throw">
+                            <div class="touch-img touch-img-throw"></div>
+                        </div>
+                        <div class="btn btn-round" id="touch-jump">
+                            <div class="touch-img touch-img-jump"></div>
+                        </div>
                     </div>
                 </div>
             </div>

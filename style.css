@@ -51,7 +51,6 @@ h3 {
 
 canvas {
     background-color: black;
-    border: 1px solid rgba(255, 255, 255, 0.7);
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 1);
 }
 
@@ -93,6 +92,7 @@ footer {
     aspect-ratio: 1/1;
     border-radius: 50%;
     font-size: 20px;
+    padding: 8px;
 }
 
 .btn:hover {
@@ -101,7 +101,33 @@ footer {
 }
 
 .game-container {
+    display: flex;
     position: relative;
+}
+
+.fullscreen-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 50px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 10;
+    transition-duration: 125ms;
+}
+
+.fullscreen-btn:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.fullscreen-btn img {
+    width: 34px;
 }
 
 .game-overlay {
@@ -152,12 +178,38 @@ footer {
 }
 
 .ingame-overlay-mobile-group {
-    display: flex;
+    display: none;
     height: 100%;
     width: 150px;
     gap: 8px;
     align-items: center;
     justify-content: center;
+}
+
+.touch-img {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50px;
+}
+
+.touch-img-left {
+    background-image: url('./assets/img/keyboard_arrow_left.svg');
+}
+
+.touch-img-right {
+    background-image: url('./assets/img/keyboard_arrow_right.svg');
+}
+
+.touch-img-throw {
+    background-image: url('./assets/img/throw.png');
+    background-size: 100%;
+}
+
+.touch-img-jump {
+    background-image: url('./assets/img/jump.png');
+    background-size: 100%;
 }
 
 .menu-background {
@@ -321,6 +373,16 @@ footer {
 .controls-container-row img {
     height: 32px;
     filter: drop-shadow(1px 1px 1px black);
+}
+
+@media (max-width: 896px) {
+    .ingame-overlay-mobile-group {
+        display: flex;
+    }
+
+    .fullscreen-btn {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 720px) {
