@@ -78,7 +78,12 @@ footer {
     justify-content: center;
     align-items: center;
     height: 52px;
-    background-color: #FFDA00;
+    background-image: 
+    linear-gradient(
+      to bottom right in oklab, 
+      oklch(100% .5 109) 0%, oklch(72% .5 100) 100%
+    )
+  ;
     padding: 16px;
     font-size: 30px;
     border-radius: 12px;

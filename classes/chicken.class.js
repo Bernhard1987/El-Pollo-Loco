@@ -7,6 +7,7 @@ class Chicken extends MovableObject {
     offsetY = -25;
     collisionStartOffsetY = 5;
 
+    enemySoundInterval;
 
     IMAGES_WALKING = [
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -17,7 +18,7 @@ class Chicken extends MovableObject {
     IMAGE_DEAD = ['./assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
 
     sound_chicken_bok = new Audio('./assets/sound/chicken-short-cluck.mp3');
-    sound_chicken_bok_volume = 0;
+    sound_chicken_bok_volume = 0.3;
 
     constructor() {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -51,17 +52,9 @@ class Chicken extends MovableObject {
     }
 
     playChickenSound() {
-        let chickenSound;
-        if (this.health > 0) {
-            chickenSound = setInterval(() => {
+            this.enemySoundInterval = setInterval(() => {
                 this.sound_chicken_bok.volume = this.sound_chicken_bok_volume;
                 this.sound_chicken_bok.play();
             }, (5000 + (Math.random() * 15000)));
-            console.log('interval enemy', chickenSound);
-        }
-        if (this.health == 0) { 
-            clearInterval(chickenSound);
-            this.sound_chicken_bok.pause();
-        };
     }
 }

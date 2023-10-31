@@ -9,7 +9,7 @@ class World {
     statusBarHealth = new StatusBarHealth;
     statusBarCoin = new StatusBarCoin;
     statusBarBottle = new StatusBarBottle;
-    // screenStart = [new ScreenStart, new ButtonStart, new ButtonControls, new ButtonSettings, new ButtonStory];
+
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
     soundOn = true;
@@ -68,6 +68,7 @@ class World {
 
     destroyEnemy(enemy, i) {
         if (enemy.health == 0) {
+            clearInterval(enemy.enemySoundInterval);
             this.level.enemies.splice(i, 1);
         }
     }
