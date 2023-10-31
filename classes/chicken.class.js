@@ -17,8 +17,11 @@ class Chicken extends MovableObject {
 
     IMAGE_DEAD = ['./assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
 
-    sound_chicken_bok = new Audio('./assets/sound/chicken-short-cluck.mp3');
-    sound_chicken_bok_volume = 0.3;
+    sound_enemy = new Audio('./assets/sound/chicken-short-cluck.mp3');
+    sound_enemy_volume = 0;
+
+    sound_dead = new Audio('./assets/sound/chicken-dead.mp3');
+    sound_dead_volume = 0;
 
     constructor() {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -26,7 +29,7 @@ class Chicken extends MovableObject {
         this.loadImage(this.IMAGE_DEAD);
         this.speed = 0.25 + Math.random() * 0.25;
         this.addChickenSound();
-        this.playChickenSound();
+        this.playEnemySound();
         this.animate();
     }
 
@@ -35,26 +38,36 @@ class Chicken extends MovableObject {
             this.moveLeft();
         }, 1000 / 60);
 
-        setInterval(() => {
-            this.animateImages(this.IMAGES_WALKING);
-        }, 1000 / 6);
+        if (this.isHurt()) {
+                this.animateImages(this.IMAGE_DEAD);
+        } else {
+            setInterval(() => {
+                this.animateImages(this.IMAGES_WALKING);
+            }, 1000 / 6);
+        }
+
     }
 
     addChickenSound() {
         let rndNumber = Math.random();
         if (rndNumber <= 0.33) {
-            this.sound_chicken_bok = new Audio('./assets/sound/chicken-short-cluck.mp3');
+            this.sound_enemy = new Audio('./assets/sound/chicken-short-cluck.mp3');
         } else if (rndNumber > 0.33 && rndNumber <= 0.66) {
-            this.sound_chicken_bok = new Audio('./assets/sound/chicken-bok2.mp3');
+            this.sound_enemy = new Audio('./assets/sound/chicken-bok2.mp3');
         } else if (rndNumber > 0.66) {
-            this.sound_chicken_bok = new Audio('./assets/sound/chicken-bok.mp3');
+            this.sound_enemy = new Audio('./assets/sound/chicken-bok.mp3');
         }
     }
 
-    playChickenSound() {
-            this.enemySoundInterval = setInterval(() => {
-                this.sound_chicken_bok.volume = this.sound_chicken_bok_volume;
-                this.sound_chicken_bok.play();
-            }, (5000 + (Math.random() * 15000)));
+    playEnemySound() {
+        this.enemySoundInterval = setInterval(() => {
+            this.sound_enemy.volume = this.sound_enemy_volume;
+            this.sound_enemy.play();
+        }, (5000 + (Math.random() * 15000)));
+    }
+
+    playSoundDead() {
+        this.sound_dead.volume = this.sound_dead_volume;
+        this.sound_dead.play();
     }
 }

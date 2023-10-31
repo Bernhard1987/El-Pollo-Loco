@@ -21,9 +21,9 @@ class Endboss extends MovableObject {
     ];
 
     sound_endboss_bok = new Audio('./assets/sound/boss-bok.mp3');
-    sound_endboss_dead = new Audio('./assets/sound/boss-dead.mp3');
+    sound_dead = new Audio('./assets/sound/boss-dead.mp3');
     sound_endboss_bok_volume = 0;
-    sound_endboss_dead_volume = 0;
+    sound_dead_volume = 0;
 
     constructor(startX) {
         super().loadImage('./assets/img/4_enemie_boss_chicken/2_alert/G5.png');
@@ -44,5 +44,10 @@ class Endboss extends MovableObject {
             this.sound_endboss_bok.volume = this.sound_endboss_bok_volume; 
             this.sound_endboss_bok.play();
         }, 6000 + (Math.random() * 15000));
+    }
+
+    playSoundDead() {
+        this.sound_dead.volume = this.sound_dead_volume;
+        this.sound_dead.play();
     }
 }

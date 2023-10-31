@@ -42,11 +42,14 @@ class Character extends MovableObject {
         './assets/img/2_character_pepe/1_idle/idle/I-10.png'
     ];
 
-    IMAGES_JUMP = [
+    IMAGES_JUMP_UP = [
         './assets/img/2_character_pepe/3_jump/J-31.png',
         './assets/img/2_character_pepe/3_jump/J-32.png',
         './assets/img/2_character_pepe/3_jump/J-33.png',
-        './assets/img/2_character_pepe/3_jump/J-34.png',
+        './assets/img/2_character_pepe/3_jump/J-34.png'
+    ];
+
+    IMAGES_JUMP_DOWN = [
         './assets/img/2_character_pepe/3_jump/J-35.png',
         './assets/img/2_character_pepe/3_jump/J-36.png',
         './assets/img/2_character_pepe/3_jump/J-37.png',
@@ -73,7 +76,8 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_JUMP);
+        this.loadImages(this.IMAGES_JUMP_UP);
+        this.loadImages(this.IMAGES_JUMP_DOWN);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
@@ -104,16 +108,18 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead() && !hasPlayedDeadAnimation) {
                 this.animateImages(this.IMAGES_DEAD);
-                hasPlayedDeadAnimation = true;
+                // hasPlayedDeadAnimation = true;
             } else if (this.isHurt()) {
                 this.animateImages(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                this.animateImages(this.IMAGES_JUMP);
-            } else {
+            } else if (this.isAboveGround() && this.speedY > 0) {
+                this.animateImages(this.IMAGES_JUMP_UP);
+            } else if (this.isAboveGround() && this.speedY <= 0){
+                this.animateImages(this.IMAGES_JUMP_DOWN);
+            }  else {
                 this.animateImages(this.IMAGES_IDLE);
                 this.walk();
             }
-        }, 1000 / 12);
+        }, 1000 / 10);
     }
 
     playJumpSound() {

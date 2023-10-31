@@ -78,17 +78,21 @@ footer {
     justify-content: center;
     align-items: center;
     height: 52px;
-    background-image: 
-    linear-gradient(
-      to bottom right in oklab, 
-      oklch(100% .5 109) 0%, oklch(72% .5 100) 100%
-    )
-  ;
+    background-image:
+        linear-gradient(to bottom right in oklab,
+            oklch(100% .5 109) 0%, oklch(72% .5 100) 100%);
     padding: 16px;
     font-size: 30px;
     border-radius: 12px;
     box-shadow: 2px 2px 2px black;
     transition-duration: 125ms;
+}
+
+.btn-round {
+    height: 80%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    font-size: 20px;
 }
 
 .btn:hover {
@@ -108,6 +112,52 @@ footer {
     right: 0;
     bottom: 0;
     z-index: 2;
+}
+
+.ingame-overlay {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0.75;
+}
+
+.ingame-overlay-row {
+    display: flex;
+    width: 100%;
+    padding: 1%;
+}
+
+.ingame-overlay-row-top {
+    justify-content: right;
+    align-items: center;
+    height: 12%;
+}
+
+.ingame-overlay-sound {
+    height: 100%;
+    transition-duration: 125ms;
+}
+
+.ingame-overlay-sound:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.ingame-overlay-row-bottom {
+    justify-content: space-between;
+    align-items: center;
+    height: 20%;
+}
+
+.ingame-overlay-mobile-group {
+    display: flex;
+    height: 100%;
+    width: 150px;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
 }
 
 .menu-background {
@@ -138,10 +188,10 @@ footer {
 }
 
 .menu-start-btn-row {
-display: flex;
-justify-content: center;
-gap: 96px;
-padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 96px;
+    padding: 20px;
 }
 
 .menu-start {

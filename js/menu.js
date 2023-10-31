@@ -24,15 +24,17 @@ function menuClose() {
     showOrHide('show', 'menu-start');
 }
 
-function menuSettingSoundSwitch() {
+function soundSwitch() {
     if (world.soundOn) {
         world.soundOn = false;
         document.getElementById('menu-sound-text').innerHTML = 'SOUND: OFF';
         document.getElementById('menu-sound-img').src = './assets/img/sound_off.svg';
+        document.getElementById('ingame-overlay-sound').src = './assets/img/sound_off.svg';
     } else if (!world.soundOn) {
         world.soundOn = true;
         document.getElementById('menu-sound-text').innerHTML = 'SOUND: ON';
         document.getElementById('menu-sound-img').src = './assets/img/sound_on.svg';
+        document.getElementById('ingame-overlay-sound').src = './assets/img/sound_on.svg';
     }
 }
 

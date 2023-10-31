@@ -69,7 +69,9 @@ class World {
     destroyEnemy(enemy, i) {
         if (enemy.health == 0) {
             clearInterval(enemy.enemySoundInterval);
+            enemy.playSoundDead();
             this.level.enemies.splice(i, 1);
+            console.log('enemy deleted:', enemy);
         }
     }
 
