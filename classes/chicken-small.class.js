@@ -8,8 +8,7 @@ class ChickenSmall extends MovableObject {
     collisionStartOffsetY = 0;
     jumpSpeedY = 25;
     floorCoord = 370;
-
-    enemySoundInterval;
+    damage = 0.35;
 
     IMAGES_WALKING = [
         './assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -40,21 +39,27 @@ class ChickenSmall extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        let moveLeft = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
 
-        setInterval(() => {
+        this.pushToObjectInterval(moveLeft);
+
+        let soundEnemyInterval = setInterval(() => {
             this.jump();
             this.playSoundAttack();
         }, 5000 + (Math.random() * 5000));
 
+        this.pushToObjectInterval(soundEnemyInterval);
+
         if (this.isHurt()) {
             this.animateImages(this.IMAGE_DEAD);
         } else {
-            setInterval(() => {
+            let animateWalking = setInterval(() => {
                 this.animateImages(this.IMAGES_WALKING);
             }, 1000 / 6);
+
+            this.pushToObjectInterval(animateWalking);
         }
 
     }
@@ -69,10 +74,11 @@ class ChickenSmall extends MovableObject {
     }
 
     playEnemySound() {
-        this.enemySoundInterval = setInterval(() => {
+        let soundEnemyInterval = setInterval(() => {
             this.sound_enemy.volume = this.sound_enemy_volume;
             this.sound_enemy.play();
         }, (5000 + (Math.random() * 15000)));
+        this.pushToObjectInterval(soundEnemyInterval);
     }
 
     playSoundDead() {

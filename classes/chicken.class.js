@@ -7,8 +7,6 @@ class Chicken extends MovableObject {
     offsetY = -25;
     collisionStartOffsetY = 5;
 
-    enemySoundInterval;
-
     IMAGES_WALKING = [
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         './assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
@@ -18,10 +16,10 @@ class Chicken extends MovableObject {
     IMAGE_DEAD = ['./assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
 
     sound_enemy = new Audio('./assets/sound/chicken-short-cluck.mp3');
-    sound_enemy_volume = 0;
+    sound_enemy_volume = 0.1;
 
     sound_dead = new Audio('./assets/sound/chicken-dead.mp3');
-    sound_dead_volume = 0;
+    sound_dead_volume = 0.1;
 
     constructor() {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -34,18 +32,19 @@ class Chicken extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        let moveLeft = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
+        this.pushToObjectInterval(moveLeft);
 
         if (this.isHurt()) {
                 this.animateImages(this.IMAGE_DEAD);
         } else {
-            setInterval(() => {
+            let animateWalking = setInterval(() => {
                 this.animateImages(this.IMAGES_WALKING);
             }, 1000 / 6);
+            this.pushToObjectInterval(animateWalking);
         }
-
     }
 
     addChickenSound() {
@@ -60,10 +59,11 @@ class Chicken extends MovableObject {
     }
 
     playEnemySound() {
-        this.enemySoundInterval = setInterval(() => {
+        let soundEnemyInterval = setInterval(() => {
             this.sound_enemy.volume = this.sound_enemy_volume;
             this.sound_enemy.play();
         }, (5000 + (Math.random() * 15000)));
+        this.pushToObjectInterval(soundEnemyInterval);
     }
 
     playSoundDead() {

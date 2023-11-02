@@ -68,11 +68,17 @@ class World {
 
     destroyEnemy(enemy, i) {
         if (enemy.health == 0) {
-            clearInterval(enemy.enemySoundInterval);
+            this.stopAllObjectIntervals(enemy);
             enemy.playSoundDead();
             this.level.enemies.splice(i, 1);
             console.log('enemy deleted:', enemy);
         }
+    }
+
+    stopAllObjectIntervals(enemy) {
+        enemy.objectIntervals.forEach(interval => {
+            clearInterval(interval);
+        });
     }
 
     checkCollisionsCollectableObjects() {

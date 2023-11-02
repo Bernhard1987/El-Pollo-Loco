@@ -14,6 +14,8 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     isHurtImgDuration = 1; //duration of hurt animation in seconds
 
+    objectIntervals = [];
+
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -30,6 +32,10 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+    pushToObjectInterval(intervalId) {
+        this.objectIntervals.push(intervalId);
     }
 
     isAboveGround() {
