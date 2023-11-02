@@ -42,14 +42,12 @@ class ChickenSmall extends MovableObject {
         let moveLeft = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-
         this.pushToObjectInterval(moveLeft);
 
         let soundEnemyInterval = setInterval(() => {
             this.jump();
             this.playSoundAttack();
-        }, 5000 + (Math.random() * 5000));
-
+        }, 3000 + (Math.random() * 3000));
         this.pushToObjectInterval(soundEnemyInterval);
 
         if (this.isHurt()) {
@@ -58,10 +56,8 @@ class ChickenSmall extends MovableObject {
             let animateWalking = setInterval(() => {
                 this.animateImages(this.IMAGES_WALKING);
             }, 1000 / 6);
-
             this.pushToObjectInterval(animateWalking);
         }
-
     }
 
     addChickenSound() {

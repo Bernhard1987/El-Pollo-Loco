@@ -231,28 +231,4 @@ class World {
             this.world.Endboss.sound_endboss_dead.play();
         }
     }
-
-    // checkForElementClick(currentElement) {
-    //     canvas.addEventListener("click", function (event) {
-    //         const mouseX = event.clientX - canvas.getBoundingClientRect().left;
-    //         const mouseY = event.clientY - canvas.getBoundingClientRect().top;
-
-    //         if (
-    //             mouseX >= elementX &&
-    //             mouseX <= elementX + elementWidth &&
-    //             mouseY >= elementY &&
-    //             mouseY <= elementY + elementHeight
-    //         ) {
-    //             // Der Klick erfolgte auf das gewünschte Element
-    //             // Führen Sie hier die gewünschten Aktionen aus
-    //             console.log("Klick auf das Element!");
-    //         }
-    //     });
-    // }
-
-    // addAllClickListeners() {
-    //     this.screenStart[1].addClickListener(() => {
-    //         this.screenStart.splice(0, this.screenStart.length);
-    //     });
-    // }
 }

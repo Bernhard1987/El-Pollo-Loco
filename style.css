@@ -128,6 +128,7 @@ footer {
 
 .fullscreen-btn img {
     width: 34px;
+    opacity: 0.3;
 }
 
 .game-overlay {
