@@ -96,16 +96,18 @@ class World {
     increaseItemCount(collectableObject, indexOfObject) {
         if (collectableObject instanceof CollectableBottle && this.collectedBottlesCount < this.maxItemCount) {
             this.collectedBottlesCount++;
-            collectableObject.hit();
-            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount, this.maxItemCount);
-            this.level.collectableObjects.splice(indexOfObject, 1);
+            this.actionsAfterItemPickup(this.statusBarBottle, this.collectedBottlesCount, collectableObject, indexOfObject);
         }
         if (collectableObject instanceof CollectableCoin && this.collectedCoinsCount < this.maxItemCount) {
             this.collectedCoinsCount++;
-            collectableObject.hit();
-            this.actualiseStatusBar(this.statusBarCoin, this.collectedCoinsCount, this.maxItemCount);
-            this.level.collectableObjects.splice(indexOfObject, 1);
+            this.actionsAfterItemPickup(this.statusBarCoin, this.collectedCoinsCount, collectableObject, indexOfObject);;
         }
+    }
+
+    actionsAfterItemPickup(statusbar, actualItemCounter, collectableObject, indexOfObject) {
+        collectableObject.hit();
+        this.actualiseStatusBar(statusbar, actualItemCounter, this.maxItemCount);
+        this.level.collectableObjects.splice(indexOfObject, 1);
         console.log('Coins collected: ', this.collectedCoinsCount, this.statusBarCoin.percentage, 'Bottles collected: ', this.collectedBottlesCount, this.statusBarBottle.percentage);
     }
 
