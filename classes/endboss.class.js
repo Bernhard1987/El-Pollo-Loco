@@ -20,6 +20,12 @@ class Endboss extends MovableObject {
         './assets/img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
 
+    IMAGES_DEAD = [
+        './assets/img/4_enemie_boss_chicken/5_dead/G24.png',
+        './assets/img/4_enemie_boss_chicken/5_dead/G25.png',
+        './assets/img/4_enemie_boss_chicken/5_dead/G26.png'
+    ];
+
     sound_endboss_bok = new Audio('./assets/sound/boss-bok.mp3');
     sound_dead = new Audio('./assets/sound/boss-dead.mp3');
     sound_endboss_bok_volume = 0;

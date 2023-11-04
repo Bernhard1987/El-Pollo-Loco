@@ -12,6 +12,7 @@ class World {
 
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
+    maxItemCount = 10;
     soundOn = true;
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0.1;
@@ -87,35 +88,25 @@ class World {
         for (let i = 0; i < this.level.collectableObjects.length; i++) {
             const collectableObject = this.level.collectableObjects[i];
             if (this.character.isColliding(collectableObject)) {
-                collectableObject.hit();
-                this.increaseItemCount(collectableObject); //allow max. 10 items for coins/bottles
-                console.log('Coins collected: ', this.collectedCoinsCount, this.statusBarCoin.percentage, 'Bottles collected: ', this.collectedBottlesCount, this.statusBarBottle.percentage);
-                this.level.collectableObjects.splice(collectableObject, 1);
+                this.increaseItemCount(collectableObject);
             }
         };
     }
 
-    checkCollisionsThrowableObjects(enemy, indexEnemy) {
-        for (let i = 0; i < this.throwableObjects.length; i++) {
-            const bottle = this.throwableObjects[i];
-            if (bottle.isColliding(enemy)) {
-                bottle.hit();
-                enemy.health = enemy.health - bottle.damage;
-                this.throwableObjects.splice(bottle, 1);
-                this.destroyEnemy(enemy, indexEnemy);
-            }
-        }
-    }
-
     increaseItemCount(collectableObject) {
-        if (collectableObject instanceof CollectableBottle) {
+        if (collectableObject instanceof CollectableBottle && this.collectedBottlesCount < this.maxItemCount) {
             this.collectedBottlesCount++;
-            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount, 10);
+            collectableObject.hit();
+            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount, this.maxItemCount);
+            this.level.collectableObjects.splice(collectableObject, 1);
         }
-        if (collectableObject instanceof CollectableCoin) {
+        if (collectableObject instanceof CollectableCoin && this.collectedCoinsCount < this.maxItemCount) {
             this.collectedCoinsCount++;
-            this.actualiseStatusBar(this.statusBarCoin, this.collectedCoinsCount, 10);
+            collectableObject.hit();
+            this.actualiseStatusBar(this.statusBarCoin, this.collectedCoinsCount, this.maxItemCount);
+            this.level.collectableObjects.splice(collectableObject, 1);
         }
+        console.log('Coins collected: ', this.collectedCoinsCount, this.statusBarCoin.percentage, 'Bottles collected: ', this.collectedBottlesCount, this.statusBarBottle.percentage);
     }
 
     /**
@@ -129,6 +120,19 @@ class World {
     actualiseStatusBar(statusBarType, actualCount, maxCount) {
         let statusBarPercentage = 100 / maxCount * actualCount;
         statusBarType.setPercentage(statusBarPercentage);
+    }
+
+    
+    checkCollisionsThrowableObjects(enemy, indexEnemy) {
+        for (let i = 0; i < this.throwableObjects.length; i++) {
+            const bottle = this.throwableObjects[i];
+            if (bottle.isColliding(enemy)) {
+                bottle.hit();
+                enemy.health = enemy.health - bottle.damage;
+                this.throwableObjects.splice(bottle, 1);
+                this.destroyEnemy(enemy, indexEnemy);
+            }
+        }
     }
 
     /**

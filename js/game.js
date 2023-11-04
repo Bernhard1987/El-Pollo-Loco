@@ -54,9 +54,11 @@ function fullscreen() {
     if (fullscreenMode == false) {
          enterFullscreen(fullscreen);
          fullscreenMode = true;
+         document.getElementById('fullscreen-img').src = './assets/img/fullscreen_exit.svg';
     } else {
         exitFullscreen();
         fullscreenMode = false;
+        document.getElementById('fullscreen-img').src = './assets/img/fullscreen.svg';
     }
    
 }
