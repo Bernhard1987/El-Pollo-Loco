@@ -30,7 +30,7 @@ class ChickenSmall extends MovableObject {
     constructor() {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
-        this.loadImage(this.IMAGE_DEAD);
+        this.loadImages(this.IMAGE_DEAD);
         this.speed = 0.5 + Math.random() * 0.5;
         this.addChickenSound();
         this.playEnemySound();
@@ -49,15 +49,11 @@ class ChickenSmall extends MovableObject {
             this.playSoundAttack();
         }, 3000 + (Math.random() * 3000));
         this.pushToObjectInterval(soundEnemyInterval);
-
-        if (this.isHurt()) {
-            this.animateImages(this.IMAGE_DEAD);
-        } else {
-            let animateWalking = setInterval(() => {
-                this.animateImages(this.IMAGES_WALKING);
-            }, 1000 / 6);
-            this.pushToObjectInterval(animateWalking);
-        }
+        
+        let animateWalking = setInterval(() => {
+            this.animateImages(this.IMAGES_WALKING);
+        }, 1000 / 6);
+        this.pushToObjectInterval(animateWalking);
     }
 
     addChickenSound() {

@@ -36,8 +36,8 @@
 <body onload="init()">
     <h1>El Pollo Loco</h1>
 
-    <div class="fullscreen game-container">
-        <div class="fullscreen-btn">
+    <div class="game-container" id="game-container">
+        <div class="fullscreen-btn" onclick="fullscreen()">
             <img src="./assets/img/fullscreen.svg" alt="Fullscreen">
         </div>
         <div class="game-overlay">
@@ -151,7 +151,7 @@
         </canvas>
     </div>
 
-    <footer>
+    <footer class="d-none">
         <div class="footer-container">
             <div class="footer-container-left">
                 Programmed by Bernhard Reindl

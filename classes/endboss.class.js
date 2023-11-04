@@ -7,7 +7,7 @@ class Endboss extends MovableObject {
     offsetY = -70;
     collisionStartOffsetY = 24;
     damage = 1;
-    health = 800;
+    health = 400;
 
     IMAGES_WALKING = [
         './assets/img/4_enemie_boss_chicken/2_alert/G5.png',

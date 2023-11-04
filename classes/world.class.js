@@ -38,7 +38,7 @@ class World {
         }, 1000 / 60);
         setInterval(() => {
             this.checkThrowObjects();
-        }, 1000 / 6); //allows only 2 bottle throws per second
+        }, 1000 / 6);
 
     }
 
@@ -56,12 +56,10 @@ class World {
     checkTypeOfHit(enemy, i) {
         if (this.character.speedY >= 0) {
             this.character.hit();
-            // this.character.throwBackCharacter(); -> buggy w camera, might use acceleration
             this.character.get_hit.volume = this.character.get_hit_volume;
             this.character.get_hit.play();
         } else if (this.character.speedY < 0 && !(enemy instanceof Endboss)) { // wenn speedY negativ ist und enemy kein Endboss ist
             enemy.health = 0;
-            //this.enemy.isDead();
             this.destroyEnemy(enemy, i);
         }
     }
@@ -70,8 +68,12 @@ class World {
         if (enemy.health == 0) {
             this.stopAllObjectIntervals(enemy);
             enemy.playSoundDead();
-            this.level.enemies.splice(i, 1);
-            console.log('enemy deleted:', enemy);
+            enemy.showDeadImage();
+            enemy.damage = 0;
+            // setTimeout(() => {
+                this.level.enemies.splice(i, 1);
+                console.log('enemy deleted:', enemy);
+            // }, 200);
         }
     }
 

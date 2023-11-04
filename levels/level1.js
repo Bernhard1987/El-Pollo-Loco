@@ -63,8 +63,6 @@ const level1 = new Level(
         new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 719 * 6, 0)
     ],
     [
-        new CollectableBottle(0, 360),
-        new CollectableBottle(50, 360),
         new CollectableBottle(100, 360),
         new CollectableBottle(150, 360),
         new CollectableBottle(200, 360),
@@ -73,6 +71,8 @@ const level1 = new Level(
         new CollectableBottle(350, 360),
         new CollectableBottle(400, 360),
         new CollectableBottle(450, 360),
+        new CollectableBottle(500, 360),
+        new CollectableBottle(550, 360),
         new CollectableCoin(600, 340),
         new CollectableCoin(700, 340),
         new CollectableCoin(800, 340),

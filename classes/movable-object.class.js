@@ -58,6 +58,10 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    showDeadImage() {
+        this.animateImages(this.IMAGE_DEAD);
+    }
+
     isDead() {
         return this.health == 0;
     }
