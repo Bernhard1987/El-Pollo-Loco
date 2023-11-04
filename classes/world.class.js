@@ -88,23 +88,23 @@ class World {
         for (let i = 0; i < this.level.collectableObjects.length; i++) {
             const collectableObject = this.level.collectableObjects[i];
             if (this.character.isColliding(collectableObject)) {
-                this.increaseItemCount(collectableObject);
+                this.increaseItemCount(collectableObject, i);
             }
         };
     }
 
-    increaseItemCount(collectableObject) {
+    increaseItemCount(collectableObject, indexOfObject) {
         if (collectableObject instanceof CollectableBottle && this.collectedBottlesCount < this.maxItemCount) {
             this.collectedBottlesCount++;
             collectableObject.hit();
             this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount, this.maxItemCount);
-            this.level.collectableObjects.splice(collectableObject, 1);
+            this.level.collectableObjects.splice(indexOfObject, 1);
         }
         if (collectableObject instanceof CollectableCoin && this.collectedCoinsCount < this.maxItemCount) {
             this.collectedCoinsCount++;
             collectableObject.hit();
             this.actualiseStatusBar(this.statusBarCoin, this.collectedCoinsCount, this.maxItemCount);
-            this.level.collectableObjects.splice(collectableObject, 1);
+            this.level.collectableObjects.splice(indexOfObject, 1);
         }
         console.log('Coins collected: ', this.collectedCoinsCount, this.statusBarCoin.percentage, 'Bottles collected: ', this.collectedBottlesCount, this.statusBarBottle.percentage);
     }
