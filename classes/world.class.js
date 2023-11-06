@@ -58,7 +58,7 @@ class World {
     checkTypeOfHit(enemy, i) {
         if (this.character.speedY >= 0 && enemy.damage > 0) {
             this.typeGetHit();
-        } else if (this.character.speedY < 0 && !(enemy instanceof Endboss)) { // wenn speedY negativ ist und enemy kein Endboss ist
+        } else if (this.character.speedY < 0 && enemy.speedY == 0 && !(enemy instanceof Endboss)) { // wenn speedY negativ ist und enemy kein Endboss ist
             this.typeJumpOnEnemy(enemy, i);
         }
     }
@@ -71,19 +71,20 @@ class World {
 
     typeJumpOnEnemy(enemy, i) {
         enemy.health = 0;
+        enemy.damage = 0;
+        this.character.jumpOnEnemy();
         this.destroyEnemy(enemy, i);
     }
 
     destroyEnemy(enemy, i) {
         if (enemy.health == 0) {
             this.stopAllObjectIntervals(enemy);
-            enemy.damage = 0;
             enemy.playSoundDead();
             enemy.showDeadImage();
-            // setTimeout(() => {
+            setTimeout(() => {
                 this.level.enemies.splice(i, 1);
                 console.log('enemy deleted:', enemy);
-            // }, 200);
+            }, 200);
         }
     }
 

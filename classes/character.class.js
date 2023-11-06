@@ -122,6 +122,10 @@ class Character extends MovableObject {
         }, 1000 / 10);
     }
 
+    jumpOnEnemy() {
+        this.speedY = this.jumpSpeedY / 2;
+    }
+
     playJumpSound() {
         this.jump_sound.volume = this.jump_sound_volume;
         this.jump_sound.play();
