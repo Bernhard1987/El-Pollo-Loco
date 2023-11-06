@@ -104,10 +104,18 @@ class World {
     }
 
     increaseItemCount(collectableObject, indexOfObject) {
+        this.increaseItemBottle(collectableObject, indexOfObject);
+        this.increaseItemCoin(collectableObject, indexOfObject);
+    }
+
+    increaseItemBottle(collectableObject, indexOfObject) {
         if (collectableObject instanceof CollectableBottle && this.collectedBottlesCount < this.maxItemCount) {
             this.collectedBottlesCount++;
             this.actionsAfterItemPickup(this.statusBarBottle, this.collectedBottlesCount, collectableObject, indexOfObject);
         }
+    }
+
+    increaseItemCoin(collectableObject, indexOfObject) {
         if (collectableObject instanceof CollectableCoin && this.collectedCoinsCount < this.maxItemCount) {
             this.collectedCoinsCount++;
             this.actionsAfterItemPickup(this.statusBarCoin, this.collectedCoinsCount, collectableObject, indexOfObject);;

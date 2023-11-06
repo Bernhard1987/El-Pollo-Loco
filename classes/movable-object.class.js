@@ -72,19 +72,26 @@ class MovableObject extends DrawableObject {
         return timepassed < this.isHurtImgDuration;
     }
 
+    /**
+     * Checks if the current object is colliding with the specified object.
+    *
+    * @param {Object} obj - The object to check for collision with.
+    * @returns {boolean} True if a collision is detected, false otherwise.
+    */
+
     isColliding(obj) {
         // Berechnung des Kollisionsrahmens für das aktuelle Objekt
         const thisCollisionX = this.collisionStartOffsetX + (this.x - this.offsetX / 2);
         const thisCollisionY = this.collisionStartOffsetY + (this.y - this.offsetY / 2);
         const thisCollisionWidth = this.width + this.offsetX;
         const thisCollisionHeight = this.height + this.offsetY;
-    
+
         // Berechnung des Kollisionsrahmens für das übergebene Objekt (obj)
         const objCollisionX = obj.collisionStartOffsetX + (obj.x - obj.offsetX / 2);
         const objCollisionY = obj.collisionStartOffsetY + (obj.y - obj.offsetY / 2);
         const objCollisionWidth = obj.width + obj.offsetX;
         const objCollisionHeight = obj.height + obj.offsetY;
-    
+
         // Kollisionsüberprüfung
         return (
             thisCollisionX + thisCollisionWidth >= objCollisionX &&
@@ -93,7 +100,7 @@ class MovableObject extends DrawableObject {
             thisCollisionY <= objCollisionY + objCollisionHeight
         );
     }
-    
+
 
     moveRight() {
         this.x += this.speed;
