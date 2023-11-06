@@ -9,6 +9,8 @@ class World {
     statusBarHealth = new StatusBarHealth;
     statusBarCoin = new StatusBarCoin;
     statusBarBottle = new StatusBarBottle;
+    statusBarBoss = new StatusBarBoss;
+    statusBarBossSymbol = new StatusBarBossSymbol;
 
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
@@ -40,7 +42,6 @@ class World {
         setInterval(() => {
             this.checkThrowObjects();
         }, 1000 / 6);
-
     }
 
     checkCollisionsEnemy() {
@@ -55,22 +56,30 @@ class World {
     }
 
     checkTypeOfHit(enemy, i) {
-        if (this.character.speedY >= 0) {
-            this.character.hit();
-            this.character.get_hit.volume = this.character.get_hit_volume;
-            this.character.get_hit.play();
+        if (this.character.speedY >= 0 && enemy.damage > 0) {
+            this.typeGetHit();
         } else if (this.character.speedY < 0 && !(enemy instanceof Endboss)) { // wenn speedY negativ ist und enemy kein Endboss ist
-            enemy.health = 0;
-            this.destroyEnemy(enemy, i);
+            this.typeJumpOnEnemy(enemy, i);
         }
+    }
+
+    typeGetHit() {
+        this.character.hit();
+        this.character.get_hit.volume = this.character.get_hit_volume;
+        this.character.get_hit.play();
+    }
+
+    typeJumpOnEnemy(enemy, i) {
+        enemy.health = 0;
+        this.destroyEnemy(enemy, i);
     }
 
     destroyEnemy(enemy, i) {
         if (enemy.health == 0) {
             this.stopAllObjectIntervals(enemy);
+            enemy.damage = 0;
             enemy.playSoundDead();
             enemy.showDeadImage();
-            enemy.damage = 0;
             // setTimeout(() => {
                 this.level.enemies.splice(i, 1);
                 console.log('enemy deleted:', enemy);
@@ -124,6 +133,12 @@ class World {
         statusBarType.setPercentage(statusBarPercentage);
     }
 
+    actualiseBossStatusBar(enemy) {
+        if(enemy instanceof Endboss) {
+            this.actualiseStatusBar(this.statusBarBoss, enemy.health, enemy.maxHealth);
+        }
+    }
+
     
     checkCollisionsThrowableObjects(enemy, indexEnemy) {
         for (let i = 0; i < this.throwableObjects.length; i++) {
@@ -132,6 +147,7 @@ class World {
                 bottle.hit();
                 enemy.health = enemy.health - bottle.damage;
                 this.throwableObjects.splice(bottle, 1);
+                this.actualiseBossStatusBar(enemy);
                 this.destroyEnemy(enemy, indexEnemy);
             }
         }
@@ -170,19 +186,10 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.backgroundObjects);
-
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.collectableObjects);
-        this.addObjectsToMap(this.throwableObjects);
-        this.addObjectsToMap(this.level.enemies);
+        this.insertMovableObjects();
         this.addToMap(this.character);
-
         this.insertFixedObjects();
-
         this.ctx.translate(-this.camera_x, 0);
         this.background_music.volume = this.bgm_volume;
         //this.background_music.play();
@@ -195,12 +202,22 @@ class World {
         });
     }
 
+    insertMovableObjects() {
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.collectableObjects);
+        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.enemies);
+    }
+
     insertFixedObjects() {
         this.ctx.translate(-this.camera_x, 0); //set back "camera"-position for fixed objects
         /*insert all fixed objects here */
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarBoss);
+        this.addToMap(this.statusBarBossSymbol);
         this.ctx.translate(this.camera_x, 0); //set forward "camera"-position for fixed objects after draw -> Object will keep position
     }
 

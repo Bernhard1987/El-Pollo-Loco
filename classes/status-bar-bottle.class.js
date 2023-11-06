@@ -11,8 +11,8 @@ class StatusBarBottle extends StatusBar {
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.x = 0;
-        this.y = 70;
+        this.x = 10;
+        this.y = 75;
         this.setPercentage(0);
     }
 }

@@ -1,12 +1,12 @@
 const level1 = new Level(
     [
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
-        // new ChickenSmall(),
-        // new ChickenSmall(),
-        // new ChickenSmall(),
-        // new Endboss(4030)
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new ChickenSmall(),
+        new ChickenSmall(),
+        new ChickenSmall(),
+        new Endboss(4030)
     ],
 
     [
@@ -77,10 +77,18 @@ const level1 = new Level(
         new CollectableBottle(550, 200),
         new CollectableBottle(500, 100),
         new CollectableBottle(550, 100),
-        new CollectableCoin(700, 160),
         new CollectableCoin(600, 340),
-        new CollectableCoin(800, 160),
+        new CollectableCoin(700, 160),
+        new CollectableCoin(800, 340),
         new CollectableCoin(900, 160),
-        new CollectableCoin(1000, 160)
+        new CollectableCoin(1000, 340),
+        new CollectableCoin(1100, 340),
+        new CollectableCoin(1200, 160),
+        new CollectableCoin(1300, 340),
+        new CollectableCoin(1400, 160),
+        new CollectableCoin(1500, 160),
+        new CollectableCoin(1600, 160),
+        new CollectableCoin(1700, 160),
+        new CollectableCoin(1800, 160)
     ]
 );
