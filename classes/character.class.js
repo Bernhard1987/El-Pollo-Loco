@@ -13,7 +13,7 @@ class Character extends MovableObject {
 
     walking_sound = new Audio('./assets/sound/walk.mp3');
     walking_sound_2 = new Audio('./assets/sound/walk2.mp3');
-    walking_sound_volume = 0; //0.3
+    walking_sound_volume = 0.3; //0.3
     jump_sound = new Audio('./assets/sound/jump4.mp3');
     jump_sound_volume = 0; //0.7
     get_hit = new Audio('./assets/sound/get_hit2.mp3');
@@ -136,17 +136,5 @@ class Character extends MovableObject {
             this.animateImages(this.IMAGES_WALKING);
             this.walkingSound();
         }
-    }
-
-    walkingSound() {
-        this.walking_sound.volume = this.walking_sound_volume;
-        this.walking_sound_2.volume = this.walking_sound_volume;
-        let randomNumber = Math.random();
-        if (randomNumber >= 0.5) {
-            this.walking_sound.play();
-        } else {
-            this.walking_sound_2.play();
-        }
-
     }
 }

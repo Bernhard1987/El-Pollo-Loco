@@ -4,7 +4,7 @@ class DrawableObject {
     height = 100;
     width = 100;
 
-    showCollisionFrame = true;
+    showCollisionFrame = false;
 
     img;
     imageCache = {};

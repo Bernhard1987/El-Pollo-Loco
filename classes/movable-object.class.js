@@ -14,6 +14,8 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     isHurtImgDuration = 1; //duration of hurt animation in seconds
 
+    walkingSoundPlayed = false;
+
     objectIntervals = [];
 
     applyGravity() {
@@ -39,9 +41,10 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof Character && this.health <= 0) {
-            this.jump(); //what to do after character is dead
-        }
+        // if (this instanceof Character && this.health <= 0) {
+        //     this.speedY = this.jumpSpeedY() / 2; //what to do after character is dead
+        //     this.floorCoord = 200;
+        // }
         if (this instanceof ThrowableObject) { //apply ThrowableObject falling through ground, may be removed later for bottle splash on ground
             return true;
         } else {
@@ -59,7 +62,7 @@ class MovableObject extends DrawableObject {
     }
 
     showDeadImage() {
-        this.animateImages(this.IMAGES_DEAD);
+            this.animateImages(this.IMAGES_DEAD);
     }
 
     isDead() {
@@ -73,7 +76,9 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Checks if the current object is colliding with the specified object.
+    * Checks if the current object is colliding with the specified object.
+    * Function drawFrame(ctx) in class DrawableObject uses the exactly same
+    * formula to draw frames.
     *
     * @param {Object} obj - The object to check for collision with.
     * @returns {boolean} True if a collision is detected, false otherwise.
@@ -112,5 +117,17 @@ class MovableObject extends DrawableObject {
 
     jump() {
         this.speedY = this.jumpSpeedY;
+    }
+
+    walkingSound() {
+        this.walking_sound.volume = this.walking_sound_volume;
+        this.walking_sound_2.volume = this.walking_sound_volume;
+        if (!this.walkingSoundPlayed) {
+            this.walking_sound.play();
+            this.walkingSoundPlayed = true;
+        } else {
+            this.walking_sound_2.play();
+            this.walkingSoundPlayed = false;
+        }
     }
 }

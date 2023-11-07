@@ -6,6 +6,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 100;
+
     statusBarHealth = new StatusBarHealth;
     statusBarCoin = new StatusBarCoin;
     statusBarBottle = new StatusBarBottle;
@@ -15,11 +16,13 @@ class World {
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
     maxItemCount = 10;
-    soundOn = true;
+
+    bossTriggerXCoord = 3200;
+
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0.1;
 
-    //boss_sound_x_coord = 1828; //play boss sound when character gets near of it
+    soundOn = true;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -38,6 +41,7 @@ class World {
         setInterval(() => {
             this.checkCollisionsCollectableObjects();
             this.checkCollisionsEnemy();
+            this.startBossFight();
         }, 1000 / 60);
         setInterval(() => {
             this.checkThrowObjects();
@@ -58,9 +62,20 @@ class World {
     checkTypeOfHit(enemy, i) {
         if (this.character.speedY >= 0 && enemy.damage > 0) {
             this.typeGetHit();
-        } else if (this.character.speedY < 0 && enemy.speedY == 0 && !(enemy instanceof Endboss)) { // wenn speedY negativ ist und enemy kein Endboss ist
-            this.typeJumpOnEnemy(enemy, i);
+        } else if (this.hitJumpyEnemy(enemy) || this.hitEnemyOnGround(enemy)) { // wenn speedY negativ ist und enemy kein Endboss ist
+            // setTimeout(() => {
+                enemy.damage = 0;
+                this.typeJumpOnEnemy(enemy, i);
+            // }, 0.01);
         }
+    }
+
+    hitJumpyEnemy(enemy) {
+        return (enemy.speedY > 0 && this.character.speedY < 0 && !(enemy instanceof Endboss));
+    }
+
+    hitEnemyOnGround(enemy) {
+        return (this.character.speedY < 0 && enemy.speedY == 0 && !(enemy instanceof Endboss));
     }
 
     typeGetHit() {
@@ -77,7 +92,7 @@ class World {
     }
 
     destroyEnemy(enemy, i) {
-        if (enemy.health == 0) {
+        if (enemy.isDead()) {
             this.stopAllObjectIntervals(enemy);
             enemy.playSoundDead();
             enemy.showDeadImage();
@@ -143,12 +158,12 @@ class World {
     }
 
     actualiseBossStatusBar(enemy) {
-        if(enemy instanceof Endboss) {
+        if (enemy instanceof Endboss) {
             this.actualiseStatusBar(this.statusBarBoss, enemy.health, enemy.maxHealth);
         }
     }
 
-    
+
     checkCollisionsThrowableObjects(enemy, indexEnemy) {
         for (let i = 0; i < this.throwableObjects.length; i++) {
             const bottle = this.throwableObjects[i];
@@ -202,7 +217,6 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.background_music.volume = this.bgm_volume;
         //this.background_music.play();
-        // this.playBossSound();
 
         //draw() wird immer wieder aufgerufen
         self = this;
@@ -259,10 +273,11 @@ class World {
         this.ctx.restore();
     }
 
-    playBossSound() {
-        if (this.character.x == this.boss_sound_x_coord) {
-            this.world.Endboss.sound_endboss_dead.volume = this.world.Endboss.sound_endboss_dead_volume;
-            this.world.Endboss.sound_endboss_dead.play();
+    startBossFight() {
+        let boss = this.level.enemies.find((enemy) => enemy instanceof Endboss);
+        if (boss instanceof Endboss && this.character.x >= this.bossTriggerXCoord && !boss.bossTriggered) {
+            boss.bossTriggered = true;
+            boss.triggerBoss();
         }
     }
 }
