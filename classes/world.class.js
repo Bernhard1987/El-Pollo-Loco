@@ -15,12 +15,13 @@ class World {
 
     collectedCoinsCount = 0;
     collectedBottlesCount = 0;
-    maxItemCount = 10;
+    maxItemBottle = 10;
+    maxItemCoin = 20;
 
     bossTriggerXCoord = 3200;
 
     background_music = new Audio('./assets/sound/bgm.mp3');
-    bgm_volume = 0.1;
+    bgm_volume = 0.3;
 
     soundOn = true;
 
@@ -61,7 +62,7 @@ class World {
 
     checkTypeOfHit(enemy, i) {
         if (this.character.speedY >= 0 && enemy.damage > 0) {
-            this.typeGetHit();
+            this.typeGetHit(enemy);
         } else if (this.hitJumpyEnemy(enemy) || this.hitEnemyOnGround(enemy)) { // wenn speedY negativ ist und enemy kein Endboss ist
             // setTimeout(() => {
                 enemy.damage = 0;
@@ -78,8 +79,8 @@ class World {
         return (this.character.speedY < 0 && enemy.speedY == 0 && !(enemy instanceof Endboss));
     }
 
-    typeGetHit() {
-        this.character.hit();
+    typeGetHit(enemy) {
+        this.character.hit(enemy.damage);
         this.character.get_hit.volume = this.character.get_hit_volume;
         this.character.get_hit.play();
     }
@@ -124,22 +125,22 @@ class World {
     }
 
     increaseItemBottle(collectableObject, indexOfObject) {
-        if (collectableObject instanceof CollectableBottle && this.collectedBottlesCount < this.maxItemCount) {
+        if (collectableObject instanceof CollectableBottle && this.collectedBottlesCount < this.maxItemBottle) {
             this.collectedBottlesCount++;
-            this.actionsAfterItemPickup(this.statusBarBottle, this.collectedBottlesCount, collectableObject, indexOfObject);
+            this.actionsAfterItemPickup(this.statusBarBottle, this.collectedBottlesCount, collectableObject, indexOfObject, this.maxItemBottle);
         }
     }
 
     increaseItemCoin(collectableObject, indexOfObject) {
-        if (collectableObject instanceof CollectableCoin && this.collectedCoinsCount < this.maxItemCount) {
+        if (collectableObject instanceof CollectableCoin && this.collectedCoinsCount < this.maxItemCoin) {
             this.collectedCoinsCount++;
-            this.actionsAfterItemPickup(this.statusBarCoin, this.collectedCoinsCount, collectableObject, indexOfObject);;
+            this.actionsAfterItemPickup(this.statusBarCoin, this.collectedCoinsCount, collectableObject, indexOfObject, this.maxItemCoin);
         }
     }
 
-    actionsAfterItemPickup(statusbar, actualItemCounter, collectableObject, indexOfObject) {
+    actionsAfterItemPickup(statusbar, actualItemCounter, collectableObject, indexOfObject, maxItemCount) {
         collectableObject.hit();
-        this.actualiseStatusBar(statusbar, actualItemCounter, this.maxItemCount);
+        this.actualiseStatusBar(statusbar, actualItemCounter, maxItemCount);
         this.level.collectableObjects.splice(indexOfObject, 1);
         console.log('Coins collected: ', this.collectedCoinsCount, this.statusBarCoin.percentage, 'Bottles collected: ', this.collectedBottlesCount, this.statusBarBottle.percentage);
     }
@@ -216,7 +217,7 @@ class World {
         this.insertFixedObjects();
         this.ctx.translate(-this.camera_x, 0);
         this.background_music.volume = this.bgm_volume;
-        //this.background_music.play();
+        this.background_music.play();
 
         //draw() wird immer wieder aufgerufen
         self = this;

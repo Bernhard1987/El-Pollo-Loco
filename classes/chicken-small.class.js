@@ -19,13 +19,13 @@ class ChickenSmall extends MovableObject {
     IMAGES_DEAD = ['./assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
 
     sound_enemy = new Audio('./assets/sound/chirp.mp3');
-    sound_enemy_volume = 0; //0.1
+    sound_enemy_volume = 0.1; //0.1
 
     sound_dead = new Audio('./assets/sound/small_chicken_dead.mp3');
-    sound_dead_volume = 0; //0.3
+    sound_dead_volume = 0.2; //0.3
 
     sound_attack = new Audio('./assets/sound/angry_bird_attack.mp3');
-    sound_attack_volume = 0; //0.1
+    sound_attack_volume = 0.1; //0.1
 
     constructor() {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');

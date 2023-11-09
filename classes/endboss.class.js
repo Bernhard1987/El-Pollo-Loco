@@ -1,15 +1,18 @@
 class Endboss extends MovableObject {
     width = 255; //aspect-ratio 0.85
     height = 300;
-    x = 4030;
-    y = 150;
+    x = 4500;
+    y = 170;
     offsetX = -40;
     offsetY = -70;
     collisionStartOffsetY = 24;
     damage = 1;
     maxHealth = 800;
-    speed = 0.5;
+    speed = 3;
     bossTriggered = false;
+    walk = true;
+    moveLeftInterval;
+    stopAndRoarInterval;
 
     IMAGES_WALKING = [
         './assets/img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -56,7 +59,7 @@ class Endboss extends MovableObject {
     sound_dead = new Audio('./assets/sound/boss-dead.mp3');
     sound_roar = new Audio('./assets/sound/boss-roar.mp3');
     sound_endboss_bok_volume = 0.3;
-    sound_dead_volume = 0.1;
+    sound_dead_volume = 0.3;
 
     walking_sound = new Audio('./assets/sound/boss_walk1.mp3');
     walking_sound_2 = new Audio('./assets/sound/boss_walk2.mp3');
@@ -76,36 +79,59 @@ class Endboss extends MovableObject {
 
     animate() {
         let animate = setInterval(() => {
-            if (this.bossTriggered) {
+            if (this.bossTriggered && this.walk) {
                 this.animateImages(this.IMAGES_WALKING);
+            } else if (this.isHurt()) {
+                this.animateImages(this.IMAGES_HURT);
             } else {
                 this.animateImages(this.IMAGES_ALERT);
             }
         }, 1000 / 6);
+
         this.pushToObjectInterval(animate);
     }
 
     triggerBoss() {
-        this.chickenSound();
         this.playBossRoar();
-
         this.playWalkingSound();
+        this.setMovementTiming();
         this.moveLeft();
+        this.stopAndRoar();
+    }
+
+    setMovementTiming() {
+        setInterval(() => {
+            if (!this.walk) {
+                setTimeout(() => {
+                    this.walk = true;
+                }, 2000);
+            } else {
+                setTimeout(() => {
+                    this.walk = false;
+                }, 3000);
+            }
+        }, 5000);
+    }
+
+    stopAndRoar() {
+        if (!this.walk) {
+            this.playBossRoar();
+            clearInterval(this.moveLeftInterval);
+        }
     }
 
     moveLeft() {
-        let moveLeft = setInterval(() => {
-            super.moveLeft();
+        clearInterval(this.stopAndRoarInterval);
+        this.moveLeftInterval = setInterval(() => {
+            if (this.walk) {
+                super.moveLeft();
+            }
         }, 1000 / 60);
-        this.pushToObjectInterval(moveLeft);
     }
 
     chickenSound() {
-        let chickenSound = setInterval(() => {
-            this.sound_endboss_bok.volume = this.sound_endboss_bok_volume;
-            this.sound_endboss_bok.play();
-        }, 6000 + (Math.random() * 10000));
-        this.pushToObjectInterval(chickenSound);
+        this.sound_endboss_bok.volume = this.sound_endboss_bok_volume;
+        this.sound_endboss_bok.play();
     }
 
     playSoundDead() {
@@ -120,7 +146,9 @@ class Endboss extends MovableObject {
 
     playWalkingSound() {
         let playWalkingSound = setInterval(() => {
-            this.walkingSound();
+            if (this.walk) {
+                this.walkingSound();
+            }
         }, 800);
         this.pushToObjectInterval(playWalkingSound);
     }
