@@ -15,6 +15,7 @@ class MovableObject extends DrawableObject {
     isHurtImgDuration = 1; //duration of hurt animation in seconds
 
     walkingSoundPlayed = false;
+    collision = true;
 
     objectIntervals = [];
 
@@ -102,10 +103,10 @@ class MovableObject extends DrawableObject {
             thisCollisionX + thisCollisionWidth >= objCollisionX &&
             thisCollisionX <= objCollisionX + objCollisionWidth &&
             thisCollisionY + thisCollisionHeight >= objCollisionY &&
-            thisCollisionY <= objCollisionY + objCollisionHeight
+            thisCollisionY <= objCollisionY + objCollisionHeight &&
+            obj.collision
         );
     }
-
 
     moveRight() {
         this.x += this.speed;

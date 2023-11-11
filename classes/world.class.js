@@ -64,10 +64,7 @@ class World {
         if (this.character.speedY >= 0 && enemy.damage > 0) {
             this.typeGetHit(enemy);
         } else if (this.hitJumpyEnemy(enemy) || this.hitEnemyOnGround(enemy)) { // wenn speedY negativ ist und enemy kein Endboss ist
-            // setTimeout(() => {
-                enemy.damage = 0;
-                this.typeJumpOnEnemy(enemy, i);
-            // }, 0.01);
+            this.typeJumpOnEnemy(enemy, i);
         }
     }
 
@@ -95,6 +92,7 @@ class World {
     destroyEnemy(enemy, i) {
         if (enemy.isDead()) {
             this.stopAllObjectIntervals(enemy);
+            enemy.collision = false;
             enemy.playSoundDead();
             enemy.showDeadImage();
             setTimeout(() => {
@@ -240,8 +238,11 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarBoss);
-        this.addToMap(this.statusBarBossSymbol);
+        let boss = this.level.enemies.find((enemy) => enemy instanceof Endboss);
+        if (boss instanceof Endboss && boss.bossTriggered) {
+            this.addToMap(this.statusBarBoss);
+            this.addToMap(this.statusBarBossSymbol);
+        }
         this.ctx.translate(this.camera_x, 0); //set forward "camera"-position for fixed objects after draw -> Object will keep position
     }
 
