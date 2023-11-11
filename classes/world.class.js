@@ -32,6 +32,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.playBackgroundMusic();
     }
 
     setWorld() {
@@ -47,6 +48,18 @@ class World {
         setInterval(() => {
             this.checkThrowObjects();
         }, 1000 / 6);
+    }
+
+    playBackgroundMusic() {
+        setInterval(() => {
+            if (!this.soundOn) {
+                this.background_music.volume = 0;
+            } else {
+                this.background_music.volume = this.bgm_volume;
+            }
+            this.background_music.play();
+        }, 1);
+
     }
 
     checkCollisionsEnemy() {
@@ -214,9 +227,6 @@ class World {
         this.addToMap(this.character);
         this.insertFixedObjects();
         this.ctx.translate(-this.camera_x, 0);
-        this.background_music.volume = this.bgm_volume;
-        this.background_music.play();
-
         //draw() wird immer wieder aufgerufen
         self = this;
         requestAnimationFrame(function () {

@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 
 let fullscreenMode = false;
+let fullscreenContainer;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -29,6 +30,13 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
+window.addEventListener("keydown", (e) => {
+    if (e.key == "Escape" && fullscreenMode) {
+        console.log("Keydown event:", e.key);
+        leaveFullscreenState();
+    }
+});
+
 
 window.addEventListener("keyup", (e) => {
     if (e.key == 'd') {
@@ -49,21 +57,30 @@ window.addEventListener("keyup", (e) => {
 });
 
 function fullscreen() {
-    let fullscreen = document.getElementById('game-container');
+    let container = document.getElementById('game-container');
+    fullscreenContainer = container;
 
     if (fullscreenMode == false) {
-         enterFullscreen(fullscreen);
-         fullscreenMode = true;
-         document.getElementById('fullscreen-img').src = './assets/img/fullscreen_exit.svg';
+        setFullscreenState();
     } else {
-        exitFullscreen();
-        fullscreenMode = false;
-        document.getElementById('fullscreen-img').src = './assets/img/fullscreen.svg';
+        leaveFullscreenState();
     }
-   
 }
 
-function enterFullscreen(element) {
+function setFullscreenState() {
+    enterFullscreen();
+    fullscreenMode = true;
+    document.getElementById('fullscreen-img').src = './assets/img/fullscreen_exit.svg';
+}
+
+function leaveFullscreenState() {
+    exitFullscreen();
+    fullscreenMode = false;
+    document.getElementById('fullscreen-img').src = './assets/img/fullscreen.svg';
+}
+
+function enterFullscreen() {
+    let element = fullscreenContainer;
     if(element.requestFullscreen) {
       element.requestFullscreen();
     } else if(element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
