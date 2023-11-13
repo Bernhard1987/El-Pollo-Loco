@@ -20,7 +20,49 @@ function restartGame() {
     menuStartGame();
 }
 
-window.addEventListener("keydown", (e) => {
+function btnPressEvents() {
+    document.getElementById('touch-left').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+
+    document.getElementById('touch-left').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
+    document.getElementById('touch-right').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    document.getElementById('touch-right').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById('touch-jump').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.UP = true;
+    });
+
+    document.getElementById('touch-jump').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.UP = false;
+    });
+
+    document.getElementById('touch-throw').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+
+    document.getElementById('touch-throw').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+}
+
+window.addEventListener("keydown", (e) => { 
     if (e.key == 'd') {
         keyboard.RIGHT = true;
     }
@@ -110,3 +152,5 @@ function enterFullscreen() {
   function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
   }
+
+  document.addEventListener("DOMContentLoaded", btnPressEvents);

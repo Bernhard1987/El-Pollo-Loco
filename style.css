@@ -68,6 +68,7 @@ footer {
     font-size: 24px;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(4px);
+    z-index: 20;
 }
 
 .d-none {
@@ -100,6 +101,25 @@ footer {
 .btn:hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+.rotate-message-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 15;
+}
+
+.rotate-message {
+    max-width: 80%;
+    font-size: 3rem;
+    color: white;
 }
 
 .game-container {
@@ -386,6 +406,16 @@ footer {
     .fullscreen-btn {
         display: none;
     }
+
+    .menu-content {
+        font-size: 28px;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .btn-mobile-hide {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 720px) {
@@ -409,5 +439,11 @@ footer {
 
     .controls-container {
         display: none;
+    }
+}
+
+@media screen and (max-height: 345px){
+    .menu-content {
+        font-size: 24px;
     }
 }
