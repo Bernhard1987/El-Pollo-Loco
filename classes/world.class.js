@@ -22,6 +22,7 @@ class World {
 
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0.3;
+    bgmInterval;
 
     gameStarted = false;
     musicOn = true;
@@ -29,18 +30,18 @@ class World {
     constructor(canvas, keyboard) {
         let initLevel = setInterval(() => {
             if (this.gameStarted) {
-            this.character = new Character();
-            this.level = level1;
-            this.ctx = canvas.getContext('2d');
-            this.canvas = canvas;
-            this.keyboard = keyboard;
-            
-            this.draw();
-            this.setWorld();
-            this.run();
-            this.playBackgroundMusic();
-            clearInterval(initLevel);
-        }
+                this.character = new Character();
+                this.level = level1;
+                this.ctx = canvas.getContext('2d');
+                this.canvas = canvas;
+                this.keyboard = keyboard;
+
+                this.draw();
+                this.setWorld();
+                this.run();
+                this.playBackgroundMusic();
+                clearInterval(initLevel);
+            }
         }, 100);
 
     }
@@ -61,7 +62,7 @@ class World {
     }
 
     playBackgroundMusic() {
-        setInterval(() => {
+        this.bgmInterval = setInterval(() => {
             if (!this.musicOn) {
                 this.background_music.volume = 0;
             } else {
@@ -125,6 +126,12 @@ class World {
                 this.level.enemies.splice(i, 1);
                 console.log('enemy deleted:', enemy);
             }, 200);
+        }
+        if (enemy.isDead() && enemy instanceof Endboss) {
+            showOrHide('hide', 'ingame-overlay');
+            showOrHide('show', 'menu-game-over');
+            clearInterval(this.bgmInterval);
+            this.background_music.pause();
         }
     }
 

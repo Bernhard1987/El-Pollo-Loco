@@ -8,8 +8,16 @@ let fullscreenContainer;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
     console.log('my character is', world.character, world.enemies);
+}
+
+function restartGame() {
+    showOrHide('hide', 'menu-game-over');
+    clearAllIntervals();
+    // world.background_music.stop();
+    world = '';
+    init();
+    menuStartGame();
 }
 
 window.addEventListener("keydown", (e) => {
@@ -96,4 +104,9 @@ function enterFullscreen() {
     } else if(document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
     }
+  }
+
+
+  function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
   }
