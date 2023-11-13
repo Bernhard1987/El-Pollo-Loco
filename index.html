@@ -43,13 +43,13 @@
             <img id="fullscreen-img" src="./assets/img/fullscreen.svg" alt="Fullscreen">
         </div>
         <div class="game-overlay">
-            <div class="menu-background menu-start d-none" id="menu-start" onclick="menuStartGame()">
+            <div class="menu-background menu-start" id="menu-start">
                 <div class="menu-start-btn-row">
                     <div class="btn" onclick="menuShowSettings()">SETTINGS</div>
                     <div class="btn" onclick="menuShowControls()">CONTROLS</div>
                     <div class="btn" onclick="menuShowStory()">STORY</div>
                 </div>
-                <div class="menu-start-btn-row">
+                <div class="menu-start-btn-row" onclick="menuStartGame()">
                     <div class="btn" onclick="">START</div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
                     </div>
                 </div>
             </div>
-            <div class="ingame-overlay" id="ingame-overlay">
+            <div class="ingame-overlay d-none" id="ingame-overlay">
                 <div class="ingame-overlay-row ingame-overlay-row-top">
                     <img class="ingame-overlay-sound" id="ingame-overlay-sound" src="./assets/img/sound_on.svg"
                         onclick="soundSwitch()">

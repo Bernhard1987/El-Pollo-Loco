@@ -1,4 +1,7 @@
-const level1 = new Level(
+let level1 = [];
+
+function initLevel() {
+level1 = new Level(
     [
         new Chicken(),
         new Chicken(),
@@ -13,12 +16,12 @@ const level1 = new Level(
         new Cloud(-720, 2),
         new Cloud(0, 1),
         new Cloud(720, 2),
-        new Cloud(720*2, 1),
-        new Cloud(720*3, 2),
-        new Cloud(720*4, 1),
-        new Cloud(720*5, 2),
-        new Cloud(720*6, 1),
-        new Cloud(720*7, 2)
+        new Cloud(720 * 2, 1),
+        new Cloud(720 * 3, 2),
+        new Cloud(720 * 4, 1),
+        new Cloud(720 * 5, 2),
+        new Cloud(720 * 6, 1),
+        new Cloud(720 * 7, 2)
     ],
 
     [
@@ -92,3 +95,4 @@ const level1 = new Level(
         new CollectableCoin(1800, 160)
     ]
 );
+}

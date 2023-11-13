@@ -1,7 +1,7 @@
 class World {
-    character = new Character();
+    character;
     throwableObjects = [];
-    level = level1;
+    level;
     canvas;
     ctx;
     keyboard;
@@ -23,16 +23,26 @@ class World {
     background_music = new Audio('./assets/sound/bgm.mp3');
     bgm_volume = 0.3;
 
-    soundOn = true;
+    gameStarted = false;
+    musicOn = true;
 
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
-        this.canvas = canvas;
-        this.keyboard = keyboard;
-        this.draw();
-        this.setWorld();
-        this.run();
-        this.playBackgroundMusic();
+        let initLevel = setInterval(() => {
+            if (this.gameStarted) {
+            this.character = new Character();
+            this.level = level1;
+            this.ctx = canvas.getContext('2d');
+            this.canvas = canvas;
+            this.keyboard = keyboard;
+            
+            this.draw();
+            this.setWorld();
+            this.run();
+            this.playBackgroundMusic();
+            clearInterval(initLevel);
+        }
+        }, 100);
+
     }
 
     setWorld() {
@@ -52,7 +62,7 @@ class World {
 
     playBackgroundMusic() {
         setInterval(() => {
-            if (!this.soundOn) {
+            if (!this.musicOn) {
                 this.background_music.volume = 0;
             } else {
                 this.background_music.volume = this.bgm_volume;
@@ -76,12 +86,15 @@ class World {
     checkTypeOfHit(enemy, i) {
         if (this.character.speedY >= 0 && enemy.damage > 0) {
             this.typeGetHit(enemy);
-        } else if (this.hitJumpyEnemy(enemy) || this.hitEnemyOnGround(enemy)) { // wenn speedY negativ ist und enemy kein Endboss ist
-            this.typeJumpOnEnemy(enemy, i);
+        } else if (this.hitEnemyOnAir(enemy) || this.hitEnemyOnGround(enemy)) { // wenn speedY negativ ist und enemy kein Endboss ist
+            setTimeout(() => {
+                this.typeJumpOnEnemy(enemy, i);
+            }, 1);
+
         }
     }
 
-    hitJumpyEnemy(enemy) {
+    hitEnemyOnAir(enemy) {
         return (enemy.speedY > 0 && this.character.speedY < 0 && !(enemy instanceof Endboss));
     }
 

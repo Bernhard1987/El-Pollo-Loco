@@ -8,7 +8,7 @@ class Endboss extends MovableObject {
     collisionStartOffsetY = 24;
     damage = 1;
     maxHealth = 800;
-    speed = 3;
+    speed = 4;
     bossTriggered = false;
     walk = true;
     moveLeftInterval;
@@ -63,7 +63,7 @@ class Endboss extends MovableObject {
 
     walking_sound = new Audio('./assets/sound/boss_walk1.mp3');
     walking_sound_2 = new Audio('./assets/sound/boss_walk2.mp3');
-    walking_sound_volume = 0.3; //0.3
+    walking_sound_volume = 0.7; //0.7
 
     constructor(startX) {
         super().loadImage('./assets/img/4_enemie_boss_chicken/2_alert/G5.png');
@@ -104,11 +104,11 @@ class Endboss extends MovableObject {
             if (!this.walk) {
                 setTimeout(() => {
                     this.walk = true;
-                }, 2000);
+                }, 1000);
             } else {
                 setTimeout(() => {
                     this.walk = false;
-                }, 3000);
+                }, 2000);
             }
         }, 5000);
     }
@@ -149,7 +149,7 @@ class Endboss extends MovableObject {
             if (this.walk) {
                 this.walkingSound();
             }
-        }, 800);
+        }, 400);
         this.pushToObjectInterval(playWalkingSound);
     }
 }

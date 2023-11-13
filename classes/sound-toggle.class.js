@@ -4,7 +4,7 @@ class SoundToggle extends DrawableObject {
     x = 678;
     y = 8;
 
-    soundOn = true;
+    musicOn = true;
 
     IMAGES = ['./assets/img/sound_on.svg', './assets/img/sound_off.svg'];
 
@@ -14,7 +14,7 @@ class SoundToggle extends DrawableObject {
     }
 
     switchSound() {
-        if (this.soundOn) {
+        if (this.musicOn) {
             this.loadImage(this.IMAGES[1]);
         } else {
             this.loadImage(this.IMAGES[0]);
