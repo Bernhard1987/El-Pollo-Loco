@@ -16,6 +16,7 @@ class MovableObject extends DrawableObject {
 
     walkingSoundPlayed = false;
     collision = true;
+    soundOn = true;
 
     objectIntervals = [];
 

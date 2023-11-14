@@ -27,15 +27,15 @@ function menuClose() {
     showOrHide('show', 'menu-start');
 }
 
-function soundSwitch() {
+function musicSwitch() {
     if (world.musicOn) {
         world.musicOn = false;
-        document.getElementById('menu-sound-text').innerHTML = 'SOUND: OFF';
+        document.getElementById('menu-sound-text').innerHTML = 'MUSIC: OFF';
         document.getElementById('menu-sound-img').src = './assets/img/sound_off.svg';
         document.getElementById('ingame-overlay-sound').src = './assets/img/sound_off.svg';
     } else if (!world.musicOn) {
         world.musicOn = true;
-        document.getElementById('menu-sound-text').innerHTML = 'SOUND: ON';
+        document.getElementById('menu-sound-text').innerHTML = 'MUSIC: ON';
         document.getElementById('menu-sound-img').src = './assets/img/sound_on.svg';
         document.getElementById('ingame-overlay-sound').src = './assets/img/sound_on.svg';
     }

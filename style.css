@@ -196,7 +196,7 @@ footer {
 .ingame-overlay-row-top {
     justify-content: right;
     align-items: center;
-    height: 12%;
+    height: 16%;
 }
 
 .ingame-overlay-sound {
@@ -212,7 +212,7 @@ footer {
 .ingame-overlay-row-bottom {
     justify-content: space-between;
     align-items: center;
-    height: 20%;
+    height: 25%;
 }
 
 .ingame-overlay-mobile-group {

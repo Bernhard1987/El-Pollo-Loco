@@ -26,6 +26,7 @@ class World {
 
     gameStarted = false;
     musicOn = true;
+    soundOn = true;
 
     constructor(canvas, keyboard) {
         let initLevel = setInterval(() => {
@@ -40,6 +41,7 @@ class World {
                 this.setWorld();
                 this.run();
                 this.playBackgroundMusic();
+                this.setObjectSounds();
                 clearInterval(initLevel);
             }
         }, 100);
@@ -70,26 +72,39 @@ class World {
             }
             this.background_music.play();
         }, 1);
+    }
 
+    setObjectSounds() {
+        setInterval(() => {
+            if (!this.soundOn) {
+                this.level.enemies.forEach(enemy => {
+                    enemy.soundOn = 'false';
+                });
+            } else {
+                this.level.enemies.forEach(enemy => {
+                    enemy.soundOn = 'true';
+                });
+            }
+        }, 1);
     }
 
     checkCollisionsEnemy() {
         for (let i = 0; i < this.level.enemies.length; i++) {
             const enemy = this.level.enemies[i];
             if (this.character.isColliding(enemy)) {
-                this.checkTypeOfHit(enemy, i);
+                this.checkTypeOfHit(enemy);
                 this.statusBarHealth.setPercentage(this.character.health);
             }
             this.checkCollisionsThrowableObjects(enemy, i);
         }
     }
 
-    checkTypeOfHit(enemy, i) {
+    checkTypeOfHit(enemy) {
         if (this.character.speedY >= 0 && enemy.damage > 0) {
             this.typeGetHit(enemy);
         } else if (this.hitEnemyOnAir(enemy) || this.hitEnemyOnGround(enemy)) { // wenn speedY negativ ist und enemy kein Endboss ist
             setTimeout(() => {
-                this.typeJumpOnEnemy(enemy, i);
+                this.typeJumpOnEnemy(enemy);
             }, 1);
 
         }
@@ -109,22 +124,25 @@ class World {
         this.character.get_hit.play();
     }
 
-    typeJumpOnEnemy(enemy, i) {
+    typeJumpOnEnemy(enemy) {
         enemy.health = 0;
         enemy.damage = 0;
         this.character.jumpOnEnemy();
-        this.destroyEnemy(enemy, i);
+        this.destroyEnemy(enemy);
     }
 
-    destroyEnemy(enemy, i) {
+    destroyEnemy(enemy) {
         if (enemy.isDead()) {
             this.stopAllObjectIntervals(enemy);
             enemy.collision = false;
             enemy.playSoundDead();
             enemy.showDeadImage();
             setTimeout(() => {
-                this.level.enemies.splice(i, 1);
-                console.log('enemy deleted:', enemy);
+                const index = this.level.enemies.findIndex(e => e === enemy);
+                if (index !== -1) {
+                    this.level.enemies.splice(index, 1);
+                    console.log('enemy deleted:', enemy);
+                }
             }, 200);
         }
         if (enemy.isDead() && enemy instanceof Endboss) {
