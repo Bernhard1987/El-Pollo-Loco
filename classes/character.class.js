@@ -143,7 +143,7 @@ class Character extends MovableObject {
     }
 
     playAnimationJumpUp() {
-        if (this.speedY > 18) {
+        if (this.speedY >= 18) {
             this.loadImage(this.IMAGES_JUMP_UP[0]);
         }else if (this.speedY > 12) {
             this.loadImage(this.IMAGES_JUMP_UP[1]);
