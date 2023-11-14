@@ -34,6 +34,7 @@ class ChickenSmall extends MovableObject {
         this.speed = 0.5 + Math.random() * 0.5;
         this.addChickenSound();
         this.playEnemySound();
+        this.setSoundVolume();
         this.applyGravity(this.floor);
         this.animate();
     }
@@ -67,19 +68,16 @@ class ChickenSmall extends MovableObject {
 
     playEnemySound() {
         let soundEnemyInterval = setInterval(() => {
-            this.sound_enemy.volume = this.sound_enemy_volume;
             this.sound_enemy.play();
         }, (5000 + (Math.random() * 15000)));
         this.pushToObjectInterval(soundEnemyInterval);
     }
 
     playSoundDead() {
-        this.sound_dead.volume = this.sound_dead_volume;
         this.sound_dead.play();
     }
 
     playSoundAttack() {
-        this.sound_attack.volume = this.sound_attack_volume;
         this.sound_attack.play();
     }
 }

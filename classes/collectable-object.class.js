@@ -7,10 +7,10 @@ class CollectableObject extends MovableObject {
     
     constructor() {
         super();
+        this.setSoundVolume();
     }
 
     hit() {
-        this.collect_sound.volume = this.collect_sound_volume;
         this.collect_sound.play();
     }
 }

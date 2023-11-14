@@ -78,12 +78,20 @@ class World {
         setInterval(() => {
             if (!this.soundOn) {
                 this.level.enemies.forEach(enemy => {
-                    enemy.soundOn = 'false';
+                    enemy.soundOn = false;
                 });
+                this.level.collectableObjects.forEach(object => {
+                    object.soundOn = false;
+                });
+                this.character.soundOn = false;
             } else {
                 this.level.enemies.forEach(enemy => {
-                    enemy.soundOn = 'true';
+                    enemy.soundOn = true;
                 });
+                this.level.collectableObjects.forEach(object => {
+                    object.soundOn = true;
+                });
+                this.character.soundOn = true;
             }
         }, 1);
     }
@@ -120,7 +128,6 @@ class World {
 
     typeGetHit(enemy) {
         this.character.hit(enemy.damage);
-        this.character.get_hit.volume = this.character.get_hit_volume;
         this.character.get_hit.play();
     }
 
@@ -141,7 +148,6 @@ class World {
                 const index = this.level.enemies.findIndex(e => e === enemy);
                 if (index !== -1) {
                     this.level.enemies.splice(index, 1);
-                    console.log('enemy deleted:', enemy);
                 }
             }, 200);
         }
@@ -191,7 +197,6 @@ class World {
         collectableObject.hit();
         this.actualiseStatusBar(statusbar, actualItemCounter, maxItemCount);
         this.level.collectableObjects.splice(indexOfObject, 1);
-        console.log('Coins collected: ', this.collectedCoinsCount, this.statusBarCoin.percentage, 'Bottles collected: ', this.collectedBottlesCount, this.statusBarBottle.percentage);
     }
 
     /**
@@ -244,7 +249,6 @@ class World {
     throwBottle() {
         let bottle = this.checkCurrentThrowDirection();
         bottle.world = this;
-        console.log(bottle);
         this.throwableObjects.push(bottle);
     }
 

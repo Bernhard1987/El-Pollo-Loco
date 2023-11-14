@@ -83,6 +83,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
+        this.setSoundVolume();
     }
 
     animate() {
@@ -127,7 +128,6 @@ class Character extends MovableObject {
     }
 
     playJumpSound() {
-        this.jump_sound.volume = this.jump_sound_volume;
         this.jump_sound.play();
     }
 

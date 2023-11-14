@@ -30,12 +30,26 @@ function menuClose() {
 function musicSwitch() {
     if (world.musicOn) {
         world.musicOn = false;
-        document.getElementById('menu-sound-text').innerHTML = 'MUSIC: OFF';
-        document.getElementById('menu-sound-img').src = './assets/img/sound_off.svg';
-        document.getElementById('ingame-overlay-sound').src = './assets/img/sound_off.svg';
+        document.getElementById('menu-music-text').innerHTML = 'MUSIC: OFF';
+        document.getElementById('menu-music-img').src = './assets/img/music_off.svg';
+        document.getElementById('ingame-overlay-music').src = './assets/img/music_off.svg';
     } else if (!world.musicOn) {
         world.musicOn = true;
-        document.getElementById('menu-sound-text').innerHTML = 'MUSIC: ON';
+        document.getElementById('menu-music-text').innerHTML = 'MUSIC: ON';
+        document.getElementById('menu-music-img').src = './assets/img/music_on.svg';
+        document.getElementById('ingame-overlay-music').src = './assets/img/music_on.svg';
+    }
+}
+
+function soundSwitch() {
+    if (world.soundOn) {
+        world.soundOn = false;
+        document.getElementById('menu-sound-text').innerHTML = 'SOUND: OFF';
+        document.getElementById('menu-sound-img').src = './assets/img/sound_off.svg';
+        document.getElementById('ingame-overlay-sound').src = './assets/img/sound_off.svg';
+    } else if (!world.soundOn) {
+        world.soundOn = true;
+        document.getElementById('menu-sound-text').innerHTML = 'SOUND: ON';
         document.getElementById('menu-sound-img').src = './assets/img/sound_on.svg';
         document.getElementById('ingame-overlay-sound').src = './assets/img/sound_on.svg';
     }

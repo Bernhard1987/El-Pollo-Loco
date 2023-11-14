@@ -18,7 +18,6 @@
     <script src="./classes/chicken-small.class.js"></script>
     <script src="./classes/endboss.class.js"></script>
     <script src="./classes/cloud.class.js"></script>
-    <script src="./classes/sound-toggle.class.js"></script>
     <script src="./classes/status-bar.class.js"></script>
     <script src="./classes/status-bar-health.class.js"></script>
     <script src="./classes/status-bar-coin.class.js"></script>
@@ -76,9 +75,13 @@
                 <div class="menu-background-dark">
                     <div class="menu-content">
                         <div class="menu-close" onclick="menuClose()"></div>
-                        <div class="btn btn-menu-sound" id="btn-menu-sound" onclick="musicSwitch()">
+                        <div class="btn btn-menu-sound" id="btn-menu-sound" onclick="soundSwitch()">
                             <div id="menu-sound-text">SOUND: ON</div>
                             <img id="menu-sound-img" src="./assets/img/sound_on.svg">
+                        </div>
+                        <div class="btn btn-menu-sound" id="btn-menu-music" onclick="musicSwitch()">
+                            <div id="menu-music-text">MUSIC: ON</div>
+                            <img id="menu-music-img" src="./assets/img/music_on.svg">
                         </div>
                     </div>
                 </div>
@@ -126,8 +129,15 @@
             </div>
             <div class="ingame-overlay d-none" id="ingame-overlay">
                 <div class="ingame-overlay-row ingame-overlay-row-top">
-                    <img class="ingame-overlay-sound" id="ingame-overlay-sound" src="./assets/img/sound_on.svg"
-                        onclick="musicSwitch()">
+                    <div class="ingame-overlay-sound-btn">
+                        <img class="ingame-overlay-sound" id="ingame-overlay-sound" src="./assets/img/sound_on.svg"
+                            onclick="soundSwitch()">
+                    </div>
+                    <div class="ingame-overlay-sound-btn">
+                        <img class="ingame-overlay-sound" id="ingame-overlay-music" src="./assets/img/music_on.svg"
+                            onclick="musicSwitch()">
+                    </div>
+
                 </div>
                 <div class="ingame-overlay-row ingame-overlay-row-bottom">
                     <div class="ingame-overlay-mobile-group">
@@ -159,7 +169,7 @@
             <div class="rotate-message-image-wrapper">
                 <img src="./assets/img/change_circle.svg" alt="" srcset="">
             </div>
-            
+
         </div>
     </div>
 

@@ -8,7 +8,6 @@ let fullscreenContainer;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    console.log('my character is', world.character, world.enemies);
 }
 
 function restartGame() {
@@ -82,7 +81,6 @@ window.addEventListener("keydown", (e) => {
 
 window.addEventListener("keydown", (e) => {
     if (e.key == "Escape" && fullscreenMode) {
-        console.log("Keydown event:", e.key);
         leaveFullscreenState();
     }
 });

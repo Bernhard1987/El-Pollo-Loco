@@ -28,6 +28,7 @@ class Chicken extends MovableObject {
         this.speed = 0.25 + Math.random() * 0.25;
         this.addChickenSound();
         this.playEnemySound();
+        this.setSoundVolume();
         this.animate();
     }
 
@@ -55,14 +56,12 @@ class Chicken extends MovableObject {
 
     playEnemySound() {
         let soundEnemyInterval = setInterval(() => {
-            this.sound_enemy.volume = this.sound_enemy_volume;
             this.sound_enemy.play();
         }, (5000 + (Math.random() * 15000)));
         this.pushToObjectInterval(soundEnemyInterval);
     }
 
     playSoundDead() {
-        this.sound_dead.volume = this.sound_dead_volume;
         this.sound_dead.play();
     }
 }

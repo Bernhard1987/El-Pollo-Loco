@@ -152,7 +152,7 @@ footer {
     width: 50px;
     height: 40px;
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.3);
     z-index: 10;
     transition-duration: 125ms;
@@ -196,17 +196,28 @@ footer {
 .ingame-overlay-row-top {
     justify-content: right;
     align-items: center;
-    height: 16%;
+    height: 15%;
 }
 
 .ingame-overlay-sound {
-    height: 100%;
+    height: 80%;
     transition-duration: 125ms;
 }
 
-.ingame-overlay-sound:hover {
+.ingame-overlay-sound-btn:hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+.ingame-overlay-sound-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .ingame-overlay-row-bottom {
@@ -324,6 +335,7 @@ footer {
     font-size: 2.6rem;
     text-align: center;
     text-shadow: 2px 2px 2px black;
+    gap: 32px;
     position: relative;
 }
 
@@ -345,7 +357,8 @@ footer {
     gap: 16px;
 }
 
-#menu-sound-img {
+#menu-sound-img,
+#menu-music-img {
     width: 120px;
 }
 
@@ -444,7 +457,7 @@ footer {
         text-shadow: none;
         color: white;
     }
-    
+
     footer {
         height: 80px;
     }
@@ -457,7 +470,8 @@ footer {
         color: white;
     }
 
-    .footer-container-left, .footer-container-right {
+    .footer-container-left,
+    .footer-container-right {
         height: 28px;
     }
 }
@@ -486,7 +500,7 @@ footer {
     }
 }
 
-@media screen and (max-height: 345px){
+@media screen and (max-height: 345px) {
     .menu-content {
         font-size: 24px;
     }

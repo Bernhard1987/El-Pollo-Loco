@@ -55,10 +55,10 @@ class Endboss extends MovableObject {
         './assets/img/4_enemie_boss_chicken/3_attack/G20.png'
     ];
 
-    sound_endboss_bok = new Audio('./assets/sound/boss-bok.mp3');
+    sound_enemy = new Audio('./assets/sound/boss-bok.mp3');
     sound_dead = new Audio('./assets/sound/boss-dead.mp3');
     sound_roar = new Audio('./assets/sound/boss-roar.mp3');
-    sound_endboss_bok_volume = 0.3;
+    sound_enemy_volume = 0.3;
     sound_dead_volume = 0.3;
 
     walking_sound = new Audio('./assets/sound/boss_walk1.mp3');
@@ -72,6 +72,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_ATTACK);
+        this.setSoundVolume();
         this.animate();
         this.health = this.maxHealth;
         this.x = startX;
@@ -130,17 +131,14 @@ class Endboss extends MovableObject {
     }
 
     chickenSound() {
-        this.sound_endboss_bok.volume = this.sound_endboss_bok_volume;
-        this.sound_endboss_bok.play();
+        this.sound_enemy.play();
     }
 
     playSoundDead() {
-        this.sound_dead.volume = this.sound_dead_volume;
         this.sound_dead.play();
     }
 
     playBossRoar() {
-        this.sound_dead.volume = this.sound_dead_volume;
         this.sound_roar.play();
     }
 
