@@ -18,21 +18,21 @@ class MovableObject extends DrawableObject {
     collision = true;
     soundOn = true;
 
-    sound_enemy = new Audio('./assets/sound/chirp.mp3');
+    sound_enemy;
     sound_enemy_volume = 0.1;
-    sound_dead = new Audio('./assets/sound/chirp.mp3');
+    sound_dead;
     sound_dead_volume = 0.2;
-    sound_attack = new Audio('./assets/sound/chirp.mp3');
+    sound_attack;
     sound_attack_volume = 0.1;
-    sound_roar = new Audio('./assets/sound/chirp.mp3');
-    walking_sound = new Audio('./assets/sound/chirp.mp3');
-    walking_sound_2 = new Audio('./assets/sound/chirp.mp3');
+    sound_roar;
+    walking_sound;
+    walking_sound_2;
     walking_sound_volume = 0.7;
-    jump_sound = new Audio('./assets/sound/chirp.mp3');
+    jump_sound;
     jump_sound_volume = 0.7; //0.7
-    get_hit = new Audio('./assets/sound/chirp.mp3');
+    get_hit;
     get_hit_volume = 0.2; //0.2
-    collect_sound = new Audio('./assets/sound/chirp.mp3');
+    collect_sound;
     collect_sound_volume = 0.4;
 
 
@@ -138,29 +138,47 @@ class MovableObject extends DrawableObject {
         this.pushToObjectInterval(soundVolumeInterval);
     }
 
+    setSoundVolume() {
+        let soundVolumeInterval = setInterval(() => {
+            if (!this.soundOn) {
+                this.setSoundOff();
+            } else {
+                this.setSoundVolumes();
+            }
+        }, 1);
+        this.pushToObjectInterval(soundVolumeInterval);
+    }
+    
     setSoundOff() {
-        this.sound_enemy.volume = 0;
-        this.sound_dead.volume = 0;
-        this.sound_attack.volume = 0;
-        this.sound_roar.volume = 0;
-        this.walking_sound.volume = 0;
-        this.walking_sound_2.volume = 0;
-        this.jump_sound.volume = 0;
-        this.get_hit.volume = 0;
-        this.collect_sound.volume = 0;
+        this.setSoundVolumeForAudio(this.sound_enemy, 0);
+        this.setSoundVolumeForAudio(this.sound_dead, 0);
+        this.setSoundVolumeForAudio(this.sound_attack, 0);
+        this.setSoundVolumeForAudio(this.sound_roar, 0);
+        this.setSoundVolumeForAudio(this.walking_sound, 0);
+        this.setSoundVolumeForAudio(this.walking_sound_2, 0);
+        this.setSoundVolumeForAudio(this.jump_sound, 0);
+        this.setSoundVolumeForAudio(this.get_hit, 0);
+        this.setSoundVolumeForAudio(this.collect_sound, 0);
     }
-
+    
     setSoundVolumes() {
-        this.sound_enemy.volume = this.sound_enemy_volume;
-        this.sound_dead.volume = this.sound_dead_volume;
-        this.sound_attack.volume = this.sound_attack_volume;
-        this.sound_roar.volume = this.sound_enemy_volume;
-        this.walking_sound.volume = this.walking_sound_volume;
-        this.walking_sound_2.volume = this.walking_sound_volume;
-        this.jump_sound.volume = this.jump_sound_volume;
-        this.get_hit.volume = this.get_hit_volume;
-        this.collect_sound.volume = this.collect_sound_volume;
+        this.setSoundVolumeForAudio(this.sound_enemy, this.sound_enemy_volume);
+        this.setSoundVolumeForAudio(this.sound_dead, this.sound_dead_volume);
+        this.setSoundVolumeForAudio(this.sound_attack, this.sound_attack_volume);
+        this.setSoundVolumeForAudio(this.sound_roar, this.sound_enemy_volume);
+        this.setSoundVolumeForAudio(this.walking_sound, this.walking_sound_volume);
+        this.setSoundVolumeForAudio(this.walking_sound_2, this.walking_sound_volume);
+        this.setSoundVolumeForAudio(this.jump_sound, this.jump_sound_volume);
+        this.setSoundVolumeForAudio(this.get_hit, this.get_hit_volume);
+        this.setSoundVolumeForAudio(this.collect_sound, this.collect_sound_volume);
     }
+    
+    setSoundVolumeForAudio(audio, volume) {
+        if (audio instanceof Audio) {
+            audio.volume = volume;
+        }
+    }
+    
 
     moveRight() {
         this.x += this.speed;

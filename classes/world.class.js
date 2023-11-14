@@ -44,7 +44,6 @@ class World {
                 clearInterval(initLevel);
             }
         }, 100);
-
     }
 
     setWorld() {

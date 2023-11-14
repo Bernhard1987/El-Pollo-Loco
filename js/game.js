@@ -8,16 +8,70 @@ let fullscreenContainer;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    loadSettings();
 }
 
 function restartGame() {
     showOrHide('hide', 'menu-game-over');
     clearAllIntervals();
-    // world.background_music.stop();
     world = '';
     init();
     menuStartGame();
 }
+
+function loadLocalStorage() {
+    const musicOnFromStorage = localStorage.getItem('musicOn');
+    const soundOnFromStorage = localStorage.getItem('soundOn');
+    
+    if (musicOnFromStorage !== null) {
+        world.musicOn = musicOnFromStorage === 'true'; // Konvertiere zu Boolean
+    }
+
+    if (soundOnFromStorage !== null) {
+        world.soundOn = soundOnFromStorage === 'true'; // Konvertiere zu Boolean
+    }
+}
+
+
+function saveLocalStorage(key) {
+    localStorage.setItem(key, world[key]);
+}
+
+function loadSettings() {
+    loadLocalStorage();
+    let changeSetting = false;
+    musicSwitch(changeSetting);
+    soundSwitch(changeSetting);
+}
+
+function switchSetting(setting, textElementId, imgElementId, overlayImgId, onImgSrc, offImgSrc, changeSetting) {
+    const element = document.getElementById(textElementId);
+
+    if (changeSetting) {
+        world[setting] = !world[setting];
+    }
+
+    if (world[setting]) {
+        element.innerHTML = `${setting.replace('On', '').toUpperCase()}: ON`;
+        document.getElementById(imgElementId).src = onImgSrc;
+        document.getElementById(overlayImgId).src = onImgSrc;
+    } else {
+        element.innerHTML = `${setting.replace('On', '').toUpperCase()}: OFF`;
+        document.getElementById(imgElementId).src = offImgSrc;
+        document.getElementById(overlayImgId).src = offImgSrc;
+    }
+
+    saveLocalStorage(setting);
+}
+
+function musicSwitch(changeSetting) {
+    switchSetting('musicOn', 'menu-music-text', 'menu-music-img', 'ingame-overlay-music', './assets/img/music_on.svg', './assets/img/music_off.svg', changeSetting);
+}
+
+function soundSwitch(changeSetting) {
+    switchSetting('soundOn', 'menu-sound-text', 'menu-sound-img', 'ingame-overlay-sound', './assets/img/sound_on.svg', './assets/img/sound_off.svg', changeSetting);
+}
+
 
 function btnPressEvents() {
     document.getElementById('touch-left').addEventListener('touchstart', (e) => {
