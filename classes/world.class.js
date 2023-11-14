@@ -36,7 +36,6 @@ class World {
                 this.ctx = canvas.getContext('2d');
                 this.canvas = canvas;
                 this.keyboard = keyboard;
-
                 this.draw();
                 this.setWorld();
                 this.run();
@@ -76,23 +75,10 @@ class World {
 
     setObjectSounds() {
         setInterval(() => {
-            if (!this.soundOn) {
-                this.level.enemies.forEach(enemy => {
-                    enemy.soundOn = false;
-                });
-                this.level.collectableObjects.forEach(object => {
-                    object.soundOn = false;
-                });
-                this.character.soundOn = false;
-            } else {
-                this.level.enemies.forEach(enemy => {
-                    enemy.soundOn = true;
-                });
-                this.level.collectableObjects.forEach(object => {
-                    object.soundOn = true;
-                });
-                this.character.soundOn = true;
-            }
+            const toggleSound = (element) => element.soundOn = this.soundOn;
+            this.level.enemies.forEach(toggleSound);
+            this.level.collectableObjects.forEach(toggleSound);
+            this.character.soundOn = this.soundOn;
         }, 1);
     }
 
@@ -140,23 +126,31 @@ class World {
 
     destroyEnemy(enemy) {
         if (enemy.isDead()) {
-            this.stopAllObjectIntervals(enemy);
-            enemy.collision = false;
-            enemy.playSoundDead();
-            enemy.showDeadImage();
-            setTimeout(() => {
-                const index = this.level.enemies.findIndex(e => e === enemy);
-                if (index !== -1) {
-                    this.level.enemies.splice(index, 1);
-                }
-            }, 200);
+            this.actionsAfterEnemyDead(enemy);
         }
         if (enemy.isDead() && enemy instanceof Endboss) {
-            showOrHide('hide', 'ingame-overlay');
-            showOrHide('show', 'menu-game-over');
-            clearInterval(this.bgmInterval);
-            this.background_music.pause();
+            this.actionsAfterBossDead();
         }
+    }
+
+    actionsAfterEnemyDead(enemy) {
+        this.stopAllObjectIntervals(enemy);
+        enemy.collision = false;
+        enemy.playSoundDead();
+        enemy.showDeadImage();
+        setTimeout(() => {
+            const index = this.level.enemies.findIndex(e => e === enemy);
+            if (index !== -1) {
+                this.level.enemies.splice(index, 1);
+            }
+        }, 200);
+    }
+
+    actionsAfterBossDead() {
+        showOrHide('hide', 'ingame-overlay');
+        showOrHide('show', 'menu-game-over');
+        clearInterval(this.bgmInterval);
+        this.background_music.pause();
     }
 
     stopAllObjectIntervals(enemy) {

@@ -40,17 +40,27 @@ class ChickenSmall extends MovableObject {
     }
 
     animate() {
+        this.moveLeft();
+        this.jump();
+        this.animateWalking();
+    }
+
+    moveLeft() {
         let moveLeft = setInterval(() => {
-            this.moveLeft();
+            super.moveLeft();
         }, 1000 / 60);
         this.pushToObjectInterval(moveLeft);
+    }
 
+    jump() {
         let soundEnemyInterval = setInterval(() => {
-            this.jump();
+            super.jump();
             this.playSoundAttack();
         }, 3000 + (Math.random() * 3000));
         this.pushToObjectInterval(soundEnemyInterval);
+    }
 
+    animateWalking() {
         let animateWalking = setInterval(() => {
             this.animateImages(this.IMAGES_WALKING);
         }, 1000 / 6);

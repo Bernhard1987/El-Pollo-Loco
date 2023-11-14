@@ -194,6 +194,7 @@ footer {
 }
 
 .ingame-overlay-row-top {
+    gap: 8px;
     justify-content: right;
     align-items: center;
     height: 15%;

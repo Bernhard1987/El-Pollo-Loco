@@ -33,14 +33,22 @@ class Chicken extends MovableObject {
     }
 
     animate() {
-        let moveLeft = setInterval(() => {
             this.moveLeft();
+            this.animateWalking();
+    }
+
+    moveLeft() {
+        let moveLeft = setInterval(() => {
+            super.moveLeft();
         }, 1000 / 60);
         this.pushToObjectInterval(moveLeft);
-            let animateWalking = setInterval(() => {
-                this.animateImages(this.IMAGES_WALKING);
-            }, 1000 / 6);
-            this.pushToObjectInterval(animateWalking);
+    }
+
+    animateWalking() {
+        let animateWalking = setInterval(() => {
+            this.animateImages(this.IMAGES_WALKING);
+        }, 1000 / 6);
+        this.pushToObjectInterval(animateWalking);
     }
 
     addChickenSound() {

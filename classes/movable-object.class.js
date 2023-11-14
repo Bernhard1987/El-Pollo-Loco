@@ -130,28 +130,36 @@ class MovableObject extends DrawableObject {
     setSoundVolume() {
         let soundVolumeInterval = setInterval(() => {
             if (!this.soundOn) {
-                this.sound_enemy.volume = 0;
-                this.sound_dead.volume = 0;
-                this.sound_attack.volume = 0;
-                this.sound_roar.volume = 0;
-                this.walking_sound.volume = 0;
-                this.walking_sound_2.volume = 0;
-                this.jump_sound.volume = 0;
-                this.get_hit.volume = 0;
-                this.collect_sound.volume = 0;
+                this.setSoundOff();
             } else {
-                this.sound_enemy.volume = this.sound_enemy_volume;
-                this.sound_dead.volume = this.sound_dead_volume;
-                this.sound_attack.volume = this.sound_attack_volume;
-                this.sound_roar.volume = this.sound_enemy_volume;
-                this.walking_sound.volume = this.walking_sound_volume;
-                this.walking_sound_2.volume = this.walking_sound_volume;
-                this.jump_sound.volume = this.jump_sound_volume;
-                this.get_hit.volume = this.get_hit_volume;
-                this.collect_sound.volume = this.collect_sound_volume;
+                this.setSoundVolumes();
             }
         }, 1);
         this.pushToObjectInterval(soundVolumeInterval);
+    }
+
+    setSoundOff() {
+        this.sound_enemy.volume = 0;
+        this.sound_dead.volume = 0;
+        this.sound_attack.volume = 0;
+        this.sound_roar.volume = 0;
+        this.walking_sound.volume = 0;
+        this.walking_sound_2.volume = 0;
+        this.jump_sound.volume = 0;
+        this.get_hit.volume = 0;
+        this.collect_sound.volume = 0;
+    }
+
+    setSoundVolumes() {
+        this.sound_enemy.volume = this.sound_enemy_volume;
+        this.sound_dead.volume = this.sound_dead_volume;
+        this.sound_attack.volume = this.sound_attack_volume;
+        this.sound_roar.volume = this.sound_enemy_volume;
+        this.walking_sound.volume = this.walking_sound_volume;
+        this.walking_sound_2.volume = this.walking_sound_volume;
+        this.jump_sound.volume = this.jump_sound_volume;
+        this.get_hit.volume = this.get_hit_volume;
+        this.collect_sound.volume = this.collect_sound_volume;
     }
 
     moveRight() {

@@ -87,23 +87,42 @@ class Character extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.world.camera_x = -this.x + 100;
-            }
-            if (this.world.keyboard.LEFT && this.x > -360) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.world.camera_x = -this.x + 100;
-            }
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.jump();
-                this.playJumpSound();
-            }
-        }, 1000 / 60);
+        this.controlCharacter();
+        this.playAnimations();        
+    }
 
+    controlCharacter() {
+        setInterval(() => {
+            this.moveLeft();
+            this.moveRight();
+            this.jump();
+        }, 1000 / 60);
+    }
+
+    moveRight() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            super.moveRight();
+            this.otherDirection = false;
+            this.world.camera_x = -this.x + 100;
+        }
+    }
+
+    moveLeft() {
+        if (this.world.keyboard.LEFT && this.x > -360) {
+            super.moveLeft();
+            this.otherDirection = true;
+            this.world.camera_x = -this.x + 100;
+        }
+    }
+
+    jump() {
+        if (this.world.keyboard.UP && !this.isAboveGround()) {
+            super.jump();
+            this.playJumpSound();
+        }
+    }
+
+    playAnimations() {
         let hasPlayedDeadAnimation = false;
 
         setInterval(() => {
@@ -113,14 +132,40 @@ class Character extends MovableObject {
             } else if (this.isHurt()) {
                 this.animateImages(this.IMAGES_HURT);
             } else if (this.isAboveGround() && this.speedY > 0) {
-                this.animateImages(this.IMAGES_JUMP_UP);
+                this.playAnimationJumpUp();
             } else if (this.isAboveGround() && this.speedY <= 0){
-                this.animateImages(this.IMAGES_JUMP_DOWN);
+                this.playAnimationJumpDown();
             }  else {
                 this.animateImages(this.IMAGES_IDLE);
                 this.walk();
             }
         }, 1000 / 10);
+    }
+
+    playAnimationJumpUp() {
+        if (this.speedY > 18) {
+            this.loadImage(this.IMAGES_JUMP_UP[0]);
+        }else if (this.speedY > 12) {
+            this.loadImage(this.IMAGES_JUMP_UP[1]);
+        } else if (this.speedY > 6) {
+            this.loadImage(this.IMAGES_JUMP_UP[2]);
+        } else {
+            this.loadImage(this.IMAGES_JUMP_UP[3]);
+        }
+    }
+
+    playAnimationJumpDown() {
+        if (this.speedY > -3) {
+            this.loadImage(this.IMAGES_JUMP_DOWN[0]);
+        } else if (this.speedY <= -3) {
+            this.loadImage(this.IMAGES_JUMP_DOWN[1]);
+        } else if (this.speedY < -6) {
+            this.loadImage(this.IMAGES_JUMP_DOWN[2]);
+        } else if (this.speedY < -12) {
+            this.loadImage(this.IMAGES_JUMP_DOWN[3]);
+        } else {
+            this.loadImage(this.IMAGES_JUMP_DOWN[4]);
+        }
     }
 
     jumpOnEnemy() {
