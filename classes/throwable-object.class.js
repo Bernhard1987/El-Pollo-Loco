@@ -7,6 +7,9 @@ class ThrowableObject extends MovableObject {
     floorCoord = 350;
     damage = 100;
 
+    animateInterval;
+    splashInterval;
+
     IMAGES_BOTTLE_ROTATION = [
         './assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         './assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -23,9 +26,47 @@ class ThrowableObject extends MovableObject {
 
     constructor(x, y, otherDirection) {
         super().loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');
+        this.loadImages(this.IMAGES_BOTTLE_ROTATION);
+        this.loadImages(this.IMAGES_BOTTLE_SPLASH);
         this.x = x;
         this.y = y;
         this.throw(x, y, otherDirection);
+        this.animate();
+    }
+
+    animate() {
+        this.animateInterval = setInterval(() => {
+            this.animateImages(this.IMAGES_BOTTLE_ROTATION);
+        }, 1000 / 8);
+        this.pushToObjectInterval(this.animateInterval);
+    }
+
+    animateSplash() {
+        this.splashInterval = setInterval(() => {
+            this.animateImages(this.IMAGES_BOTTLE_SPLASH);
+        }, 1000 / 8);
+    }
+
+    hit(enemy) {
+        if (this.collision) {
+            enemy.hit(this.damage);
+            this.animateSplash();
+        }
+        this.stopBottleOnCollision();
+    }
+
+    hitGround() {
+        if (this.collision) {
+            this.animateSplash();
+        }
+        this.stopBottleOnCollision();
+    }
+
+    stopBottleOnCollision() {
+        clearInterval(this.animateInterval);
+        this.speedX = 0;
+        this.speedY = 0;
+        this.collision = false;
     }
 
     throw(x, y, otherDirection) {

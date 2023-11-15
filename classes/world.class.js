@@ -54,6 +54,7 @@ class World {
         setInterval(() => {
             this.checkCollisionsCollectableObjects();
             this.checkCollisionsEnemy();
+            this.checkGroundCollisionThrowableObjects();
             this.startBossFight();
         }, 1000 / 60);
         setInterval(() => {
@@ -88,7 +89,7 @@ class World {
                 this.checkTypeOfHit(enemy);
                 this.statusBarHealth.setPercentage(this.character.health);
             }
-            this.checkCollisionsThrowableObjects(enemy, i);
+            this.checkEnemyCollisionThrowableObjects(enemy, i);
         }
     }
 
@@ -142,7 +143,7 @@ class World {
             if (index !== -1) {
                 this.level.enemies.splice(index, 1);
             }
-        }, 200);
+        }, 500);
     }
 
     actionsAfterBossDead() {
@@ -212,15 +213,30 @@ class World {
     }
 
 
-    checkCollisionsThrowableObjects(enemy, indexEnemy) {
+    checkEnemyCollisionThrowableObjects(enemy, indexEnemy) {
         for (let i = 0; i < this.throwableObjects.length; i++) {
             const bottle = this.throwableObjects[i];
             if (bottle.isColliding(enemy)) {
-                bottle.hit();
-                enemy.health = enemy.health - bottle.damage;
-                this.throwableObjects.splice(bottle, 1);
+                bottle.hit(enemy);
+                setTimeout(() => {
+                    clearInterval(bottle.animateSplash);
+                    this.throwableObjects.splice(bottle, 1);
+                }, 500);
                 this.actualiseBossStatusBar(enemy);
                 this.destroyEnemy(enemy, indexEnemy);
+            }
+        }
+    }
+
+    checkGroundCollisionThrowableObjects() {
+        for (let i = 0; i < this.throwableObjects.length; i++) {
+            const bottle = this.throwableObjects[i];
+            if (bottle.y >= bottle.floorCoord) {
+                bottle.hitGround();
+                setTimeout(() => {
+                    clearInterval(bottle.animateSplash);
+                    this.throwableObjects.splice(bottle, 1);
+                }, 500);
             }
         }
     }

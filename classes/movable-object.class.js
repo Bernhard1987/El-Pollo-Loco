@@ -65,11 +65,8 @@ class MovableObject extends DrawableObject {
         //     this.speedY = this.jumpSpeedY() / 2; //what to do after character is dead
         //     this.floorCoord = 200;
         // }
-        if (this instanceof ThrowableObject) { //apply ThrowableObject falling through ground, may be removed later for bottle splash on ground
-            return true;
-        } else {
             return this.y < this.floorCoord; //leave this if splash on ground/enemy added
-        }
+        // }
     }
 
     hit(damage) {

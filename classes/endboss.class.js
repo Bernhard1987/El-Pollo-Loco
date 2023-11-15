@@ -9,6 +9,8 @@ class Endboss extends MovableObject {
     damage = 1;
     maxHealth = 800;
     speed = 4;
+    isHurtImgDuration = 0.5;
+
     bossTriggered = false;
     walk = true;
     moveLeftInterval;
@@ -80,10 +82,10 @@ class Endboss extends MovableObject {
 
     animate() {
         let animate = setInterval(() => {
-            if (this.bossTriggered && this.walk) {
-                this.animateImages(this.IMAGES_WALKING);
-            } else if (this.isHurt()) {
+            if (this.isHurt()) {
                 this.animateImages(this.IMAGES_HURT);
+            } else if (this.bossTriggered && this.walk) {
+                this.animateImages(this.IMAGES_WALKING);
             } else {
                 this.animateImages(this.IMAGES_ALERT);
             }
