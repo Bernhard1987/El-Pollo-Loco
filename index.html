@@ -42,7 +42,7 @@
             <img id="fullscreen-img" src="./assets/img/fullscreen.svg" alt="Fullscreen">
         </div>
         <div class="game-overlay">
-            <div class="menu-background menu-start" id="menu-start">
+            <div class="menu-background menu-start d-none" id="menu-start">
                 <div class="menu-start-btn-row">
                     <div class="btn" onclick="menuShowSettings()">SETTINGS</div>
                     <div class="btn btn-mobile-hide" onclick="menuShowControls()">CONTROLS</div>
@@ -53,10 +53,23 @@
                 </div>
             </div>
 
-            <div class="menu-game-over d-none" id="menu-game-over">
-                <div class="menu-start-btn-row">
-                    <div class="btn" onclick="restartGame()">PLAY AGAIN</div>
+            <div class="menu-game-over" id="menu-game-over">
+                <div class="menu-content flex-column menu-content-stats">
+                    <div class="stat-box menu-background-dark flex-column" id="stat-box">
+                        <h2>You have beaten the chicken!</h2>
+                        <p>From that day on, Pepe was known as the man who tamed the crazy chickens, and his village lived in peace once again.</p>
+                        <p>Thank you for playing!</p>
+                        <div class="stat-row">
+                            <div class="stat">
+                                <img src="./assets/img/coin_stat.png" alt="" srcset=""> 20 / 20
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-start-btn-row btn-stats">
+                        <div class="btn" onclick="restartGame()">PLAY AGAIN</div>
+                    </div>
                 </div>
+
             </div>
 
             <div class="menu-background menu-story d-none" id="menu-story">

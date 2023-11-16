@@ -19,6 +19,8 @@ class Character extends MovableObject {
     get_hit = new Audio('./assets/sound/get_hit2.mp3');
     get_hit_volume = 0.2; //0.2
 
+    animationInterval = [];
+
 
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
@@ -88,7 +90,7 @@ class Character extends MovableObject {
 
     animate() {
         this.controlCharacter();
-        this.playAnimations();        
+        this.playAnimations();
     }
 
     controlCharacter() {
@@ -123,29 +125,26 @@ class Character extends MovableObject {
     }
 
     playAnimations() {
-        let hasPlayedDeadAnimation = false;
-
-        setInterval(() => {
-            if (this.isDead() && !hasPlayedDeadAnimation) {
-                this.animateImages(this.IMAGES_DEAD);
-                hasPlayedDeadAnimation = true;
-            } else if (this.isHurt()) {
+        let animation = setInterval(() => {
+            if (this.isHurt()) {
                 this.animateImages(this.IMAGES_HURT);
             } else if (this.isAboveGround() && this.speedY > 0) {
                 this.playAnimationJumpUp();
-            } else if (this.isAboveGround() && this.speedY <= 0){
+            } else if (this.isAboveGround() && this.speedY <= 0) {
                 this.playAnimationJumpDown();
-            }  else {
+            } else {
                 this.animateImages(this.IMAGES_IDLE);
                 this.walk();
             }
         }, 1000 / 10);
+        this.pushToObjectInterval(animation);
+        this.animationInterval.push(animation);
     }
 
     playAnimationJumpUp() {
         if (this.speedY >= 18) {
             this.loadImage(this.IMAGES_JUMP_UP[0]);
-        }else if (this.speedY > 12) {
+        } else if (this.speedY > 12) {
             this.loadImage(this.IMAGES_JUMP_UP[1]);
         } else if (this.speedY > 6) {
             this.loadImage(this.IMAGES_JUMP_UP[2]);
@@ -166,6 +165,24 @@ class Character extends MovableObject {
         } else {
             this.loadImage(this.IMAGES_JUMP_DOWN[4]);
         }
+    }
+
+    playAnimationDead() {
+            setInterval(() => {
+                this.animateImages(this.IMAGES_DEAD);
+            }, 1000 / 7);
+    }
+
+    checkAlive() {
+            if (this.isDead()) {
+                this.collision = false;
+                this.speedY = 0;
+                this.speedX = 0;
+                // this.speedY = this.jumpSpeedY() / 2;
+                clearInterval(this.animationInterval);
+                this.playAnimationDead;
+                world.gameOver('characterDead');
+            }
     }
 
     jumpOnEnemy() {

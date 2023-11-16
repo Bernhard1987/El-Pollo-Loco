@@ -61,12 +61,7 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        // if (this instanceof Character && this.health <= 0) {
-        //     this.speedY = this.jumpSpeedY() / 2; //what to do after character is dead
-        //     this.floorCoord = 200;
-        // }
-            return this.y < this.floorCoord; //leave this if splash on ground/enemy added
-        // }
+            return this.y < this.floorCoord;
     }
 
     hit(damage) {

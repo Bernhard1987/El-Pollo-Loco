@@ -56,6 +56,7 @@ class World {
             this.checkCollisionsEnemy();
             this.checkGroundCollisionThrowableObjects();
             this.startBossFight();
+            this.character.checkAlive();
         }, 1000 / 60);
         setInterval(() => {
             this.checkThrowObjects();
@@ -129,7 +130,7 @@ class World {
             this.actionsAfterEnemyDead(enemy);
         }
         if (enemy.isDead() && enemy instanceof Endboss) {
-            this.actionsAfterBossDead();
+            this.gameOver('bossDead');
         }
     }
 
@@ -146,11 +147,35 @@ class World {
         }, 500);
     }
 
-    actionsAfterBossDead() {
-        showOrHide('hide', 'ingame-overlay');
-        showOrHide('show', 'menu-game-over');
-        clearInterval(this.bgmInterval);
-        this.background_music.pause();
+    actionsAfterGameOver() {
+        setTimeout(() => {
+            showOrHide('hide', 'ingame-overlay');
+            showOrHide('show', 'menu-game-over');
+            clearInterval(this.bgmInterval);
+            this.background_music.pause();
+        }, 1000);
+    }
+
+    gameOver(gameOverType) {
+        let gameOverTitle;
+        let gameOverText;
+        if (gameOverType == 'bossDead') {
+            gameOverTitle = 'Congrats! You have beaten the chicken boss!';
+            gameOverText = `From that day on, Pepe was known as the man who tamed 
+                            the crazy chickens, and his village lived in peace once again.`;
+            this.actionsAfterGameOver();
+        } else if (gameOverType == 'characterDead') {
+            gameOverTitle = 'Oh no! You are dead!';
+            gameOverText = 'On your mission to put things in order, you tragically died!';
+        } else if (gameOverType == 'bossEscaped') {
+            gameOverTitle = 'The chicken boss escaped!';
+            gameOverText = `You let the boss escape! Now you have to worry that he&apos;ll 
+                            come back with his friends and beat you up.`;
+        } else {
+            gameOverTitle = 'Error';
+            gameOverText = 'An error accured on gameOver(gameOverType)';
+        }
+        document.getElementById('stat-box').innerHTML = statBoxTemplate(gameOverTitle, gameOverText, this.collectedCoinsCount, this.maxItemCoin);
     }
 
     stopAllObjectIntervals(enemy) {
@@ -218,10 +243,7 @@ class World {
             const bottle = this.throwableObjects[i];
             if (bottle.isColliding(enemy)) {
                 bottle.hit(enemy);
-                setTimeout(() => {
-                    clearInterval(bottle.animateSplash);
-                    this.throwableObjects.splice(bottle, 1);
-                }, 500);
+                this.deleteBottle(bottle);
                 this.actualiseBossStatusBar(enemy);
                 this.destroyEnemy(enemy, indexEnemy);
             }
@@ -233,14 +255,18 @@ class World {
             const bottle = this.throwableObjects[i];
             if (bottle.y >= bottle.floorCoord) {
                 bottle.collidesGround();
-                setTimeout(() => {
-                    const index = this.throwableObjects.findIndex(e => e === bottle);
-                    if (index !== -1) {
-                        this.throwableObjects.splice(index, 1);
-                    }
-                }, 500);
+                this.deleteBottle(bottle);
             }
         }
+    }
+
+    deleteBottle(bottle) {
+        setTimeout(() => {
+            const index = this.throwableObjects.findIndex(e => e === bottle);
+            if (index !== -1) {
+                this.throwableObjects.splice(index, 1);
+            }
+        }, 500);
     }
 
     /**

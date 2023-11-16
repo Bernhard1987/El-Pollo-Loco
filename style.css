@@ -45,6 +45,10 @@ h1 {
         1px 1px 0 #000;
 }
 
+h2 {
+    font-size: 36px;
+}
+
 h3 {
     font-size: 32px;
 }
@@ -101,6 +105,10 @@ footer {
 .btn:hover {
     transform: scale(1.1);
     cursor: pointer;
+}
+
+.flex-column {
+    flex-direction: column !important;
 }
 
 .rotate-message-container {
@@ -308,8 +316,8 @@ footer {
 .menu-game-over {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: 32px;
+    justify-content: center;
+    /* padding-bottom: 32px; */
     width: 100%;
     height: 100%;
     background: url('./assets/img/9_intro_outro_screens/game_over/gameover.png');
@@ -356,6 +364,36 @@ footer {
     width: 200px;
     height: 200px;
     gap: 16px;
+}
+
+.menu-content-stats {
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 30px;
+    padding-top: 24px;
+    padding-bottom: 0;
+    gap: 16px;
+    border-radius: 12px;
+}
+
+.stat-box p {
+    font-size: 30px;
+}
+.stat {
+    display: flex;
+    text-align: center;
+    gap: 16px;
+}
+
+.stat img {
+    width: 40px;
 }
 
 #menu-sound-img,
@@ -438,8 +476,8 @@ footer {
 
     .menu-content {
         font-size: 28px;
-        padding-left: 32px;
-        padding-right: 32px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .btn-mobile-hide {
@@ -481,6 +519,10 @@ footer {
     .rotate-message-container {
         display: flex;
     }
+
+    .btn-stats {
+        padding: 0;
+    }
 }
 
 @media screen and (max-height: 480px) {
@@ -498,6 +540,17 @@ footer {
 
     .controls-container {
         display: none;
+    }
+}
+
+@media screen and (max-height: 414px){
+    .stat-box {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .stat-box p {
+        font-size: 20px;
     }
 }
 

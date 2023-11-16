@@ -34,3 +34,17 @@ function showOrHide(showOrHide, elementId) {
         document.getElementById(elementId).classList.add('d-none');
     }
 }
+
+function statBoxTemplate(gameOverTitle, gameOverText, collectedCoinsCount, maxItemCoin) {
+    let statbox = /*html*/`
+        <h2>${gameOverTitle}</h2>
+        <p>${gameOverText}</p>
+        <p>Thank you for playing!</p>
+        <div class="stat-row">
+        <div class="stat">
+            <img src="./assets/img/coin_stat.png" alt="Coins collected"> ${collectedCoinsCount} / ${maxItemCoin}
+        </div>
+    </div>`;
+    
+    return statbox;
+}
