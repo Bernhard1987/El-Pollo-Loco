@@ -1,4 +1,18 @@
+/**
+ * Class representing a drawable object.
+ */
+
 class DrawableObject {
+    /**
+     * @property {number} x - The x-coordinate of the object's position.
+     * @property {number} y - The y-coordinate of the object's position.
+     * @property {number} height - The height of the object.
+     * @property {number} width - The width of the object.
+     * @property {boolean} showCollisionFrame - Flag to indicate whether to display the collision frame of the object.
+     * @property {HTMLImageElement} img - The image element representing the object's image.
+     * @property {Object.<string, HTMLImageElement>} imageCache - Cache for storing loaded images with their paths as keys.
+     * @property {number} currentImage - Index of the currently displayed image in case of multiple images.
+     */
     x = 100;
     y = 120;
     height = 100;
