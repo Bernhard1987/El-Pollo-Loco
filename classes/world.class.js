@@ -232,10 +232,12 @@ class World {
         for (let i = 0; i < this.throwableObjects.length; i++) {
             const bottle = this.throwableObjects[i];
             if (bottle.y >= bottle.floorCoord) {
-                bottle.hitGround();
+                bottle.collidesGround();
                 setTimeout(() => {
-                    clearInterval(bottle.animateSplash);
-                    this.throwableObjects.splice(bottle, 1);
+                    const index = this.throwableObjects.findIndex(e => e === bottle);
+                    if (index !== -1) {
+                        this.throwableObjects.splice(index, 1);
+                    }
                 }, 500);
             }
         }

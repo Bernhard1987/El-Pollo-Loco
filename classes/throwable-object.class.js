@@ -55,7 +55,7 @@ class ThrowableObject extends MovableObject {
         this.stopBottleOnCollision();
     }
 
-    hitGround() {
+    collidesGround() {
         if (this.collision) {
             this.animateSplash();
         }
