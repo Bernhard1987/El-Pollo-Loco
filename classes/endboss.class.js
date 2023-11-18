@@ -16,8 +16,9 @@ class Endboss extends MovableObject {
      * @property {number} isHurtImgDuration - The duration of the hurt animation in seconds.
      * @property {boolean} bossTriggered - Flag indicating if the boss has been triggered.
      * @property {boolean} walk - Flag indicating if the end boss is walking.
+     * @property {number} moveDuration - Duration for boss movement moveLeft in milliseconds
+     * @property {number} stopDuration - Duration for boss movement stopAndRoar in milliseconds
      * @property {number} moveLeftInterval - The interval ID for the left movement.
-     * @property {number} stopAndRoarInterval - The interval ID for stopping and roaring.
      * @property {string[]} IMAGES_WALKING - Array of file paths for walking animation images.
      * @property {string[]} IMAGES_DEAD - Array of file paths for dead animation images.
      * @property {string[]} IMAGES_ALERT - Array of file paths for alert animation images.
@@ -51,7 +52,7 @@ class Endboss extends MovableObject {
     collisionStartOffsetY = 24;
     damage = 1;
     maxHealth = 800;
-    speed = 4;
+    speed = 5;
     isHurtImgDuration = 0.5;
 
     bossTriggered = false;
@@ -60,7 +61,6 @@ class Endboss extends MovableObject {
     moveDuration = 2000;
     stopDuration = 1500;
     moveLeftInterval;
-    stopAndRoarInterval;
 
     IMAGES_WALKING = [
         './assets/img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -155,14 +155,13 @@ class Endboss extends MovableObject {
         this.playWalkingSound();
         this.setMovementTiming();
         this.moveLeft();
-        this.stopAndRoar();
     }
 
     /**
      * Sets the timing for movement intervals.
      */
     setMovementTiming() {
-        setInterval(() => {
+        let movementInterval = setInterval(() => {
             if (!this.walk) {
                 setTimeout(() => {
                     this.walk = true;
@@ -175,27 +174,23 @@ class Endboss extends MovableObject {
                 }, this.moveDuration);
             }
         }, this.stopDuration + this.moveDuration);
+        this.pushToObjectInterval(movementInterval);
     }
 
     /**
      * Stops movement and initiates a roar sound.
      */
     stopAndRoar() {
-        if (!this.walk) {
             this.playBossRoar();
             clearInterval(this.moveLeftInterval);
-        }
     }
 
     /**
      * Initiates the left movement interval.
      */
     moveLeft() {
-        clearInterval(this.stopAndRoarInterval);
         this.moveLeftInterval = setInterval(() => {
-            if (this.walk) {
                 super.moveLeft();
-            }
         }, 1000 / 60);
     }
 
