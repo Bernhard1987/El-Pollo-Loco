@@ -369,6 +369,7 @@ footer {
 .menu-content-stats {
     justify-content: space-between;
     gap: 8px;
+    border-radius: unset !important;
 }
 
 .stat-box {

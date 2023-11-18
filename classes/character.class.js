@@ -18,6 +18,8 @@ class Character extends MovableObject {
     jump_sound_volume = 0.7; //0.7
     get_hit = new Audio('./assets/sound/get_hit2.mp3');
     get_hit_volume = 0.2; //0.2
+    sound_dead = new Audio('./assets/sound/char-dead.mp3');
+    sound_dead_volume = 0.2;
 
     animationInterval = [];
 
@@ -102,7 +104,7 @@ class Character extends MovableObject {
     }
 
     moveRight() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
             super.moveRight();
             this.otherDirection = false;
             this.world.camera_x = -this.x + 100;
@@ -110,7 +112,7 @@ class Character extends MovableObject {
     }
 
     moveLeft() {
-        if (this.world.keyboard.LEFT && this.x > -360) {
+        if (this.world.keyboard.LEFT && this.x > -360 && !this.isDead()) {
             super.moveLeft();
             this.otherDirection = true;
             this.world.camera_x = -this.x + 100;
@@ -118,7 +120,7 @@ class Character extends MovableObject {
     }
 
     jump() {
-        if (this.world.keyboard.UP && !this.isAboveGround()) {
+        if (this.world.keyboard.UP && !this.isAboveGround() && !this.isDead()) {
             super.jump();
             this.playJumpSound();
         }
@@ -126,7 +128,7 @@ class Character extends MovableObject {
 
     playAnimations() {
         let animation = setInterval(() => {
-            if (this.isHurt()) {
+            if (this.isHurt() && !this.isDead()) {
                 this.animateImages(this.IMAGES_HURT);
             } else if (this.isAboveGround() && this.speedY > 0) {
                 this.playAnimationJumpUp();
@@ -168,21 +170,22 @@ class Character extends MovableObject {
     }
 
     playAnimationDead() {
-            setInterval(() => {
-                this.animateImages(this.IMAGES_DEAD);
-            }, 1000 / 7);
+        setInterval(() => {
+            this.animateImages(this.IMAGES_DEAD);
+        }, 1000 / 7);
     }
 
     checkAlive(collectedCoinsCount, maxItemCoin) {
-            if (this.isDead()) {
-                this.collision = false;
-                this.speedY = 0;
-                this.speedX = 0;
-                // this.speedY = this.jumpSpeedY() / 2;
-                clearInterval(this.animationInterval);
-                this.playAnimationDead;
-                gameOver('characterDead', collectedCoinsCount, maxItemCoin);
-            }
+        if (this.isDead()) {
+            this.collision = false;
+            this.speedY = 0;
+            this.speedX = 0;
+            // this.speedY = this.jumpSpeedY() / 2;
+            this.sound_dead.volume = this.sound_dead_volume;
+            this.sound_dead.play();
+            clearInterval(this.animationInterval);
+            gameOver('characterDead', collectedCoinsCount, maxItemCoin);
+        }
     }
 
     jumpOnEnemy() {
@@ -204,7 +207,7 @@ class Character extends MovableObject {
     }
 
     walk() {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isDead()) {
             this.animateImages(this.IMAGES_WALKING);
             this.walkingSound();
         }
