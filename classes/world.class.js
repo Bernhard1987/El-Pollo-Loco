@@ -20,8 +20,10 @@ class World {
 
     bossTriggerXCoord = 3200;
 
-    background_music = new Audio('./assets/sound/bgm.mp3');
-    bgm_volume = 0.3;
+    background_music = new Audio('./assets/sound/bgm1.mp3');
+    music_won = new Audio('./assets/sound/game_won.mp3');
+    music_lost = new Audio('./assets/sound/game_lost.mp3');
+    bgm_volume = 0.2;
     bgmInterval;
 
     gameStarted = false;
@@ -56,7 +58,8 @@ class World {
             this.checkCollisionsEnemy();
             this.checkGroundCollisionThrowableObjects();
             this.startBossFight();
-            this.character.checkAlive();
+            this.checkEnemyPosition();
+            this.character.checkAlive(this.collectedCoinsCount, this.maxItemCoin);
         }, 1000 / 60);
         setInterval(() => {
             this.checkThrowObjects();
@@ -101,7 +104,6 @@ class World {
             setTimeout(() => {
                 this.typeJumpOnEnemy(enemy);
             }, 1);
-
         }
     }
 
@@ -127,17 +129,19 @@ class World {
 
     destroyEnemy(enemy) {
         if (enemy.isDead()) {
-            this.actionsAfterEnemyDead(enemy);
+            this.actionsAfterEnemyDead(enemy, true);
         }
         if (enemy.isDead() && enemy instanceof Endboss) {
             gameOver('bossDead', this.collectedCoinsCount, this.maxItemCoin);
         }
     }
 
-    actionsAfterEnemyDead(enemy) {
+    actionsAfterEnemyDead(enemy, playSoundDead) {
         this.stopAllObjectIntervals(enemy);
         enemy.collision = false;
-        enemy.playSoundDead();
+        if (playSoundDead) {
+            enemy.playSoundDead();
+        }
         enemy.showDeadImage();
         setTimeout(() => {
             const index = this.level.enemies.findIndex(e => e === enemy);
@@ -150,6 +154,19 @@ class World {
     stopAllObjectIntervals(enemy) {
         enemy.objectIntervals.forEach(interval => {
             clearInterval(interval);
+        });
+    }
+
+    checkEnemyPosition() {
+        let enemies = this.level.enemies;
+        enemies.forEach(enemy => {
+            if (enemy instanceof Endboss && enemy.x <= -600) {
+                this.actionsAfterEnemyDead(enemy, false);
+                gameOver('bossEscaped', this.collectedCoinsCount, this.maxItemCoin);
+            } 
+            if (!(enemy instanceof Endboss) && enemy.x <= -600) {
+                this.actionsAfterEnemyDead(enemy, false);
+            }
         });
     }
 
@@ -205,7 +222,6 @@ class World {
             this.actualiseStatusBar(this.statusBarBoss, enemy.health, enemy.maxHealth);
         }
     }
-
 
     checkEnemyCollisionThrowableObjects(enemy, indexEnemy) {
         for (let i = 0; i < this.throwableObjects.length; i++) {

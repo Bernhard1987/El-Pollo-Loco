@@ -54,6 +54,21 @@ function gameOver(gameOverType, collectedCoinsCount, maxItemCoin) {
     const selectedMessage = gameOverMessages[gameOverType] || gameOverMessages['default'];
     document.getElementById('stat-box').innerHTML = statBoxTemplate(selectedMessage.title, selectedMessage.text, collectedCoinsCount, maxItemCoin);
     actionsAfterGameOver();
+    setTimeout(() => {
+        playEndTheme(gameOverType);
+    }, 1000);
+    
+}
+
+function playEndTheme(gameOverType) {
+    world.music_won.volume = world.bgm_volume;
+    world.music_lost.volume = world.bgm_volume;
+    if (gameOverType == 'characterDead' || gameOverType == 'bossEscaped') {
+        world.music_lost.play();
+    }
+    if (gameOverType == 'bossDead') {
+        world.music_won.play();
+    }
 }
 
 function loadLocalStorage() {
