@@ -253,19 +253,9 @@ class World {
     }
 
     throwBottle() {
-        let bottle = this.checkCurrentThrowDirection();
+        let bottle = this.character.checkCurrentThrowDirection();
         bottle.world = this;
         this.throwableObjects.push(bottle);
-    }
-
-    checkCurrentThrowDirection() {
-        let bottle;
-        if (this.character.otherDirection) {
-            bottle = new ThrowableObject((this.character.x - 10), (this.character.y + (this.character.height / 2 - 50)), true);
-        } else {
-            bottle = new ThrowableObject((this.character.x + 60), (this.character.y + (this.character.height / 2 - 50)), false);
-        }
-        return bottle;
     }
 
     draw() {

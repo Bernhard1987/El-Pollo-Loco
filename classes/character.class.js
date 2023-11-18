@@ -193,6 +193,16 @@ class Character extends MovableObject {
         this.jump_sound.play();
     }
 
+    checkCurrentThrowDirection() {
+        let bottle;
+        if (this.otherDirection) {
+            bottle = new ThrowableObject((this.x - 10), (this.y + (this.height / 2 - 50)), true);
+        } else {
+            bottle = new ThrowableObject((this.x + 60), (this.y + (this.height / 2 - 50)), false);
+        }
+        return bottle;
+    }
+
     walk() {
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.animateImages(this.IMAGES_WALKING);

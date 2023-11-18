@@ -5,6 +5,28 @@ let keyboard = new Keyboard();
 let fullscreenMode = false;
 let fullscreenContainer;
 
+const gameOverMessages = {
+    'bossDead': {
+        title: 'Congrats! You have beaten the chicken boss!',
+        text: `From that day on, Pepe was known as the man who tamed 
+               the crazy chickens, and his village lived in peace once again.`
+    },
+    'characterDead': {
+        title: 'Oh no! You are dead!',
+        text: 'On your mission to put things in order, you tragically died!'
+    },
+    'bossEscaped': {
+        title: 'The chicken boss escaped!',
+        text: `Somehow you survived being overrun by the crazy chicken boss! 
+               He escaped, so you have to worry that he&apos;ll 
+               come back with his friends and beat you up.`
+    },
+    'default': {
+        title: 'Game Over!',
+        text: 'For unknown reason (check function gameOver(gameOverType))'
+    }
+};
+
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
@@ -29,30 +51,7 @@ function actionsAfterGameOver() {
 }
 
 function gameOver(gameOverType, collectedCoinsCount, maxItemCoin) {
-    const gameOverMessages = {
-        'bossDead': {
-            title: 'Congrats! You have beaten the chicken boss!',
-            text: `From that day on, Pepe was known as the man who tamed 
-                   the crazy chickens, and his village lived in peace once again.`
-        },
-        'characterDead': {
-            title: 'Oh no! You are dead!',
-            text: 'On your mission to put things in order, you tragically died!'
-        },
-        'bossEscaped': {
-            title: 'The chicken boss escaped!',
-            text: `Somehow you survived being overrun by the crazy chicken boss! 
-                   He escaped, so you have to worry that he&apos;ll 
-                   come back with his friends and beat you up.`
-        },
-        'default': {
-            title: 'Game Over!',
-            text: 'For unknown reason (check function gameOver(gameOverType))'
-        }
-    };
-
     const selectedMessage = gameOverMessages[gameOverType] || gameOverMessages['default'];
-
     document.getElementById('stat-box').innerHTML = statBoxTemplate(selectedMessage.title, selectedMessage.text, collectedCoinsCount, maxItemCoin);
     actionsAfterGameOver();
 }
@@ -60,7 +59,7 @@ function gameOver(gameOverType, collectedCoinsCount, maxItemCoin) {
 function loadLocalStorage() {
     const musicOnFromStorage = localStorage.getItem('musicOn');
     const soundOnFromStorage = localStorage.getItem('soundOn');
-    
+
     if (musicOnFromStorage !== null) {
         world.musicOn = musicOnFromStorage === 'true'; // Konvertiere zu Boolean
     }
@@ -153,7 +152,7 @@ function btnPressEvents() {
     });
 }
 
-window.addEventListener("keydown", (e) => { 
+window.addEventListener("keydown", (e) => {
     if (e.key == 'd') {
         keyboard.RIGHT = true;
     }
@@ -221,26 +220,26 @@ function leaveFullscreenState() {
 
 function enterFullscreen() {
     let element = fullscreenContainer;
-    if(element.requestFullscreen) {
-      element.requestFullscreen();
-    } else if(element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
-      element.msRequestFullscreen();
-    } else if(element.webkitRequestFullscreen) {  // iOS Safari
-      element.webkitRequestFullscreen();
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+        element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {  // iOS Safari
+        element.webkitRequestFullscreen();
     }
-  }
+}
 
-  function exitFullscreen() {
-    if(document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if(document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
     }
-  }
+}
 
 
-  function clearAllIntervals() {
+function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
-  }
+}
 
-  document.addEventListener("DOMContentLoaded", btnPressEvents);
+document.addEventListener("DOMContentLoaded", btnPressEvents);
