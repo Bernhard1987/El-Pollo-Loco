@@ -49,18 +49,19 @@ class ChickenSmall extends MovableObject {
     sound_dead_volume = 0.2; //0.3
 
     sound_attack = new Audio('./assets/sound/angry_bird_attack.mp3');
-    sound_attack_volume = 0.1; //0.1
+    sound_attack_volume = 0.075; //0.1
 
     /**
      * Constructor for the ChickenSmall class.
      * Initializes properties, loads images, sets speed, and starts animations.
      */
 
-    constructor() {
+    constructor(additionalX) {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.5 + Math.random() * 0.5;
+        this.x = this.x + additionalX;
         this.addChickenSound();
         this.playEnemySound();
         this.setSoundVolume();

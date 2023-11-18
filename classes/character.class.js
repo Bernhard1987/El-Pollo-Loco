@@ -139,7 +139,6 @@ class Character extends MovableObject {
                 this.walk();
             }
         }, 1000 / 10);
-        this.pushToObjectInterval(animation);
         this.animationInterval.push(animation);
     }
 
@@ -180,7 +179,7 @@ class Character extends MovableObject {
             this.collision = false;
             this.speedY = 0;
             this.speedX = 0;
-            // this.speedY = this.jumpSpeedY() / 2;
+            this.isHurtImgDuration = 0;
             this.sound_dead.volume = this.sound_dead_volume;
             this.sound_dead.play();
             clearInterval(this.animationInterval);

@@ -34,6 +34,8 @@ function init() {
 }
 
 function restartGame() {
+    world.music_won.pause();
+    world.music_lost.pause();
     showOrHide('hide', 'menu-game-over');
     world = '';
     init();

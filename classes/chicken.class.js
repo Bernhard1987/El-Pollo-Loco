@@ -45,11 +45,12 @@ class Chicken extends MovableObject {
      * Initializes properties, loads images, sets speed, and starts animations.
      */
 
-    constructor() {
+    constructor(additionalX) {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.25 + Math.random() * 0.25;
+        this.x = this.x + additionalX;
         this.addChickenSound();
         this.playEnemySound();
         this.setSoundVolume();
