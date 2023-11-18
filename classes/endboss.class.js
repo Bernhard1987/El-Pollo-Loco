@@ -56,6 +56,9 @@ class Endboss extends MovableObject {
 
     bossTriggered = false;
     walk = true;
+
+    moveDuration = 2000;
+    stopDuration = 1500;
     moveLeftInterval;
     stopAndRoarInterval;
 
@@ -163,13 +166,15 @@ class Endboss extends MovableObject {
             if (!this.walk) {
                 setTimeout(() => {
                     this.walk = true;
-                }, 1000);
+                    this.moveLeft();
+                }, this.stopDuration);
             } else {
                 setTimeout(() => {
                     this.walk = false;
-                }, 2000);
+                    this.stopAndRoar();
+                }, this.moveDuration);
             }
-        }, 5000);
+        }, this.stopDuration + this.moveDuration);
     }
 
     /**

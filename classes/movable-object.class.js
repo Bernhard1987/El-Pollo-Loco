@@ -168,19 +168,16 @@ class MovableObject extends DrawableObject {
     * @returns {boolean} True if a collision is detected, false otherwise.
     */
     isColliding(obj) {
-        // Berechnung des Kollisionsrahmens für das aktuelle Objekt
         const thisCollisionX = this.collisionStartOffsetX + (this.x - this.offsetX / 2);
         const thisCollisionY = this.collisionStartOffsetY + (this.y - this.offsetY / 2);
         const thisCollisionWidth = this.width + this.offsetX;
         const thisCollisionHeight = this.height + this.offsetY;
 
-        // Berechnung des Kollisionsrahmens für das übergebene Objekt (obj)
         const objCollisionX = obj.collisionStartOffsetX + (obj.x - obj.offsetX / 2);
         const objCollisionY = obj.collisionStartOffsetY + (obj.y - obj.offsetY / 2);
         const objCollisionWidth = obj.width + obj.offsetX;
         const objCollisionHeight = obj.height + obj.offsetY;
 
-        // Kollisionsüberprüfung
         return (
             thisCollisionX + thisCollisionWidth >= objCollisionX &&
             thisCollisionX <= objCollisionX + objCollisionWidth &&

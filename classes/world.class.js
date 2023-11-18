@@ -169,7 +169,8 @@ class World {
             gameOverText = 'On your mission to put things in order, you tragically died!';
         } else if (gameOverType == 'bossEscaped') {
             gameOverTitle = 'The chicken boss escaped!';
-            gameOverText = `You let the boss escape! Now you have to worry that he&apos;ll 
+            gameOverText = `Somehow you survived being overrun by the crazy chicken boss! 
+                            He escaped, so you have to worry that he&apos;ll 
                             come back with his friends and beat you up.`;
         } else {
             gameOverTitle = 'Error';
