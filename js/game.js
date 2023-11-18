@@ -19,6 +19,44 @@ function restartGame() {
     menuStartGame();
 }
 
+function actionsAfterGameOver() {
+    setTimeout(() => {
+        showOrHide('hide', 'ingame-overlay');
+        showOrHide('show', 'menu-game-over');
+        clearInterval(world.bgmInterval);
+        world.background_music.pause();
+    }, 1000);
+}
+
+function gameOver(gameOverType, collectedCoinsCount, maxItemCoin) {
+    const gameOverMessages = {
+        'bossDead': {
+            title: 'Congrats! You have beaten the chicken boss!',
+            text: `From that day on, Pepe was known as the man who tamed 
+                   the crazy chickens, and his village lived in peace once again.`
+        },
+        'characterDead': {
+            title: 'Oh no! You are dead!',
+            text: 'On your mission to put things in order, you tragically died!'
+        },
+        'bossEscaped': {
+            title: 'The chicken boss escaped!',
+            text: `Somehow you survived being overrun by the crazy chicken boss! 
+                   He escaped, so you have to worry that he&apos;ll 
+                   come back with his friends and beat you up.`
+        },
+        'default': {
+            title: 'Game Over!',
+            text: 'For unknown reason (check function gameOver(gameOverType))'
+        }
+    };
+
+    const selectedMessage = gameOverMessages[gameOverType] || gameOverMessages['default'];
+
+    document.getElementById('stat-box').innerHTML = statBoxTemplate(selectedMessage.title, selectedMessage.text, collectedCoinsCount, maxItemCoin);
+    actionsAfterGameOver();
+}
+
 function loadLocalStorage() {
     const musicOnFromStorage = localStorage.getItem('musicOn');
     const soundOnFromStorage = localStorage.getItem('soundOn');

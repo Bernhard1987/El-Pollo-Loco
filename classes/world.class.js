@@ -130,7 +130,7 @@ class World {
             this.actionsAfterEnemyDead(enemy);
         }
         if (enemy.isDead() && enemy instanceof Endboss) {
-            this.gameOver('bossDead');
+            gameOver('bossDead', this.collectedCoinsCount, this.maxItemCoin);
         }
     }
 
@@ -145,38 +145,6 @@ class World {
                 this.level.enemies.splice(index, 1);
             }
         }, 500);
-    }
-
-    actionsAfterGameOver() {
-        setTimeout(() => {
-            showOrHide('hide', 'ingame-overlay');
-            showOrHide('show', 'menu-game-over');
-            clearInterval(this.bgmInterval);
-            this.background_music.pause();
-        }, 1000);
-    }
-
-    gameOver(gameOverType) {
-        let gameOverTitle;
-        let gameOverText;
-        if (gameOverType == 'bossDead') {
-            gameOverTitle = 'Congrats! You have beaten the chicken boss!';
-            gameOverText = `From that day on, Pepe was known as the man who tamed 
-                            the crazy chickens, and his village lived in peace once again.`;
-            this.actionsAfterGameOver();
-        } else if (gameOverType == 'characterDead') {
-            gameOverTitle = 'Oh no! You are dead!';
-            gameOverText = 'On your mission to put things in order, you tragically died!';
-        } else if (gameOverType == 'bossEscaped') {
-            gameOverTitle = 'The chicken boss escaped!';
-            gameOverText = `Somehow you survived being overrun by the crazy chicken boss! 
-                            He escaped, so you have to worry that he&apos;ll 
-                            come back with his friends and beat you up.`;
-        } else {
-            gameOverTitle = 'Error';
-            gameOverText = 'An error accured on gameOver(gameOverType)';
-        }
-        document.getElementById('stat-box').innerHTML = statBoxTemplate(gameOverTitle, gameOverText, this.collectedCoinsCount, this.maxItemCoin);
     }
 
     stopAllObjectIntervals(enemy) {
