@@ -59,7 +59,7 @@ class World {
             this.checkGroundCollisionThrowableObjects();
             this.startBossFight();
             this.checkEnemyPosition();
-            this.character.checkAlive(this.collectedCoinsCount, this.maxItemCoin);
+            this.character.checkAlive();
         }, 1000 / 60);
         setInterval(() => {
             this.checkThrowObjects();
@@ -132,7 +132,7 @@ class World {
             this.actionsAfterEnemyDead(enemy, true);
         }
         if (enemy.isDead() && enemy instanceof Endboss) {
-            gameOver('bossDead', this.collectedCoinsCount, this.maxItemCoin);
+            gameOver('bossDead');
         }
     }
 
@@ -162,7 +162,7 @@ class World {
         enemies.forEach(enemy => {
             if (enemy instanceof Endboss && enemy.x <= -600) {
                 this.actionsAfterEnemyDead(enemy, false);
-                gameOver('bossEscaped', this.collectedCoinsCount, this.maxItemCoin);
+                gameOver('bossEscaped');
             } 
             if (!(enemy instanceof Endboss) && enemy.x <= -600) {
                 this.actionsAfterEnemyDead(enemy, false);

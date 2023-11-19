@@ -174,7 +174,7 @@ class Character extends MovableObject {
         }, 1000 / 7);
     }
 
-    checkAlive(collectedCoinsCount, maxItemCoin) {
+    checkAlive() {
         if (this.isDead()) {
             this.collision = false;
             this.speedY = 0;
@@ -183,7 +183,7 @@ class Character extends MovableObject {
             this.sound_dead.volume = this.sound_dead_volume;
             this.sound_dead.play();
             clearInterval(this.animationInterval);
-            gameOver('characterDead', collectedCoinsCount, maxItemCoin);
+            gameOver('characterDead');
         }
     }
 

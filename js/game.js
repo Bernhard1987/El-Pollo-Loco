@@ -52,9 +52,9 @@ function actionsAfterGameOver() {
     }, 2000);
 }
 
-function gameOver(gameOverType, collectedCoinsCount, maxItemCoin) {
+function gameOver(gameOverType) {
     const selectedMessage = gameOverMessages[gameOverType] || gameOverMessages['default'];
-    document.getElementById('stat-box').innerHTML = statBoxTemplate(selectedMessage.title, selectedMessage.text, collectedCoinsCount, maxItemCoin);
+    document.getElementById('stat-box').innerHTML = statBoxTemplate(selectedMessage.title, selectedMessage.text);
     setTimeout(() => {
         playEndTheme(gameOverType);
     }, 2000);
@@ -62,7 +62,6 @@ function gameOver(gameOverType, collectedCoinsCount, maxItemCoin) {
 }
 
 function playEndTheme(gameOverType) {
-    console.log('play music won');
     world.music_won.volume = world.bgm_volume;
     world.music_lost.volume = world.bgm_volume;
     if ((gameOverType == 'characterDead' || gameOverType == 'bossEscaped') && world.musicOn) {

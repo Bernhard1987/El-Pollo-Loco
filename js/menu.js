@@ -35,14 +35,14 @@ function showOrHide(showOrHide, elementId) {
     }
 }
 
-function statBoxTemplate(gameOverTitle, gameOverText, collectedCoinsCount, maxItemCoin) {
+function statBoxTemplate(gameOverTitle, gameOverText) {
     let statbox = /*html*/`
         <h2>${gameOverTitle}</h2>
         <p>${gameOverText}</p>
         <p>Thank you for playing!</p>
         <div class="stat-row">
         <div class="stat">
-            <img src="./assets/img/coin_stat.png" alt="Coins collected"> ${collectedCoinsCount} / ${maxItemCoin}
+            <img src="./assets/img/coin_stat.png" alt="Coins collected"> ${world.collectedCoinsCount} / ${world.maxItemCoin}
         </div>
     </div>`;
     
