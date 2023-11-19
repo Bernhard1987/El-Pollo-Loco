@@ -1,7 +1,6 @@
 /**
  * Class representing a cloud that extends MovableObject.
  */
-
 class Cloud extends MovableObject {
     /**
      * @property {number} width - The width of the cloud.

@@ -1,7 +1,6 @@
 /**
  * Class representing a collectable salsa bottle that extends CollectableObject.
  */
-
 class CollectableBottle extends CollectableObject {
     /**
      * @property {number} width - The width of the salsa bottle.

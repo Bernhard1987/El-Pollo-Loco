@@ -1,4 +1,20 @@
+/**
+ * Class representing a throwable object, extending the MovableObject class.
+ */
 class ThrowableObject extends MovableObject {
+    /**
+     * @property {number} acceleration - The acceleration factor for the throwable object.
+     * @property {number} speedY - The initial vertical speed of the throwable object.
+     * @property {number} speedX - The horizontal speed of the throwable object.
+     * @property {number} offsetX - The offset along the x-axis.
+     * @property {number} offsetY - The offset along the y-axis.
+     * @property {number} floorCoord - The y-coordinate threshold at which the object collides with the ground.
+     * @property {number} damage - The damage inflicted upon collision with an enemy.
+     * @property {number} animateInterval - The interval for animating the rotation of the throwable object.
+     * @property {number} splashInterval - The interval for animating the splash effect upon collision.
+     * @property {string[]} IMAGES_BOTTLE_ROTATION - Array of file paths for rotation animation images.
+     * @property {string[]} IMAGES_BOTTLE_SPLASH - Array of file paths for splash animation images.
+     */
     acceleration = 0.9;
     speedY = 20;
     speedX = 11;
@@ -24,6 +40,14 @@ class ThrowableObject extends MovableObject {
         './assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png'
     ];
 
+    /**
+     * Constructor for the ThrowableObject class.
+     * Initializes properties, loads images, sets initial position, and starts animations.
+     *
+     * @param {number} x - The initial x-coordinate of the throwable object.
+     * @param {number} y - The initial y-coordinate of the throwable object.
+     * @param {boolean} otherDirection - Indicates whether the throwable object should be thrown in the opposite direction.
+     */
     constructor(x, y, otherDirection) {
         super().loadImage('./assets/img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_BOTTLE_ROTATION);
@@ -34,6 +58,9 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Initiates the rotation animation loop for the throwable object.
+     */
     animate() {
         this.animateInterval = setInterval(() => {
             this.animateImages(this.IMAGES_BOTTLE_ROTATION);
@@ -41,12 +68,20 @@ class ThrowableObject extends MovableObject {
         this.pushToObjectInterval(this.animateInterval);
     }
 
+    /**
+     * Initiates the splash animation loop for the throwable object.
+     */
     animateSplash() {
         this.splashInterval = setInterval(() => {
             this.animateImages(this.IMAGES_BOTTLE_SPLASH);
         }, 1000 / 8);
     }
 
+    /**
+     * Handles the collision of the throwable object with an enemy.
+     *
+     * @param {object} enemy - The enemy object with which the throwable object collides.
+     */
     hit(enemy) {
         if (this.collision) {
             enemy.hit(this.damage);
@@ -55,6 +90,9 @@ class ThrowableObject extends MovableObject {
         this.stopBottleOnCollision();
     }
 
+    /**
+     * Handles the collision of the throwable object with the ground.
+     */
     collidesGround() {
         if (this.collision) {
             this.animateSplash();
@@ -62,6 +100,9 @@ class ThrowableObject extends MovableObject {
         this.stopBottleOnCollision();
     }
 
+    /**
+     * Stops the throwable object and initiates the splash animation upon collision.
+     */
     stopBottleOnCollision() {
         clearInterval(this.animateInterval);
         this.speedX = 0;
@@ -69,12 +110,19 @@ class ThrowableObject extends MovableObject {
         this.collision = false;
     }
 
+    /**
+     * Throws the object horizontally from a specified position.
+     *
+     * @param {number} x - The initial x-coordinate of the throwable object.
+     * @param {number} y - The initial y-coordinate of the throwable object.
+     * @param {boolean} otherDirection - Indicates whether the throwable object should be thrown in the opposite direction.
+     */
     throw(x, y, otherDirection) {
         this.x = x;
         this.y = y;
         if (otherDirection) {
             this.speedX = -this.speedX;
-        } //reverse bottle throw to left side
+        }
         this.applyGravity();
         setInterval(() => {
             this.x += this.speedX;

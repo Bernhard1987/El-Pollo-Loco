@@ -54,8 +54,8 @@ class ChickenSmall extends MovableObject {
     /**
      * Constructor for the ChickenSmall class.
      * Initializes properties, loads images, sets speed, and starts animations.
+     * @param {number} additionalX - Additional x-coordinate adjustment for the small chicken's starting position.
      */
-
     constructor(additionalX) {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -72,7 +72,6 @@ class ChickenSmall extends MovableObject {
     /**
      * Initiates the animation loop for the chicken.
      */
-
     animate() {
         this.moveLeft();
         this.jump();
@@ -82,7 +81,6 @@ class ChickenSmall extends MovableObject {
     /**
      * Moves the chicken to the left at a regular interval.
      */
-
     moveLeft() {
         let moveLeft = setInterval(() => {
             super.moveLeft();
@@ -93,7 +91,6 @@ class ChickenSmall extends MovableObject {
     /**
      * Makes the chicken jump at random intervals, playing attack sound.
      */
-
     jump() {
         let soundEnemyInterval = setInterval(() => {
             super.jump();
@@ -105,7 +102,6 @@ class ChickenSmall extends MovableObject {
     /**
      * Animates the walking images of the chicken at a regular interval.
      */
-
     animateWalking() {
         let animateWalking = setInterval(() => {
             this.animateImages(this.IMAGES_WALKING);
@@ -116,7 +112,6 @@ class ChickenSmall extends MovableObject {
     /**
      * Randomly selects a chicken sound and assigns it to sound_enemy.
      */
-
     addChickenSound() {
         let rndNumber = Math.random();
         if (rndNumber <= 0.5) {
@@ -129,7 +124,6 @@ class ChickenSmall extends MovableObject {
     /**
      * Plays the chicken sound at random intervals.
      */
-
     playEnemySound() {
         let soundEnemyInterval = setInterval(() => {
             this.sound_enemy.play();
@@ -140,7 +134,6 @@ class ChickenSmall extends MovableObject {
     /**
      * Plays the dead sound of the chicken.
      */
-
     playSoundDead() {
         this.sound_dead.play();
     }
@@ -148,7 +141,6 @@ class ChickenSmall extends MovableObject {
     /**
      * Plays the attack sound of the chicken.
      */
-
     playSoundAttack() {
         this.sound_attack.play();
     }

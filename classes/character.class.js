@@ -1,4 +1,37 @@
+/**
+ * Class representing the character, extending the MovableObject class.
+ */
 class Character extends MovableObject {
+    /**
+     * @property {number} width - The width of the character.
+     * @property {number} height - The height of the character.
+     * @property {number} x - The initial x-coordinate of the character.
+     * @property {number} y - The initial y-coordinate of the character.
+     * @property {number} speed - The speed of the character.
+     * @property {number} jumpSpeedY - The vertical speed when jumping.
+     * @property {number} floorCoord - The y-coordinate of the character's ground level.
+     * @property {number} offsetX - The x-offset of the character.
+     * @property {number} offsetY - The y-offset of the character.
+     * @property {number} collisionStartOffsetY - The y-offset when collision detection starts.
+     * @property {number} collisionStartOffsetX - The x-offset when collision detection starts.
+     * @property {Audio} walking_sound - The audio for walking sound.
+     * @property {Audio} walking_sound_2 - The second audio for walking sound.
+     * @property {number} walking_sound_volume - The volume for walking sound (0.3).
+     * @property {Audio} jump_sound - The audio for jumping sound.
+     * @property {number} jump_sound_volume - The volume for jumping sound (0.7).
+     * @property {Audio} get_hit - The audio for getting hit sound.
+     * @property {number} get_hit_volume - The volume for getting hit sound (0.2).
+     * @property {Audio} sound_dead - The audio for character's death sound.
+     * @property {number} sound_dead_volume - The volume for character's death sound (0.5).
+     * @property {boolean} charDead - Flag to check if the character is dead.
+     * @property {number[]} animationInterval - Array to store animation intervals.
+     * @property {string[]} IMAGES_WALKING - Array of image paths for walking animation.
+     * @property {string[]} IMAGES_IDLE - Array of image paths for idle animation.
+     * @property {string[]} IMAGES_JUMP_UP - Array of image paths for jumping up animation.
+     * @property {string[]} IMAGES_JUMP_DOWN - Array of image paths for jumping down animation.
+     * @property {string[]} IMAGES_HURT - Array of image paths for hurt animation.
+     * @property {string[]} IMAGES_DEAD - Array of image paths for dead animation.
+     */
     width = 150;
     height = 300;
     x = 10;
@@ -19,9 +52,11 @@ class Character extends MovableObject {
     get_hit = new Audio('./assets/sound/get_hit2.mp3');
     get_hit_volume = 0.2; //0.2
     sound_dead = new Audio('./assets/sound/char-dead.mp3');
-    sound_dead_volume = 0.2;
+    sound_dead_volume = 0.5;
 
     animationInterval = [];
+
+    charDead = false;
 
 
     IMAGES_WALKING = [
@@ -77,6 +112,10 @@ class Character extends MovableObject {
         './assets/img/2_character_pepe/5_dead/D-57.png'
     ];
 
+    /**
+     * Constructor for the Character class.
+     * Loads initial character properties, images, and starts animations.
+     */
     constructor() {
         super().loadImage('./assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -90,11 +129,20 @@ class Character extends MovableObject {
         this.setSoundVolume();
     }
 
+    /**
+     * Method to animate the character's movements and actions.
+     * Controls the character's movement, jumping, and plays animations accordingly.
+     */
     animate() {
         this.controlCharacter();
+        this.playAnimationDead();
         this.playAnimations();
     }
 
+    /**
+     * Method to control the character's movement.
+     * Checks for keyboard input and moves the character accordingly.
+     */
     controlCharacter() {
         setInterval(() => {
             this.moveLeft();
@@ -103,6 +151,10 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Method to move the character to the right.
+     * Checks for keyboard input and boundary conditions.
+     */
     moveRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
             super.moveRight();
@@ -111,6 +163,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Method to move the character to the left.
+     * Checks for keyboard input and boundary conditions.
+     */
     moveLeft() {
         if (this.world.keyboard.LEFT && this.x > -360 && !this.isDead()) {
             super.moveLeft();
@@ -119,6 +175,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Method to make the character jump.
+     * Checks for keyboard input and ground conditions.
+     */
     jump() {
         if (this.world.keyboard.UP && !this.isAboveGround() && !this.isDead()) {
             super.jump();
@@ -126,6 +186,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Method to play various animations based on the character's state.
+     * Uses intervals to change images in the animation.
+     */
     playAnimations() {
         let animation = setInterval(() => {
             if (this.isHurt() && !this.isDead()) {
@@ -142,6 +206,9 @@ class Character extends MovableObject {
         this.animationInterval.push(animation);
     }
 
+    /**
+     * Method to play the jump-up animation based on the character's speed.
+     */
     playAnimationJumpUp() {
         if (this.speedY >= 18) {
             this.loadImage(this.IMAGES_JUMP_UP[0]);
@@ -154,6 +221,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Method to play the jump-down animation based on the character's speed.
+     */
     playAnimationJumpDown() {
         if (this.speedY > -3) {
             this.loadImage(this.IMAGES_JUMP_DOWN[0]);
@@ -168,33 +238,77 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Method to play the dead animation.
+     * Checks if the character is dead and stops the animation.
+     */
     playAnimationDead() {
         setInterval(() => {
-            this.animateImages(this.IMAGES_DEAD);
-        }, 1000 / 7);
+            if (this.isDead()) {
+                console.log('playAnimationDead if statement triggered');
+                clearInterval(this.animationInterval);
+                this.showDeadImage();
+            }
+        }, 1000 / 5);
     }
 
+    /**
+     * Method to check if the character is alive or dead.
+     * If dead, triggers appropriate actions.
+     */
     checkAlive() {
         if (this.isDead()) {
-            this.collision = false;
-            this.speedY = 0;
-            this.speedX = 0;
-            this.isHurtImgDuration = 0;
-            this.sound_dead.volume = this.sound_dead_volume;
-            this.sound_dead.play();
-            clearInterval(this.animationInterval);
+            console.log('checkAlive triggered');
+            this.changeCharPropertiesOnDeath();
+            this.playDeadSound();
             gameOver('characterDead');
         }
     }
 
+    /**
+     * Method to change character properties when dead.
+     * Stops movement, sets specific properties, and adjusts the floor level.
+     */
+    changeCharPropertiesOnDeath() {
+        this.collision = false;
+        this.speedY = 0;
+        this.speedX = 0;
+        this.floorCoord = 500;
+        this.speedY = -6;
+        this.isHurtImgDuration = 0;
+    }
+
+    /**
+     * Method to make the character jump on an enemy.
+     * Adjusts the vertical speed for a controlled jump on the enemy.
+     */
     jumpOnEnemy() {
         this.speedY = this.jumpSpeedY / 2;
     }
 
+    /**
+     * Method to play the dead sound when the character dies.
+     * Ensures the sound is played only once.
+     */
+    playDeadSound() {
+        if (!this.charDead) {
+            this.sound_dead.volume = this.sound_dead_volume;
+            this.sound_dead.play();
+            this.charDead = true;
+        }
+    }
+
+    /**
+     * Method to play the jump sound when the character jumps.
+     */
     playJumpSound() {
         this.jump_sound.play();
     }
 
+    /**
+     * Method to check the current throw direction and create a throwable object accordingly.
+     * @returns {ThrowableObject} - The throwable object in the current throw direction.
+     */
     checkCurrentThrowDirection() {
         let bottle;
         if (this.otherDirection) {
@@ -205,6 +319,10 @@ class Character extends MovableObject {
         return bottle;
     }
 
+    /**
+     * Method to play the walking animation when the character is moving.
+     * Plays walking sound.
+     */
     walk() {
         if ((this.world.keyboard.RIGHT || this.world.keyboard.LEFT) && !this.isDead()) {
             this.animateImages(this.IMAGES_WALKING);

@@ -1,3 +1,6 @@
+/**
+ * Adds touch event listeners for virtual buttons and sets corresponding keyboard input.
+ */
 function btnPressEvents() {
     document.getElementById('touch-left').addEventListener('touchstart', (e) => {
         e.preventDefault();
@@ -40,6 +43,10 @@ function btnPressEvents() {
     });
 }
 
+/**
+ * Handles keydown events for arrow keys and space bar, updating keyboard input.
+ * @param {Event} e - The keydown event.
+ */
 window.addEventListener("keydown", (e) => {
     if (e.key == 'd') {
         keyboard.RIGHT = true;
@@ -58,13 +65,20 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
+/**
+ * Handles keydown event for Escape key when in fullscreen mode, leaving fullscreen.
+ * @param {Event} e - The keydown event.
+ */
 window.addEventListener("keydown", (e) => {
     if (e.key == "Escape" && fullscreenMode) {
         leaveFullscreenState();
     }
 });
 
-
+/**
+ * Handles keyup events for arrow keys and space bar, updating keyboard input.
+ * @param {Event} e - The keyup event.
+ */
 window.addEventListener("keyup", (e) => {
     if (e.key == 'd') {
         keyboard.RIGHT = false;
@@ -83,4 +97,7 @@ window.addEventListener("keyup", (e) => {
     }
 });
 
+/**
+ * Initializes touch button events when the DOM content is loaded.
+ */
 document.addEventListener("DOMContentLoaded", btnPressEvents);

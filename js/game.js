@@ -1,10 +1,17 @@
+/**
+ * Global variables and functions for game initialization, restart, and game over handling.
+ */
+
+// Canvas and world instances
 let canvas;
 let world;
 let keyboard = new Keyboard();
 
+// Fullscreen mode and container
 let fullscreenMode = false;
 let fullscreenContainer;
 
+// Game over messages
 const gameOverMessages = {
     'bossDead': {
         title: 'Congrats! You have beaten the chicken boss!',
@@ -27,12 +34,18 @@ const gameOverMessages = {
     }
 };
 
+/**
+ * Initializes the game by getting the canvas element and creating a new World instance.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     loadSettings();
 }
 
+/**
+ * Restarts the game by stopping music, hiding overlay, and initializing a new game.
+ */
 function restartGame() {
     world.music_won.pause();
     world.music_lost.pause();
@@ -42,6 +55,9 @@ function restartGame() {
     menuStartGame();
 }
 
+/**
+ * Performs actions after the game is over, such as showing game over menu and stopping intervals.
+ */
 function actionsAfterGameOver() {
     setTimeout(() => {
         showOrHide('hide', 'ingame-overlay');
@@ -52,6 +68,10 @@ function actionsAfterGameOver() {
     }, 2000);
 }
 
+/**
+ * Handles game over scenarios by displaying appropriate messages, playing end theme, and performing actions.
+ * @param {string} gameOverType - The type of game over scenario.
+ */
 function gameOver(gameOverType) {
     const selectedMessage = gameOverMessages[gameOverType] || gameOverMessages['default'];
     document.getElementById('stat-box').innerHTML = statBoxTemplate(selectedMessage.title, selectedMessage.text);
@@ -61,6 +81,10 @@ function gameOver(gameOverType) {
     actionsAfterGameOver();
 }
 
+/**
+ * Plays the end theme based on the game over scenario.
+ * @param {string} gameOverType - The type of game over scenario.
+ */
 function playEndTheme(gameOverType) {
     world.music_won.volume = world.bgm_volume;
     world.music_lost.volume = world.bgm_volume;
@@ -72,6 +96,9 @@ function playEndTheme(gameOverType) {
     }
 }
 
+/**
+ * Loads music and sound settings from local storage.
+ */
 function loadLocalStorage() {
     const musicOnFromStorage = localStorage.getItem('musicOn');
     const soundOnFromStorage = localStorage.getItem('soundOn');
@@ -85,11 +112,17 @@ function loadLocalStorage() {
     }
 }
 
-
+/**
+ * Saves a specific game setting to local storage.
+ * @param {string} key - The setting key.
+ */
 function saveLocalStorage(key) {
     localStorage.setItem(key, world[key]);
 }
 
+/**
+ * Loads and applies saved game settings.
+ */
 function loadSettings() {
     loadLocalStorage();
     let changeSetting = false;
@@ -97,13 +130,21 @@ function loadSettings() {
     soundSwitch(changeSetting);
 }
 
+/**
+ * Switches a specific game setting, updating UI elements and saving to local storage.
+ * @param {string} setting - The setting to be switched.
+ * @param {string} textElementId - The ID of the text element to be updated.
+ * @param {string} imgElementId - The ID of the image element to be updated.
+ * @param {string} overlayImgId - The ID of the overlay image element to be updated.
+ * @param {string} onImgSrc - The source of the image when the setting is ON.
+ * @param {string} offImgSrc - The source of the image when the setting is OFF.
+ * @param {boolean} changeSetting - Flag indicating whether to change the setting.
+ */
 function switchSetting(setting, textElementId, imgElementId, overlayImgId, onImgSrc, offImgSrc, changeSetting) {
     const element = document.getElementById(textElementId);
-
     if (changeSetting) {
         world[setting] = !world[setting];
     }
-
     if (world[setting]) {
         element.innerHTML = `${setting.replace('On', '').toUpperCase()}: ON`;
         document.getElementById(imgElementId).src = onImgSrc;
@@ -113,18 +154,28 @@ function switchSetting(setting, textElementId, imgElementId, overlayImgId, onImg
         document.getElementById(imgElementId).src = offImgSrc;
         document.getElementById(overlayImgId).src = offImgSrc;
     }
-
     saveLocalStorage(setting);
 }
 
+/**
+ * Handles toggling the music setting.
+ * @param {boolean} changeSetting - Flag indicating whether to change the setting.
+ */
 function musicSwitch(changeSetting) {
     switchSetting('musicOn', 'menu-music-text', 'menu-music-img', 'ingame-overlay-music', './assets/img/music_on.svg', './assets/img/music_off.svg', changeSetting);
 }
 
+/**
+ * Handles toggling the sound setting.
+ * @param {boolean} changeSetting - Flag indicating whether to change the setting.
+ */
 function soundSwitch(changeSetting) {
     switchSetting('soundOn', 'menu-sound-text', 'menu-sound-img', 'ingame-overlay-sound', './assets/img/sound_on.svg', './assets/img/sound_off.svg', changeSetting);
 }
 
+/**
+ * Toggles fullscreen mode.
+ */
 function fullscreen() {
     let container = document.getElementById('game-container');
     fullscreenContainer = container;
@@ -136,18 +187,27 @@ function fullscreen() {
     }
 }
 
+/**
+ * Sets the fullscreen state.
+ */
 function setFullscreenState() {
     enterFullscreen();
     fullscreenMode = true;
     document.getElementById('fullscreen-img').src = './assets/img/fullscreen_exit.svg';
 }
 
+/**
+ * Leaves the fullscreen state.
+ */
 function leaveFullscreenState() {
     exitFullscreen();
     fullscreenMode = false;
     document.getElementById('fullscreen-img').src = './assets/img/fullscreen.svg';
 }
 
+/**
+ * Enters fullscreen mode.
+ */
 function enterFullscreen() {
     let element = fullscreenContainer;
     if (element.requestFullscreen) {
@@ -159,6 +219,9 @@ function enterFullscreen() {
     }
 }
 
+/**
+ * Exits fullscreen mode.
+ */
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -167,7 +230,9 @@ function exitFullscreen() {
     }
 }
 
-
+/**
+ * Clears all intervals.
+ */
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }

@@ -1,7 +1,6 @@
 /**
  * Class representing a drawable object.
  */
-
 class DrawableObject {
     /**
      * @property {number} x - The x-coordinate of the object's position.
@@ -29,7 +28,6 @@ class DrawableObject {
     *
     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context on which to draw the image.
     */
-
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
@@ -40,7 +38,6 @@ class DrawableObject {
     *
     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context on which to draw the collision frame.
     */
-
     drawFrame(ctx) {
         if (this.showCollisionFrame && (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Endboss || this instanceof CollectableObject || this instanceof ThrowableObject)) {
             ctx.beginPath();
@@ -56,7 +53,6 @@ class DrawableObject {
      *
      * @param {string} path - The path or URL of the image to be loaded.
      */
-
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
@@ -67,7 +63,6 @@ class DrawableObject {
     *
     * @param {string[]} arr - An array of image paths or URLs to be loaded and cached.
     */
-
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();

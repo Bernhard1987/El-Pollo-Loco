@@ -1,7 +1,6 @@
 /**
  * Class representing the enemy "chicken" that extends MovableObject.
  */
-
 class Chicken extends MovableObject {
     /**
     * @property {number} width - The width of the chicken.
@@ -43,8 +42,8 @@ class Chicken extends MovableObject {
     /**
      * Constructor for the Chicken class.
      * Initializes properties, loads images, sets speed, and starts animations.
+     * @param {number} additionalX - Additional x-coordinate adjustment for the chicken's starting position.
      */
-
     constructor(additionalX) {
         super().loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -58,9 +57,8 @@ class Chicken extends MovableObject {
     }
 
     /**
- * Initiates the animation loop for the chicken.
- */
-
+     * Initiates the animation loop for the chicken.
+     */
     animate() {
         this.moveLeft();
         this.animateWalking();
@@ -69,7 +67,6 @@ class Chicken extends MovableObject {
     /**
      * Moves the chicken to the left at a regular interval.
      */
-
     moveLeft() {
         let moveLeft = setInterval(() => {
             super.moveLeft();
@@ -80,7 +77,6 @@ class Chicken extends MovableObject {
     /**
      * Animates the walking images of the chicken at a regular interval.
      */
-
     animateWalking() {
         let animateWalking = setInterval(() => {
             this.animateImages(this.IMAGES_WALKING);
@@ -91,7 +87,6 @@ class Chicken extends MovableObject {
     /**
      * Randomly selects a chicken sound and assigns it to sound_enemy.
      */
-
     addChickenSound() {
         let rndNumber = Math.random();
         if (rndNumber <= 0.33) {
@@ -106,7 +101,6 @@ class Chicken extends MovableObject {
     /**
      * Plays the chicken sound at random intervals.
      */
-
     playEnemySound() {
         let soundEnemyInterval = setInterval(() => {
             this.sound_enemy.play();
@@ -117,7 +111,6 @@ class Chicken extends MovableObject {
     /**
      * Plays the dead sound of the chicken.
      */
-
     playSoundDead() {
         this.sound_dead.play();
     }

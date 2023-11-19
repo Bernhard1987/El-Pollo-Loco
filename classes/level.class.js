@@ -1,7 +1,6 @@
 /**
  * Class representing a game level.
  */
-
 class Level {
     /**
      * @property {Array} enemies - An array of enemies in the level.
@@ -25,7 +24,6 @@ class Level {
      * @param {Array} backgroundObjects - An array of background objects in the level.
      * @param {Array} collectableObjects - An array of collectable objects in the level.
      */
-
     constructor(enemies, clouds, backgroundObjects, collectableObjects) {
         this.enemies = enemies;
         this.clouds = clouds;

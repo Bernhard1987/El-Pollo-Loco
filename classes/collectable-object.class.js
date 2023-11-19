@@ -1,7 +1,6 @@
 /**
  * Class representing a collectable object that extends MovableObject.
  */
-
 class CollectableObject extends MovableObject {
     /**
      * @property {number} collectedBottlesCount - The count of collected bottles.
@@ -19,7 +18,6 @@ class CollectableObject extends MovableObject {
      * Constructor for the CollectableObject class.
      * Initializes properties, sets the sound volume, and calls the constructor of the parent class.
      */
-
     constructor() {
         super();
         this.setSoundVolume();
@@ -28,7 +26,6 @@ class CollectableObject extends MovableObject {
     /**
      * Plays the collect sound when the object is hit.
      */
-
     hit() {
         this.collect_sound.play();
     }

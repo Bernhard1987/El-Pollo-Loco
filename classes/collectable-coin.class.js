@@ -1,7 +1,6 @@
 /**
  * Class representing a collectable coin that extends CollectableObject.
  */
-
 class CollectableCoin extends CollectableObject {
     /**
      * @property {number} width - The width of the coin.
@@ -31,7 +30,6 @@ class CollectableCoin extends CollectableObject {
      * @param {number} x - The x-coordinate of the coin's position.
      * @param {number} y - The y-coordinate of the coin's position.
      */
-
     constructor(x, y) {
         super().loadImage('./assets/img/8_coin/coin_1.png');
         this.loadImages(this.IMAGES);
@@ -43,7 +41,6 @@ class CollectableCoin extends CollectableObject {
     /**
      * Initiates the animation loop for the coin, animating through the coin images at a regular interval.
      */
-
     animate() {
         let animate = setInterval(() => {
             this.animateImages(this.IMAGES);

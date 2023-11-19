@@ -1,4 +1,10 @@
+/**
+ * Class representing a coin status bar, extending the StatusBar class.
+ */
 class StatusBarCoin extends StatusBar {
+    /**
+     * @property {string[]} IMAGES - Array of file paths for coin status bar images.
+     */
     IMAGES = [
         './assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
         './assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/20.png',
@@ -8,6 +14,10 @@ class StatusBarCoin extends StatusBar {
         './assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png'
     ];
 
+    /**
+     * Constructor for the StatusBarCoin class.
+     * Loads coin status bar images, sets initial position, and initializes with a default percentage value of 0.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);

@@ -183,7 +183,7 @@ class MovableObject extends DrawableObject {
             thisCollisionX <= objCollisionX + objCollisionWidth &&
             thisCollisionY + thisCollisionHeight >= objCollisionY &&
             thisCollisionY <= objCollisionY + objCollisionHeight &&
-            obj.collision
+            obj.collision && this.collision
         );
     }
 
