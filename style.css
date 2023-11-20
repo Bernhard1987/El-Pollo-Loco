@@ -367,7 +367,6 @@ footer {
 }
 
 .menu-content-stats {
-    justify-content: space-between;
     gap: 8px;
     border-radius: unset !important;
 }
@@ -538,7 +537,7 @@ footer {
     }
 }
 
-@media screen and (max-height: 480px) {
+@media screen and (max-height: 624px) {
     canvas {
         height: 100vh;
     }
@@ -560,10 +559,17 @@ footer {
     .stat-box {
         padding-left: 16px;
         padding-right: 16px;
+        padding-top: 8px;
     }
 
     .stat-box p {
         font-size: 20px;
+    }
+}
+
+@media screen and (max-height: 370px){
+    h2 {
+        font-size: 30px;
     }
 }
 

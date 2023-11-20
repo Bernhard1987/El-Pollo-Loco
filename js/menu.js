@@ -1,4 +1,3 @@
-
 /**
  * Initiates the game level and starts the game.
  */
