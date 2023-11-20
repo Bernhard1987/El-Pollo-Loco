@@ -1,3 +1,5 @@
+let bottleThrown = false;
+
 /**
  * Adds touch event listeners for virtual buttons and sets corresponding keyboard input.
  */
@@ -34,12 +36,17 @@ function btnPressEvents() {
 
     document.getElementById('touch-throw').addEventListener('touchstart', (e) => {
         e.preventDefault();
-        keyboard.SPACE = true;
+        if (world.collectedBottlesCount > 0 && !bottleThrown) {
+            keyboard.SPACE = true;
+            bottleThrown = true;
+            world.actualiseThrownObjects();
+        }
     });
 
     document.getElementById('touch-throw').addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard.SPACE = false;
+        bottleThrown = false;
     });
 }
 
@@ -50,18 +57,16 @@ function btnPressEvents() {
 window.addEventListener("keydown", (e) => {
     if (e.key == 'd') {
         keyboard.RIGHT = true;
-    }
-    if (e.key == 'w') {
+    } else if (e.key == 'w') {
         keyboard.UP = true;
-    }
-    if (e.key == 'a') {
+    } else if (e.key == 'a') {
         keyboard.LEFT = true;
-    }
-    if (e.key == 's') {
+    } else if (e.key == 's') {
         keyboard.DOWN = true;
-    }
-    if (e.key == ' ') {
+    } else if (e.key == ' ' && world.collectedBottlesCount > 0 && !bottleThrown) {
         keyboard.SPACE = true;
+        bottleThrown = true;
+        world.actualiseThrownObjects();
     }
 });
 
@@ -82,18 +87,15 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
     if (e.key == 'd') {
         keyboard.RIGHT = false;
-    }
-    if (e.key == 'w') {
+    } else if (e.key == 'w') {
         keyboard.UP = false;
-    }
-    if (e.key == 'a') {
+    } else if (e.key == 'a') {
         keyboard.LEFT = false;
-    }
-    if (e.key == 's') {
+    } else if (e.key == 's') {
         keyboard.DOWN = false;
-    }
-    if (e.key == ' ') {
+    } else if (e.key == ' ') {
         keyboard.SPACE = false;
+        bottleThrown = false;
     }
 });
 

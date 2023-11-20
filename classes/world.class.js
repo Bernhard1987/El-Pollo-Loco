@@ -97,9 +97,6 @@ class World {
             this.checkEnemyPosition();
             this.character.checkAlive();
         }, 1000 / 60);
-        setInterval(() => {
-            this.checkThrowObjects();
-        }, 1000 / 6);
     }
 
     /**
@@ -393,25 +390,21 @@ class World {
     }
 
     /**
-     * Checks if the SPACE key is pressed and if there are collected bottles available. 
-     * If both conditions are met, it throws a bottle, decrements the collected bottles count,
-     * and updates the status bar with the new count.
+     * Triggers throwBottle(), reduces bottle count and actualises status bar
      */
-    checkThrowObjects() {
-        if (this.keyboard.SPACE && this.collectedBottlesCount > 0) {
-            this.throwBottle();
-            this.collectedBottlesCount--;
-            this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount, 10);
-        }
+    actualiseThrownObjects() {
+        this.throwBottle();
+        this.collectedBottlesCount--;
+        this.actualiseStatusBar(this.statusBarBottle, this.collectedBottlesCount, 10);
     }
 
     /**
      * Throws a bottle in the current direction based on the character's throw direction, adds it to the throwable objects array, and associates it with the world.
      */
     throwBottle() {
-        let bottle = this.character.checkCurrentThrowDirection();
-        bottle.world = this;
-        this.throwableObjects.push(bottle);
+            let bottle = this.character.checkCurrentThrowDirection();
+            bottle.world = this;
+            this.throwableObjects.push(bottle);
     }
 
     /**

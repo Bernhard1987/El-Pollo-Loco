@@ -83,10 +83,9 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
     height: 52px;
-    background-image:
-        linear-gradient(to bottom right in oklab,
-            oklch(100% .5 109) 0%, oklch(72% .5 100) 100%);
+    background-image: linear-gradient(to bottom right, #ffff00 0%, #f48b00 100%);
     padding: 16px;
     font-size: 30px;
     border-radius: 12px;
