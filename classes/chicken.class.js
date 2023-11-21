@@ -5,7 +5,7 @@ class Chicken extends MovableObject {
     /**
     * @property {number} width - The width of the chicken.
      * @property {number} height - The height of the chicken.
-     * @property {number} x - The x-coordinate of the chicken's initial position.
+     * @property {number} x - The x-coordinate of the chicken's initial position. Randomized between 500px.
      * @property {number} y - The y-coordinate of the chicken's initial position.
      * @property {number} offsetX - The offset along the x-axis.
      * @property {number} offsetY - The offset along the y-axis.

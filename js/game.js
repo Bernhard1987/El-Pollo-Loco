@@ -1,17 +1,22 @@
 /**
  * Global variables and functions for game initialization, restart, and game over handling.
+ * @var {Id} canvas - for canvas Id.
+ * @var {object} world - for world instance.
+ * @var {boolean} FullscreenMode - indicates if Fullscreen is active
+ * @var {Id} fullscreenContainer - for fullscreen container Id.
+ * @var {number} lastButtonPressTime - last button press time is saved here. Used for char long idle.
+ * @constant {object} gameOverMessages - Object containing game over messages for different scenarios.
  */
 
-// Canvas and world instances
 let canvas;
 let world;
 let keyboard = new Keyboard();
 
-// Fullscreen mode and container
 let fullscreenMode = false;
 let fullscreenContainer;
 
-// Game over messages
+let lastButtonPressTime = 0;
+
 const gameOverMessages = {
     'bossDead': {
         title: 'Congrats! You have beaten the chicken boss!',
@@ -202,6 +207,7 @@ function fullscreen() {
 function setFullscreenState() {
     enterFullscreen();
     fullscreenMode = true;
+    setFullscreenWidth();
     document.getElementById('fullscreen-img').src = './assets/img/fullscreen_exit.svg';
 }
 
@@ -211,7 +217,19 @@ function setFullscreenState() {
 function leaveFullscreenState() {
     exitFullscreen();
     fullscreenMode = false;
+    setFullscreenWidth();
     document.getElementById('fullscreen-img').src = './assets/img/fullscreen.svg';
+}
+
+/**
+ * Sets Fullscreen width to device width.
+ */
+function setFullscreenWidth() {
+    if (fullscreenMode) {
+        canvas.width = innerWidth;
+    } else {
+        canvas.width = 720;
+    }
 }
 
 /**

@@ -465,7 +465,11 @@ footer {
     filter: drop-shadow(1px 1px 1px black);
 }
 
-@media (max-width: 896px) {
+@media (max-width: 932px) {
+    /* .game-container {
+        aspect-ratio: unset;
+    } */
+
     .ingame-overlay-mobile-group {
         display: flex;
     }
@@ -497,11 +501,11 @@ footer {
     }
 }
 
-@media screen and (max-width: 720px) {
+/* @media screen and (max-width: 720px) {
     canvas {
         width: 100%;
     }
-}
+} */
 
 @media screen and (max-width: 440px) {
     a {
@@ -527,7 +531,7 @@ footer {
     }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 430px) {
     .rotate-message-container {
         display: flex;
     }

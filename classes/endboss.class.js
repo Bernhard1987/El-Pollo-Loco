@@ -186,6 +186,18 @@ class Endboss extends MovableObject {
     }
 
     /**
+     * Special showDeadImage for Endboss (the only enemy with more than 1 Frame death animation length)
+     */
+    showDeadImage() {
+        let totalFrames = this.IMAGES_DEAD.length;
+        let animationDuration = 1000;
+        let timePerFrame = animationDuration / totalFrames;
+        setInterval(() => {
+            super.showDeadImage();
+        }, timePerFrame);
+    }
+
+    /**
      * Initiates the left movement interval.
      */
     moveLeft() {

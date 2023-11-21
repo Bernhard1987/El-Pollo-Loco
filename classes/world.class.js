@@ -402,9 +402,9 @@ class World {
      * Throws a bottle in the current direction based on the character's throw direction, adds it to the throwable objects array, and associates it with the world.
      */
     throwBottle() {
-            let bottle = this.character.checkCurrentThrowDirection();
-            bottle.world = this;
-            this.throwableObjects.push(bottle);
+        let bottle = this.character.checkCurrentThrowDirection();
+        bottle.world = this;
+        this.throwableObjects.push(bottle);
     }
 
     /**

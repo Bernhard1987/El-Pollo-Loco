@@ -1,5 +1,4 @@
 let bottleThrown = false;
-let lastButtonPressTime = 0;
 
 /**
  * Actualises lastButtonPressTime with actual time. Triggered by touchend or keyup
@@ -69,16 +68,16 @@ function btnPressEvents() {
 window.addEventListener("keydown", (e) => {
     if (e.key == 'd') {
         keyboard.RIGHT = true;
-    } 
+    }
     if (e.key == 'w') {
         keyboard.UP = true;
-    } 
+    }
     if (e.key == 'a') {
         keyboard.LEFT = true;
-    } 
+    }
     if (e.key == 's') {
         keyboard.DOWN = true;
-    } 
+    }
     if (e.key == ' ' && world.collectedBottlesCount > 0 && !bottleThrown) {
         keyboard.SPACE = true;
         bottleThrown = true;
@@ -87,14 +86,21 @@ window.addEventListener("keydown", (e) => {
 });
 
 /**
- * Handles keydown event for Escape key when in fullscreen mode, leaving fullscreen.
- * @param {Event} e - The keydown event.
+ * Eventlisteners for fullscreenchange for all Browsers, calls exitHandler
  */
-window.addEventListener("keydown", (e) => {
-    if (e.key == "Escape" && fullscreenMode) {
+document.addEventListener('fullscreenchange', exitHandler);
+document.addEventListener('webkitfullscreenchange', exitHandler);
+document.addEventListener('mozfullscreenchange', exitHandler);
+document.addEventListener('MSFullscreenChange', exitHandler);
+
+/**
+ * calls leaveFullscreenState if Fullscreen is closed.
+ */
+function exitHandler() {
+    if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
         leaveFullscreenState();
     }
-});
+}
 
 /**
  * Handles keyup events for arrow keys and space bar, updating keyboard input. Triggers 
@@ -104,16 +110,16 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
     if (e.key == 'd') {
         keyboard.RIGHT = false;
-    } 
+    }
     if (e.key == 'w') {
         keyboard.UP = false;
-    } 
+    }
     if (e.key == 'a') {
         keyboard.LEFT = false;
-    } 
+    }
     if (e.key == 's') {
         keyboard.DOWN = false;
-    } 
+    }
     if (e.key == ' ') {
         keyboard.SPACE = false;
         bottleThrown = false;

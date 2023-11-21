@@ -211,6 +211,7 @@ class Character extends MovableObject {
         let animation = setInterval(() => {
             if (this.isHurt() && !this.isDead()) {
                 this.animateImages(this.IMAGES_HURT);
+                this.snore_sound.pause();
             } else if (this.isAboveGround() && this.speedY > 0) {
                 this.playAnimationJumpUp();
             } else if (this.isAboveGround() && this.speedY <= 0) {
@@ -277,7 +278,6 @@ class Character extends MovableObject {
     playAnimationDead() {
         setInterval(() => {
             if (this.isDead()) {
-                console.log('playAnimationDead if statement triggered');
                 clearInterval(this.animationInterval);
                 this.showDeadImage();
             }
@@ -290,7 +290,6 @@ class Character extends MovableObject {
      */
     checkAlive() {
         if (this.isDead()) {
-            console.log('checkAlive triggered');
             this.changeCharPropertiesOnDeath();
             this.playDeadSound();
             gameOver('characterDead');
