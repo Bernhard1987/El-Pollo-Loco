@@ -3,6 +3,7 @@
  */
 function menuStartGame() {
     initLevel();
+    resolveLastButtonPressTime();
     world.gameStarted = true;
     showOrHide('hide', 'menu-start');
     showOrHide('show', 'ingame-overlay');

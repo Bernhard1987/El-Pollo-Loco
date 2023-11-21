@@ -27,6 +27,7 @@ class Character extends MovableObject {
      * @property {number[]} animationInterval - Array to store animation intervals.
      * @property {string[]} IMAGES_WALKING - Array of image paths for walking animation.
      * @property {string[]} IMAGES_IDLE - Array of image paths for idle animation.
+     * @property {string[]} IMAGES_LONG_IDLE - Array of image paths for long idle animation.
      * @property {string[]} IMAGES_JUMP_UP - Array of image paths for jumping up animation.
      * @property {string[]} IMAGES_JUMP_DOWN - Array of image paths for jumping down animation.
      * @property {string[]} IMAGES_HURT - Array of image paths for hurt animation.
@@ -81,6 +82,19 @@ class Character extends MovableObject {
         './assets/img/2_character_pepe/1_idle/idle/I-10.png'
     ];
 
+    IMAGES_LONG_IDLE = [
+        './assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-14.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-15.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-16.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-20.png'
+    ];
+
     IMAGES_JUMP_UP = [
         './assets/img/2_character_pepe/3_jump/J-31.png',
         './assets/img/2_character_pepe/3_jump/J-32.png',
@@ -122,6 +136,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMP_UP);
         this.loadImages(this.IMAGES_JUMP_DOWN);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
@@ -198,12 +213,22 @@ class Character extends MovableObject {
                 this.playAnimationJumpUp();
             } else if (this.isAboveGround() && this.speedY <= 0) {
                 this.playAnimationJumpDown();
+            } else if (this.timeDifferenceLastBtnPress() > 10){
+                this.animateImages(this.IMAGES_LONG_IDLE);
             } else {
                 this.animateImages(this.IMAGES_IDLE);
                 this.walk();
             }
         }, 1000 / 10);
         this.animationInterval.push(animation);
+    }
+
+    timeDifferenceLastBtnPress() {
+        let currentTime = new Date().getTime();
+        let timeDifference = currentTime - lastButtonPressTime;
+        let timeDifferenceSeconds = timeDifference / 1000;
+        console.log('time difference is: ', timeDifferenceSeconds);
+        return timeDifferenceSeconds;
     }
 
     /**
