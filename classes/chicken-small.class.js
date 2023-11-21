@@ -6,7 +6,7 @@ class ChickenSmall extends MovableObject {
     /**
      * @property {number} width - The width of the chicken.
      * @property {number} height - The height of the chicken.
-     * @property {number} x - The x-coordinate of the chicken's initial position.
+     * @property {number} x - The x-coordinate of the chicken's initial position. Randomized between 500px.
      * @property {number} y - The y-coordinate of the chicken's initial position.
      * @property {number} offsetX - The offset along the x-axis.
      * @property {number} offsetY - The offset along the y-axis.
@@ -25,7 +25,7 @@ class ChickenSmall extends MovableObject {
      */
     width = 60;
     height = 60;
-    x = 900 + Math.random() * 500;
+    x = Math.random() * 500;
     y = 383;
     offsetX = -10;
     offsetY = -25;
@@ -49,7 +49,7 @@ class ChickenSmall extends MovableObject {
     sound_dead_volume = 0.2; //0.3
 
     sound_attack = new Audio('./assets/sound/angry_bird_attack.mp3');
-    sound_attack_volume = 0.075; //0.1
+    sound_attack_volume = 0.05; //0.1
 
     /**
      * Constructor for the ChickenSmall class.

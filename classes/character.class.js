@@ -54,6 +54,8 @@ class Character extends MovableObject {
     get_hit_volume = 0.2; //0.2
     sound_dead = new Audio('./assets/sound/char-dead.mp3');
     sound_dead_volume = 0.5;
+    snore_sound = new Audio('./assets/sound/snore.mp3');
+    snore_sound_volume = 0.7;
 
     animationInterval = [];
 
@@ -215,19 +217,24 @@ class Character extends MovableObject {
                 this.playAnimationJumpDown();
             } else if (this.timeDifferenceLastBtnPress() > 10){
                 this.animateImages(this.IMAGES_LONG_IDLE);
+                this.snore_sound.play();
             } else {
                 this.animateImages(this.IMAGES_IDLE);
+                this.snore_sound.pause();
                 this.walk();
             }
         }, 1000 / 10);
         this.animationInterval.push(animation);
     }
 
+    /**
+     * Method to resolve time difference between last button press and current time
+     * @returns {number} time difference in seconds
+     */
     timeDifferenceLastBtnPress() {
         let currentTime = new Date().getTime();
         let timeDifference = currentTime - lastButtonPressTime;
         let timeDifferenceSeconds = timeDifference / 1000;
-        console.log('time difference is: ', timeDifferenceSeconds);
         return timeDifferenceSeconds;
     }
 

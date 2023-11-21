@@ -1,28 +1,38 @@
 let level1 = [];
 
+/**
+ * Initiates the game Level
+ */
 function initLevel() {
+    /**
+     * inits new level object. Array description taken from class Level for better overview.
+     * @property {Array} enemies - An array of enemies in the level.
+     * @property {Array} clouds - An array of clouds in the level.
+     * @property {Array} backgroundObjects - An array of background objects in the level.
+     * @property {Array} collectableObjects - An array of collectable objects in the level.
+     */
 level1 = new Level(
     [
-        new Chicken(0),
-        new Chicken(0),
-        new Chicken(0),
-        new ChickenSmall(0),
-        new ChickenSmall(0),
-        new ChickenSmall(0),
-        new Chicken(720),
-        new Chicken(720),
+        new Chicken(200),
+        new Chicken(200),
+        new Chicken(200),
         new ChickenSmall(900),
         new ChickenSmall(900),
+        new ChickenSmall(900),
+        new Chicken(920),
+        new Chicken(920),
         new ChickenSmall(1800),
         new ChickenSmall(1800),
-        new ChickenSmall(1800),
-        new Chicken(2000),
-        new Chicken(2000),
-        new ChickenSmall(2500),
-        new ChickenSmall(2500),
-        new ChickenSmall(2500),
-        new ChickenSmall(2500),
-        new ChickenSmall(2500),
+        new ChickenSmall(2700),
+        new ChickenSmall(2700),
+        new ChickenSmall(2700),
+        new Chicken(2200),
+        new Chicken(2200),
+        new ChickenSmall(3200),
+        new ChickenSmall(3200),
+        new ChickenSmall(3200),
+        new ChickenSmall(3200),
+        new ChickenSmall(3200),
         new Endboss(4030)
     ],
 
@@ -79,6 +89,7 @@ level1 = new Level(
         new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 719 * 6, 0),
         new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 719 * 6, 0)
     ],
+
     [
         new CollectableCoin(100, 340),
         new CollectableBottle(200, 360),

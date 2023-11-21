@@ -56,6 +56,15 @@ function restartGame() {
 }
 
 /**
+ * Initiates and starts the game
+ */
+function startGame() {
+    initLevel();
+    resolveLastButtonPressTime();
+    world.gameStarted = true;
+}
+
+/**
  * Performs actions after the game is over, such as showing game over menu and stopping intervals.
  */
 function actionsAfterGameOver() {

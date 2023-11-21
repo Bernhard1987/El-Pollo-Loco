@@ -74,6 +74,8 @@ class MovableObject extends DrawableObject {
     get_hit_volume = 0.2; //0.2
     collect_sound;
     collect_sound_volume = 0.4;
+    snore_sound;
+    snore_sound_volume = 0.5;
 
 
     objectIntervals = [];
@@ -215,6 +217,7 @@ class MovableObject extends DrawableObject {
         this.setSoundVolumeForAudio(this.jump_sound, 0);
         this.setSoundVolumeForAudio(this.get_hit, 0);
         this.setSoundVolumeForAudio(this.collect_sound, 0);
+        this.setSoundVolumeForAudio(this.snore_sound, 0);
     }
 
     /**
@@ -231,6 +234,7 @@ class MovableObject extends DrawableObject {
         this.setSoundVolumeForAudio(this.jump_sound, this.jump_sound_volume);
         this.setSoundVolumeForAudio(this.get_hit, this.get_hit_volume);
         this.setSoundVolumeForAudio(this.collect_sound, this.collect_sound_volume);
+        this.setSoundVolumeForAudio(this.snore_sound, this.snore_sound_volume);
     }
 
     /**

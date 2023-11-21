@@ -90,6 +90,7 @@ footer {
     font-size: 30px;
     border-radius: 12px;
     box-shadow: 2px 2px 2px black;
+    text-shadow: none;
     transition-duration: 125ms;
 }
 

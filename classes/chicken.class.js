@@ -19,7 +19,7 @@ class Chicken extends MovableObject {
      */
     width = 80;
     height = 80;
-    x = 200 + Math.random() * 500;
+    x = Math.random() * 500;
     y = 362;
     offsetX = -10;
     offsetY = -25;

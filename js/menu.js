@@ -1,10 +1,8 @@
 /**
- * Initiates the game level and starts the game.
+ * calls startGame() and hides the start menu.
  */
 function menuStartGame() {
-    initLevel();
-    resolveLastButtonPressTime();
-    world.gameStarted = true;
+    startGame();
     showOrHide('hide', 'menu-start');
     showOrHide('show', 'ingame-overlay');
 }
