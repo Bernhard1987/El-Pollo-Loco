@@ -127,6 +127,9 @@ window.addEventListener("keyup", (e) => {
     resolveLastButtonPressTime();
 });
 
+/**
+ * Eventlistener for screen width
+ */
 window.addEventListener('resize', setCanvasWidth);
 
 /**
