@@ -8,7 +8,7 @@
  * @constant {object} gameOverMessages - Object containing game over messages for different scenarios.
  */
 
-let canvas;
+const canvas = document.getElementById('canvas');;
 let world;
 let keyboard = new Keyboard();
 
@@ -43,9 +43,9 @@ const gameOverMessages = {
  * Initializes the game by getting the canvas element and creating a new World instance.
  */
 function init() {
-    canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     loadSettings();
+    setCanvasWidth();
 }
 
 /**
@@ -66,7 +66,6 @@ function restartGame() {
 function startGame() {
     initLevel();
     resolveLastButtonPressTime();
-    setCanvasWidth();
     world.gameStarted = true;
 }
 
@@ -226,10 +225,9 @@ function leaveFullscreenState() {
  * Sets Fullscreen width to device width.
  */
 function setCanvasWidth() {
-    if (fullscreenMode || innerWidth <= 932) {
-        canvas.width = innerWidth;
-    } 
-    else {
+    if (fullscreenMode || window.innerWidth <= 932) {
+        canvas.width = window.innerWidth;
+    } else {
         canvas.width = 720;
     }
 }

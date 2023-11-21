@@ -127,6 +127,8 @@ window.addEventListener("keyup", (e) => {
     resolveLastButtonPressTime();
 });
 
+window.addEventListener('resize', setCanvasWidth);
+
 /**
  * Initializes touch button events when the DOM content is loaded.
  */
