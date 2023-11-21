@@ -244,13 +244,13 @@ class Character extends MovableObject {
      */
     playAnimationJumpUp() {
         if (this.speedY >= 18) {
-            this.loadImage(this.IMAGES_JUMP_UP[0]);
+            this.img = this.imageCache[this.IMAGES_JUMP_UP[0]];
         } else if (this.speedY > 12) {
-            this.loadImage(this.IMAGES_JUMP_UP[1]);
+            this.img = this.imageCache[this.IMAGES_JUMP_UP[1]];
         } else if (this.speedY > 6) {
-            this.loadImage(this.IMAGES_JUMP_UP[2]);
+            this.img = this.imageCache[this.IMAGES_JUMP_UP[2]];
         } else {
-            this.loadImage(this.IMAGES_JUMP_UP[3]);
+            this.img = this.imageCache[this.IMAGES_JUMP_UP[3]];
         }
     }
 
@@ -259,15 +259,15 @@ class Character extends MovableObject {
      */
     playAnimationJumpDown() {
         if (this.speedY > -3) {
-            this.loadImage(this.IMAGES_JUMP_DOWN[0]);
+            this.img = this.imageCache[this.IMAGES_JUMP_DOWN[0]];
         } else if (this.speedY <= -3) {
-            this.loadImage(this.IMAGES_JUMP_DOWN[1]);
+            this.img = this.imageCache[this.IMAGES_JUMP_DOWN[1]];
         } else if (this.speedY < -6) {
-            this.loadImage(this.IMAGES_JUMP_DOWN[2]);
+            this.img = this.imageCache[this.IMAGES_JUMP_DOWN[2]];
         } else if (this.speedY < -12) {
-            this.loadImage(this.IMAGES_JUMP_DOWN[3]);
+            this.img = this.imageCache[this.IMAGES_JUMP_DOWN[3]];
         } else {
-            this.loadImage(this.IMAGES_JUMP_DOWN[4]);
+            this.img = this.imageCache[this.IMAGES_JUMP_DOWN[4]];
         }
     }
 

@@ -8,7 +8,7 @@
  * @constant {object} gameOverMessages - Object containing game over messages for different scenarios.
  */
 
-const canvas = document.getElementById('canvas');;
+let canvas;
 let world;
 let keyboard = new Keyboard();
 
@@ -43,6 +43,7 @@ const gameOverMessages = {
  * Initializes the game by getting the canvas element and creating a new World instance.
  */
 function init() {
+    canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     loadSettings();
     setCanvasWidth();
