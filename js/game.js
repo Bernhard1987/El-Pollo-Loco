@@ -66,6 +66,7 @@ function restartGame() {
 function startGame() {
     initLevel();
     resolveLastButtonPressTime();
+    setCanvasWidth();
     world.gameStarted = true;
 }
 
@@ -207,7 +208,7 @@ function fullscreen() {
 function setFullscreenState() {
     enterFullscreen();
     fullscreenMode = true;
-    setFullscreenWidth();
+    setCanvasWidth();
     document.getElementById('fullscreen-img').src = './assets/img/fullscreen_exit.svg';
 }
 
@@ -217,17 +218,18 @@ function setFullscreenState() {
 function leaveFullscreenState() {
     exitFullscreen();
     fullscreenMode = false;
-    setFullscreenWidth();
+    setCanvasWidth();
     document.getElementById('fullscreen-img').src = './assets/img/fullscreen.svg';
 }
 
 /**
  * Sets Fullscreen width to device width.
  */
-function setFullscreenWidth() {
-    if (fullscreenMode) {
+function setCanvasWidth() {
+    if (fullscreenMode || innerWidth <= 932) {
         canvas.width = innerWidth;
-    } else {
+    } 
+    else {
         canvas.width = 720;
     }
 }

@@ -466,16 +466,11 @@ footer {
 }
 
 @media (max-width: 932px) {
-    /* .game-container {
-        aspect-ratio: unset;
-    } */
-
     .ingame-overlay-mobile-group {
         display: flex;
     }
 
     .fullscreen-btn {
-        /* display: none; */
         bottom: 50%;
         right: 4px;
         transform: translateY(50%);
@@ -500,12 +495,6 @@ footer {
         display: none;
     }
 }
-
-/* @media screen and (max-width: 720px) {
-    canvas {
-        width: 100%;
-    }
-} */
 
 @media screen and (max-width: 440px) {
     a {
